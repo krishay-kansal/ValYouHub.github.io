@@ -1,135 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  .hero * {
+    will-change: transform, opacity;
+  }
+</style>
+
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ValYou Hub | Learn Financial Valuation</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 </head>
+
 <body>
   <!-- Navigation Bar -->
-<header class="navbar">
-  <div class="nav-container">
-    <div class="logo">Val<span class="accent">You</span> Hub</div>
-    <nav class="nav-links">
-      <div class="nav-item dropdown">
-        <a href="#hero">Home</a>
-        <div class="dropdown-menu">
-          <a href="#hero">Overview</a>
-          <a href="#about">Who We Are</a>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">Val<span class="accent">You</span> Hub</div>
+      <nav class="nav-links">
+        <div class="nav-item dropdown">
+          <a href="#hero">Home</a>
+          <div class="dropdown-menu">
+            <a href="#hero">Overview</a>
+            <a href="#about">Who We Are</a>
+          </div>
         </div>
-      </div>
-      <div class="nav-item dropdown">
-        <a href="#curriculum">Courses</a>
-        <div class="dropdown-menu">
-          <a href="#curriculum">Module List</a>
-          <a href="#topics">Topics Covered</a>
+        <div class="nav-item dropdown">
+          <a href="#curriculum">Courses</a>
+          <div class="dropdown-menu">
+            <a href="#curriculum">Module List</a>
+            <a href="#topics">Topics Covered</a>
+          </div>
         </div>
-      </div>
-      <div class="nav-item dropdown">
-        <a href="#testimonials">Testimonials</a>
-        <div class="dropdown-menu">
-          <a href="#success">Success Stories</a>
-          <a href="#reviews">Student Reviews</a>
+        <div class="nav-item dropdown">
+          <a href="#testimonials">Testimonials</a>
+          <div class="dropdown-menu">
+            <a href="#success">Success Stories</a>
+            <a href="#reviews">Student Reviews</a>
+          </div>
         </div>
-      </div>
-      <div class="nav-item dropdown">
-        <a href="#faq">FAQ</a>
-        <div class="dropdown-menu">
-          <a href="#faq">General</a>
-          <a href="#mentorship">Mentorship</a>
+        <div class="nav-item dropdown">
+          <a href="#faq">FAQ</a>
+          <div class="dropdown-menu">
+            <a href="#faq">General</a>
+            <a href="#mentorship">Mentorship</a>
+          </div>
         </div>
-      </div>
-      <a href="#contact" class="contact-link">Contact</a>
-      <a href="#curriculum" class="start-btn">Start Learning</a>
-    </nav>
-    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
-  </div>
-</header>
+        <a href="#contact" class="contact-link">Contact</a>
+        <a href="#curriculum" class="start-btn">Start Learning</a>
+      </nav>
+      <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    </div>
+  </header>
 
   <!-- Hero Section -->
-<section class="hero-section" id="hero">
-  <div class="hero-overlay"></div>
+  <section class="hero">
   <div class="hero-content">
-    <h1>Learn Finance, <span class="strike">Hard</span>, Smart way</h1>
-    <p class="subheading">Master DCF, NPV, IRR through hands-on experience</p>
-    <a href="#curriculum" class="cta-button">Start Learning</a>
-    <!-- Lottie Animation -->
-    <div class="lottie-wrapper">
-      <lottie-player
-        src="https://assets3.lottiefiles.com/packages/lf20_ymg5x8ni.json"
-        background="transparent"
-        speed="1"
-        loop
-        autoplay>
-      </lottie-player>
-    </div>
-  </div>
-</section>
-
-<!-- Info Cards (What You'll Learn) -->
-<section class="info-cards-section">
-  <div class="container">
-    <div class="cards-grid">
-      <div class="info-card">📊 Build Valuation Models</div>
-      <div class="info-card">📈 Master Excel for Finance</div>
-      <div class="info-card">⏳ Understand Time Value of Money</div>
-      <div class="info-card">🧠 Solve Real-World Case Problems</div>
-    </div>
-  </div>
-</section>
-
-<!-- Who We Are Section -->
-<section class="about-us">
-  <div class="container">
-    <h2>Who We Are</h2>
-    <p>
-      ValYou Hub is built by finance professionals, educators, and technologists who believe 
-      that financial literacy and valuation skills shouldn't be limited to MBA grads or analysts. 
-      We make real-world finance accessible to everyone — no jargon, no fluff.
+    <h1 class="fade-up delay-1">
+      Learn Finance, <span class="strike">Hard</span> Smart Way
+    </h1>
+    <p class="fade-up delay-2">
+      Master DCF, NPV, IRR through hands-on experience
     </p>
+    <a href="#modules" class="cta-button fade-up delay-3">Start Learning</a>
   </div>
 </section>
 
-<!-- What's In It For You Section -->
-<section class="what-you-get">
-  <div class="container">
-    <h2>What’s In It For You?</h2>
-    <div class="concepts-grid">
-      <div class="concept-card">📈 Discounted Cash Flow (DCF)</div>
-      <div class="concept-card">💰 Free Cash Flow (FCF)</div>
-      <div class="concept-card">📊 P/E & Valuation Multiples</div>
-      <div class="concept-card">📉 Net Present Value (NPV)</div>
-      <div class="concept-card">📈 Internal Rate of Return (IRR)</div>
-      <div class="concept-card">📐 Weighted Avg. Cost of Capital (WACC)</div>
-      <div class="concept-card">📘 Key Financial Ratios</div>
+  
+
+  <!-- Info Cards (What You'll Learn) -->
+  <section class="info-cards-section">
+    <div class="container">
+      <div class="cards-grid">
+        <div class="info-card">📊 Build Valuation Models</div>
+        <div class="info-card">📈 Master Excel for Finance</div>
+        <div class="info-card">⏳ Understand Time Value of Money</div>
+        <div class="info-card">🧠 Solve Real-World Case Problems</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- You're in Safe Hands Section -->
-<section class="safe-hands">
-  <div class="container safe-content">
-    <div class="safe-text">
-      <h2>You’re in Safe Hands</h2>
+  <!-- Who We Are Section -->
+  <section class="about-us">
+    <div class="container">
+      <h2>Who We Are</h2>
       <p>
-        Our team consists of former investment bankers, CFA charterholders, and finance professors. 
-        You’ll be learning from people who’ve done this in the real world.
+        ValYou Hub is built by finance professionals, educators, and technologists who believe
+        that financial literacy and valuation skills shouldn't be limited to MBA grads or analysts.
+        We make real-world finance accessible to everyone — no jargon, no fluff.
       </p>
-      <ul>
-        <li>✅ 5,000+ Students Trained</li>
-        <li>✅ 95% Course Satisfaction Rating</li>
-        <li>✅ Certificates with Verified Credibility</li>
-      </ul>
     </div>
-    <div class="safe-img">
-      <img src="https://via.placeholder.com/400x300" alt="Trust illustration">
+  </section>
+
+  <!-- What's In It For You Section -->
+  <section class="what-you-get">
+    <div class="container">
+      <h2>What’s In It For You?</h2>
+      <div class="concepts-grid">
+        <div class="concept-card">📈 Discounted Cash Flow (DCF)</div>
+        <div class="concept-card">💰 Free Cash Flow (FCF)</div>
+        <div class="concept-card">📊 P/E & Valuation Multiples</div>
+        <div class="concept-card">📉 Net Present Value (NPV)</div>
+        <div class="concept-card">📈 Internal Rate of Return (IRR)</div>
+        <div class="concept-card">📐 Weighted Avg. Cost of Capital (WACC)</div>
+        <div class="concept-card">📘 Key Financial Ratios</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- You're in Safe Hands Section -->
+  <section class="safe-hands">
+    <div class="container safe-content">
+      <div class="safe-text">
+        <h2>You’re in Safe Hands</h2>
+        <p>
+          Our team consists of former investment bankers, CFA charterholders, and finance professors.
+          You’ll be learning from people who’ve done this in the real world.
+        </p>
+        <ul>
+          <li>✅ 5,000+ Students Trained</li>
+          <li>✅ 95% Course Satisfaction Rating</li>
+          <li>✅ Certificates with Verified Credibility</li>
+        </ul>
+      </div>
+      <div class="safe-img">
+        <img src="https://via.placeholder.com/400x300" alt="Trust illustration">
+      </div>
+    </div>
+  </section>
 
   <!-- Features Section -->
   <section class="features">
@@ -161,7 +168,8 @@
   </section>
 
   <!-- More sections coming soon... -->
-<!-- Later in your HTML file -->
+  <!-- Later in your HTML file -->
 
 </body>
+
 </html>

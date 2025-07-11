@@ -159,41 +159,63 @@ a {
 
 /* Hero Section */
 .hero {
-  height: 100vh;
-  background: linear-gradient(to bottom, #0a0a23, #1e1e4b);
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
   text-align: center;
-  padding-top: 80px;
+  padding: 0 20px;
+  background: linear-gradient(to bottom, #0f0f29, #0f0f3a); /* optional dark gradient */
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-content {
-  max-width: 700px;
+  max-width: 900px;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
   margin-bottom: 20px;
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  color: #e0e0e0;
   margin-bottom: 30px;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 20px;
+.cta-button {
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #00cfff;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
 
-.trust-badge {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  color: #ccc;
+.cta-button:hover {
+  background-color: #00b0e6;
+}
+
+.strike {
+  text-decoration: line-through;
+  color: #ff6666;
+}
+
+/* Optional: Responsive font */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
 }
 
 /* Features Section */
@@ -522,4 +544,48 @@ a {
   .menu-toggle {
     display: block;
   }
+}
+
+/* === Hero Animations === */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-up.delay-1 {
+  animation-delay: 0.3s;
+}
+.fade-up.delay-2 {
+  animation-delay: 0.6s;
+}
+.fade-up.delay-3 {
+  animation-delay: 0.9s;
+}
+
+.pop-in {
+  animation: popIn 0.8s ease-out forwards;
+  opacity: 0;
+  animation-delay: 1.2s;
 }
