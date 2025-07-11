@@ -8,8 +8,9 @@
 body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
-  background-color: #f5f8fa;
-  color: #222;
+  background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
@@ -21,6 +22,22 @@ a {
   width: 90%;
   max-width: 1200px;
   margin: auto;
+}
+
+/* Advanced Glassmorphism and Gradient Styles from index.html */
+.glass {
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Stylish Navigation Bar */
@@ -159,19 +176,21 @@ a {
 
 /* Hero Section */
 .hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  text-align: center;
-  padding: 0 20px;
-  background: linear-gradient(to bottom, #0f0f29, #0f0f3a); /* optional dark gradient */
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
 
 .hero-content {
-  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  max-width: 600px;
+  margin-left: 5vw;
 }
 
 .hero h1 {
@@ -642,4 +661,42 @@ a {
 .footer-copy {
   font-size: 14px;
   color: #888;
+}
+
+/* Navigation and Button Transitions */
+.nav-links a, .nav-item.dropdown > a {
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover, .nav-item.dropdown > a:hover {
+  color: #007aff;
+  transform: scale(1.08);
+}
+
+.cta-button, .start-btn {
+  transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 4px 24px rgba(0,122,255,0.15);
+}
+
+.cta-button:hover, .start-btn:hover {
+  background: linear-gradient(90deg,#007aff,#00c6ff);
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* SVG Blob Animation */
+.svg-blob {
+  position: absolute;
+  left: -100px;
+  top: 0;
+  width: 600px;
+  height: 600px;
+  z-index: 0;
+  opacity: 0.3;
+  animation: blobMove 12s infinite alternate ease-in-out;
+}
+
+@keyframes blobMove {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.1) translateY(40px); }
 }

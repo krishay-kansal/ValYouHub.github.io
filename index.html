@@ -5,17 +5,6 @@
   <!-- FontAwesome for LinkedIn/GitHub icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- AOS CSS & JS -->
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .hero * {
-      will-change: transform, opacity;
-    }
-  </style>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,105 +12,120 @@
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-<!-- AOS CSS -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({
+        duration: 1200,
+        once: true,
+        easing: 'ease-in-out',
+      });
+    });
+  </script>
 </head>
 
 <body>
+  <!-- Animated SVG Background -->
+  <svg class="svg-blob" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(300,300)">
+      <path d="M120,-160C160,-120,200,-80,200,-40C200,0,160,40,120,80C80,120,40,160,0,200C-40,240,-80,280,-120,280C-160,280,-200,240,-200,200C-200,160,-160,120,-120,80C-80,40,-40,0,0,-40C40,-80,80,-120,120,-160Z" fill="#007aff" />
+    </g>
+  </svg>
   <!-- Navigation Bar -->
-  <header class="navbar">
+  <header class="navbar glass" data-aos="fade-down">
     <div class="nav-container">
-      <div class="logo">Val<span class="accent">You</span> Hub</div>
+      <div class="logo" data-aos="zoom-in">Val<span class="accent">You</span> Hub</div>
       <nav class="nav-links">
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown" data-aos="fade-right">
           <a href="#hero">Home</a>
           <div class="dropdown-menu">
             <a href="#hero">Overview</a>
             <a href="#about">Who We Are</a>
           </div>
         </div>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="100">
           <a href="#curriculum">Courses</a>
           <div class="dropdown-menu">
             <a href="#curriculum">Module List</a>
             <a href="#topics">Topics Covered</a>
           </div>
         </div>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="200">
           <a href="#testimonials">Testimonials</a>
           <div class="dropdown-menu">
             <a href="#success">Success Stories</a>
             <a href="#reviews">Student Reviews</a>
           </div>
         </div>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="300">
           <a href="#faq">FAQ</a>
           <div class="dropdown-menu">
             <a href="#faq">General</a>
             <a href="#mentorship">Mentorship</a>
           </div>
         </div>
-        <a href="#contact" class="contact-link">Contact</a>
-        <a href="#curriculum" class="start-btn">Start Learning</a>
+        <a href="#contact" class="contact-link" data-aos="fade-left">Contact</a>
+        <a href="#curriculum" class="start-btn" data-aos="fade-left" data-aos-delay="100">Start Learning</a>
       </nav>
       <div class="menu-toggle" id="mobile-menu">&#9776;</div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
+  <!-- Hero Section with Lottie Animation -->
+  <section class="hero" id="hero">
+    <lottie-player class="lottie-hero" src="https://assets2.lottiefiles.com/packages/lf20_49rdyysj.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    <div class="hero-content" data-aos="fade-up">
       <h1 class="fade-up delay-1">
         Learn Finance, <span class="strike">Hard</span> Smart Way
       </h1>
       <p class="fade-up delay-2">
         Master DCF, NPV, IRR through hands-on experience
       </p>
-      <a href="#modules" class="cta-button fade-up delay-3">Start Learning</a>
+      <a href="#modules" class="cta-button fade-up delay-3" data-aos="zoom-in">Start Learning</a>
     </div>
   </section>
 
   <!-- What's In It For You Section -->
-  <section class="what-you-get">
+  <section class="what-you-get glass" data-aos="fade-up">
     <div class="container">
-      <h2>What’s In It For You?</h2>
+      <h2 data-aos="fade-up">What’s In It For You?</h2>
       <div class="concepts-grid">
-        <div class="concept-card">📈 Discounted Cash Flow (DCF)</div>
-        <div class="concept-card">💰 Free Cash Flow (FCF)</div>
-        <div class="concept-card">📊 P/E & Valuation Multiples</div>
-        <div class="concept-card">📉 Net Present Value (NPV)</div>
-        <div class="concept-card">📈 Internal Rate of Return (IRR)</div>
-        <div class="concept-card">📐 Weighted Avg. Cost of Capital (WACC)</div>
-        <div class="concept-card">📘 Key Financial Ratios</div>
-        <div class="concept-card">📘 Private Company Valuations</div>
+        <div class="concept-card" data-aos="flip-left">📈 Discounted Cash Flow (DCF)</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="100">💰 Free Cash Flow (FCF)</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="200">📊 P/E & Valuation Multiples</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="300">📉 Net Present Value (NPV)</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="400">📈 Internal Rate of Return (IRR)</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="500">📐 Weighted Avg. Cost of Capital (WACC)</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="600">📘 Key Financial Ratios</div>
+        <div class="concept-card" data-aos="flip-left" data-aos-delay="700">📘 Private Company Valuations</div>
       </div>
     </div>
   </section>
 
-<!-- Features Section -->
-  <section class="features">
+  <!-- Features Section -->
+  <section class="features glass" data-aos="fade-up">
     <div class="container">
-      <h2>How We Design It For You ?</h2>
+      <h2 data-aos="fade-up">How We Design It For You ?</h2>
       <div class="feature-grid">
-        <div class="feature-card">
+        <div class="feature-card" data-aos="zoom-in">
           <i class="fas fa-chart-bar"></i>
           <h3>Valuation Basics</h3>
           <p>Learn time-tested valuation principles.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
           <i class="fas fa-file-excel"></i>
           <h3>Excel Modeling</h3>
           <p>Build financial models with hands-on tutorials.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
           <i class="fas fa-briefcase"></i>
           <h3>Real Case Studies</h3>
           <p>Apply learning to real companies.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
           <i class="fas fa-lightbulb"></i>
           <h3>Beginner-Friendly</h3>
           <p>Designed for complete non-finance learners.</p>
@@ -130,37 +134,34 @@
     </div>
   </section>
 
-  <section class="founders-section">
+  <section class="founders-section glass" data-aos="fade-up">
     <div class="founders-heading">
-      <h2 class="fade-up delay-1">Meet the Founders</h2>
-      <p class="fade-up delay-2">
+      <h2 class="fade-up delay-1" data-aos="fade-up">Meet the Founders</h2>
+      <p class="fade-up delay-2" data-aos="fade-up" data-aos-delay="100">
         ValYou Hub is built by finance professionals, educators, and technologists who believe
         that financial literacy and valuation skills shouldn't be limited to MBA grads or analysts.
         We make real-world finance accessible to everyone — no jargon, no fluff.
       </p>
     </div>
-
     <div class="founders-grid">
       <!-- Founder 1 -->
-      <div class="founder-card fade-up delay-1">
+      <div class="founder-card fade-up delay-1" data-aos="flip-up">
         <img src="founder1.jpg" alt="Founder 1 : Krishay Kansal">
         <h3>Krishay Kansal</h3>
         <p class="subtitle">Ex-Investment Banker • Excel Wizard</p>
         <p>Alex spent 7+ years at top-tier investment banks where he built complex models for IPOs and M&As. He now
           focuses on making Excel and valuation intuitive for beginners.</p>
       </div>
-
       <!-- Founder 2 -->
-      <div class="founder-card fade-up delay-2">
+      <div class="founder-card fade-up delay-2" data-aos="flip-up" data-aos-delay="100">
         <img src="founder2.jpg" alt="Founder 2: Shikhar Mahipal">
         <h3>Shikhar Mahipal</h3>
         <p class="subtitle">Educator • DCF Evangelist</p>
         <p>Rhea has taught valuation to over 4,000 students and led workshops at top universities. She's obsessed with
           making DCF as easy as pie.</p>
       </div>
-
       <!-- Founder 3 -->
-      <div class="founder-card fade-up delay-3">
+      <div class="founder-card fade-up delay-3" data-aos="flip-up" data-aos-delay="200">
         <img src="founder3.jpg" alt="Founder 3: Diya Bansal">
         <h3>Diya Bansal</h3>
         <p class="subtitle">Engineer • Product Builder</p>
@@ -171,28 +172,28 @@
   </section>
 
   <!-- You're in Safe Hands Section -->
-  <section class="safe-hands">
+  <section class="safe-hands glass" data-aos="fade-up">
     <div class="container safe-content">
       <div class="safe-text">
-        <h2>Does it really work? </h2>
-        <p>
+        <h2 data-aos="fade-up">Does it really work? </h2>
+        <p data-aos="fade-up" data-aos-delay="100">
           Our team consists of former investment bankers, CFA charterholders, and finance professors.
           You’ll be learning from people who’ve done this in the real world.
         </p>
         <ul>
-          <li>✅ 5,000+ Students Trained</li>
-          <li>✅ 95% Course Satisfaction Rating</li>
-          <li>✅ Certificates with Verified Credibility</li>
+          <li data-aos="fade-right">✅ 5,000+ Students Trained</li>
+          <li data-aos="fade-right" data-aos-delay="100">✅ 95% Course Satisfaction Rating</li>
+          <li data-aos="fade-right" data-aos-delay="200">✅ Certificates with Verified Credibility</li>
         </ul>
       </div>
-      <div class="safe-img">
+      <div class="safe-img" data-aos="zoom-in">
         <img src="https://via.placeholder.com/400x300" alt="Trust illustration">
       </div>
     </div>
   </section>
 
 </body>
-<footer class="footer">
+<footer class="footer glass" data-aos="fade-up">
   <div class="footer-container">
     <div class="footer-links">
       <a href="#about">About</a>
