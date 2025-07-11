@@ -220,7 +220,7 @@ a {
 
 .founders-section {
   padding: 60px 20px;
-  background-color: #f9fafb;
+  background-color: #ffffff;
   text-align: center;
 }
 
@@ -318,25 +318,6 @@ a {
   margin-bottom: 15px;
 }
 
-/* Who We Are */
-.about-us {
-  background: #f9fbfd;
-  padding: 80px 0;
-  text-align: center;
-}
-
-.about-us h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.about-us p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1.1rem;
-  color: #444;
-}
-
 /* What's In It For You */
 .what-you-get {
   background: #fff;
@@ -372,7 +353,7 @@ a {
 
 /* Safe Hands Section */
 .safe-hands {
-  background: #f0f4f8;
+  background: #ffffff;
   padding: 80px 0;
 }
 
@@ -490,36 +471,6 @@ a {
   margin-top: 40px;
   max-width: 400px;
   margin-inline: auto;
-}
-
-/* Info Cards Section */
-.info-cards-section {
-  padding: 80px 20px;
-  background: #f9fafb;
-  text-align: center;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.info-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 30px 20px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-  transition: 0.3s ease;
-}
-
-.info-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
 
 /* Navigation Bar */
