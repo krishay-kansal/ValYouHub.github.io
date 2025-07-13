@@ -279,9 +279,50 @@
     </div>
   </section>
 
+  <!-- Daily Users Counter Section (Refined Layout) -->
+  <section class="daily-users-section">
+    <div class="daily-users-container">
+      <div class="daily-users-ring">
+        <svg class="progress-ring" width="120" height="120">
+          <circle class="progress-ring__circle" cx="60" cy="60" r="52" stroke-width="12" />
+        </svg>
+        <div class="daily-users-content">
+          <span class="daily-users-icon"><i class="fas fa-users"></i></span>
+          <span class="daily-users-number" id="dailyUsersNumber">0</span>
+          <span class="daily-users-label">Daily Learners</span>
+        </div>
+      </div>
+      <div class="daily-users-text">
+        Join thousands of learners improving their finance skills daily.
+      </div>
+      <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+    </div>
+  </section>
+
   <!-- Discounting Animation Script -->
   <script src="discounting-animation.js"></script>
+  <script src="daily-users-counter.js"></script>
+  <script src="valuation-demo.js"></script>
 
+  <!-- NPV Decision Demo Section -->
+  <section class="npv-demo-section glass" id="npv-demo" data-aos="fade-up">
+    <div class="npv-demo-container">
+      <h2 class="npv-demo-title">NPV Decision Demo</h2>
+      <div id="npvDemoCase"></div>
+      <div class="npv-demo-btn-group">
+        <button class="npv-demo-btn" id="npvYesBtn">Yes</button>
+        <button class="npv-demo-btn" id="npvNoBtn">No</button>
+      </div>
+      <div id="npvDemoFeedback"></div>
+      <div id="npvDemoNPV"></div>
+      <div id="npvDemoSteps"></div>
+      <div id="npvDemoExplanation"></div>
+      <div class="npv-demo-nav">
+        <button class="npv-demo-nav-btn" id="npvPrevBtn">Previous</button>
+        <button class="npv-demo-nav-btn" id="npvNextBtn">Next</button>
+      </div>
+    </div>
+  </section>
 </body>
 <footer class="footer glass" data-aos="fade-up">
   <div class="footer-container">
