@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive DCF Calculator - ValYou Hub</title>
+    
+    <!-- Original website CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            color: #e5e7eb;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: #16213e;
+            color: #e5e7eb;
+            border-bottom: 2px solid #4f8cff;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e5e7eb;
+            letter-spacing: 1px;
+        }
+
+        .logo .accent {
+            color: #4f8cff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #e5e7eb;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 6px;
+            transition: color 0.3s, background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(79,140,255,0.08);
+            color: #4f8cff;
+        }
+
+        /* Main Content */
+        .dcf-container {
+            min-height: calc(100vh - 120px);
+            padding: 40px 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffffff, #4f8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Question Type Selection */
+        .question-type-selector {
+            background: rgba(22, 33, 62, 0.92);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
+            text-align: center;
+        }
+
+        .type-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .type-btn {
+            background: linear-gradient(135deg, #23325c, #4f8cff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .type-btn:hover, .type-btn.active {
+            background: #4f8cff;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 140, 255, 0.3);
+        }
+
+        .question-counter {
+            background: rgba(79, 140, 255, 0.1);
+            border: 1px solid #4f8cff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin: 20px 0;
+            text-align: center;
+            color: #4f8cff;
+            font-weight: 600;
+        }
+
+        .question-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .question-nav button {
+            background: rgba(79, 140, 255, 0.2);
+            color: #4f8cff;
+            border: 1px solid #4f8cff;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question-nav button:hover:not(:disabled) {
+            background: #4f8cff;
+            color: white;
+        }
+
+        .question-nav button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Question Container */
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4f8cff;
+        }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #16213e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .question-icon {
+            background: linear-gradient(135deg, #16213e, #4f8cff);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Spreadsheet Section */
+        .spreadsheet-wrapper {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .spreadsheet-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #16213e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .spreadsheet-icon {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        #luckysheet {
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Answer Section */
+        .answer-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #22c55e;
+        }
+
+        .answer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #16213e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .answer-icon {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .answer-input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .answer-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #4f8cff;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.1);
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #16213e, #4f8cff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 140, 255, 0.3);
+        }
+
+        .solution-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .solution-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            color: #166534;
+            border: 2px solid #22c55e;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+
+        /* Instructions */
+        .instructions {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 2px solid #4f8cff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #1e40af;
+        }
+
+        .instructions h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .instructions ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #23325c;
+            color: #b8bfc9;
+            border-top: 2px solid #4f8cff;
+            padding: 30px 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #4f8cff;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .dcf-container {
+                padding: 15px;
+            }
+            
+            .header-section h1 {
+                font-size: 2rem;
+            }
+            
+            .answer-input-group {
+                flex-direction: column;
+            }
+            
+            .answer-input {
+                min-width: 100%;
+            }
+            
+            #luckysheet {
+                height: 300px !important;
+            }
+
+            .type-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .type-btn {
+                width: 200px;
+            }
+        }
+
+        /* Prevent page jumping when clicking cells */
+        .luckysheet-wa-editor {
+            background: #f8fafc !important;
+        }
+
+        .luckysheet-cell-selected {
+            border: 2px solid #4f8cff !important;
+        }
+
+        /* Fix for scroll-to-top issue */
+        .luckysheet-grid-container {
+            overflow: hidden !important;
+        }
+    </style>
+    
+    <!-- Luckysheet CSS -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span>Val</span><span class="accent">You</span> Hub
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="dcf-calculator.html">DCF Calculator</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dcf-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>Interactive DCF Calculator</h1>
+            <p>Master Discounted Cash Flow analysis through hands-on practice with our Excel-like calculator</p>
+        </div>
+
+        <!-- Question Type Selector -->
+        <div class="question-type-selector">
+            <h2 style="color: #4f8cff; margin-bottom: 15px;">Select Question Difficulty</h2>
+            <p style="color: #e5e7eb; margin-bottom: 20px;">Choose your level and practice DCF calculations</p>
+            <div class="type-buttons">
+                <button class="type-btn active" data-type="1">Type 1 - Basic</button>
+                <button class="type-btn" data-type="2">Type 2 - Intermediate</button>
+                <button class="type-btn" data-type="3">Type 3 - Advanced</button>
+            </div>
+            <div class="question-counter">
+                <span id="currentQuestion">Question 1 of 5</span>
+            </div>
+            <div class="question-nav">
+                <button id="prevBtn" onclick="changeQuestion(-1)" disabled>← Previous</button>
+                <button id="nextBtn" onclick="changeQuestion(1)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>📋 How to Use This DCF Calculator</h3>
+            <ul>
+                <li><strong>Click any cell</strong> to edit values and create formulas</li>
+                <li><strong>Use Excel formulas</strong> like =B2+C2, =NPV(rate,range), =B2*C2</li>
+                <li><strong>Calculate DCF</strong> using the data provided and enter your final answer</li>
+                <li><strong>Check your work</strong> to see if you got the correct valuation</li>
+            </ul>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container" id="questionContainer">
+            <!-- Questions will be loaded here dynamically -->
+        </div>
+
+        <!-- Spreadsheet Section -->
+        <div class="spreadsheet-wrapper">
+            <div class="spreadsheet-title">
+                <div class="spreadsheet-icon">📊</div>
+                DCF Calculation Worksheet
+            </div>
+            <div id="luckysheet" style="margin:0px;padding:0px;position:relative;width:100%;height:400px;left: 0px; top: 0px;"></div>
+        </div>
+
+        <!-- Answer Section -->
+        <div class="answer-section">
+            <div class="answer-title">
+                <div class="answer-icon">✓</div>
+                Submit Your Final Answer
+            </div>
+            <div class="answer-input-group">
+                <input type="number" id="finalAnswer" class="answer-input" placeholder="Enter the company's intrinsic value (₹)" step="0.01">
+                <button id="checkAnswer" class="check-btn">Check Answer</button>
+                <button id="showSolution" class="solution-btn">Show Solution</button>
+            </div>
+            <div id="feedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-copy">
+                © 2024 ValYou Hub. All rights reserved. | Empowering Financial Learning
+            </div>
+        </div>
+    </footer>
+
+    <!-- Luckysheet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Questions database
+        const questions = {
+            1: [ // Type 1 - Basic
+                {
+                    title: "Basic DCF Valuation",
+                    scenario: "You're valuing a company with the following projected free cash flows:",
+                    details: [
+                        "Year 1: ₹50,000",
+                        "Year 2: ₹60,000", 
+                        "Year 3: ₹70,000",
+                        "Terminal Value (Year 3): ₹800,000",
+                        "Discount Rate (WACC): 12%"
+                    ],
+                    task: "Calculate the present value of all future cash flows to determine the company's intrinsic value.",
+                    answer: 619470,
+                    tolerance: 0.05,
+                    solution: `Year 1 PV: ₹50,000 ÷ (1.12)¹ = ₹44,643\nYear 2 PV: ₹60,000 ÷ (1.12)² = ₹47,832\nYear 3 PV: ₹70,000 ÷ (1.12)³ = ₹49,802\nTerminal PV: ₹800,000 ÷ (1.12)³ = ₹569,193\n\nTotal = ₹619,470`,
+                    cashflows: [50000, 60000, 70000],
+                    terminal: 800000,
+                    wacc: 0.12
+                },
+                {
+                    title: "Simple Growth DCF",
+                    scenario: "A retail company has the following cash flow projections:",
+                    details: [
+                        "Year 1: ₹40,000",
+                        "Year 2: ₹45,000",
+                        "Year 3: ₹50,000", 
+                        "Terminal Value (Year 3): ₹600,000",
+                        "Discount Rate (WACC): 10%"
+                    ],
+                    task: "Calculate the enterprise value using DCF analysis.",
+                    answer: 553431,
+                    tolerance: 0.05,
+                    solution: `Year 1 PV: ₹40,000 ÷ (1.10)¹ = ₹36,364\nYear 2 PV: ₹45,000 ÷ (1.10)² = ₹37,190\nYear 3 PV: ₹50,000 ÷ (1.10)³ = ₹37,566\nTerminal PV: ₹600,000 ÷ (1.10)³ = ₹450,789\n\nTotal = ₹561,909`,
+                    cashflows: [40000, 45000, 50000],
+                    terminal: 600000,
+                    wacc: 0.10
+                },
+                {
+                    title: "Manufacturing DCF",
+                    scenario: "A manufacturing company shows these projections:",
+                    details: [
+                        "Year 1: ₹75,000",
+                        "Year 2: ₹80,000",
+                        "Year 3: ₹85,000",
+                        "Terminal Value (Year 3): ₹950,000", 
+                        "Discount Rate (WACC): 8%"
+                    ],
+                    task: "Determine the company's fair value using DCF methodology.",
+                    answer: 900000,
+                    tolerance: 0.05,
+                    solution: `Year 1 PV: ₹75,000 ÷ (1.08)¹ = ₹69,444\nYear 2 PV: ₹80,000 ÷ (1.08)² = ₹68,587\nYear 3 PV: ₹85,000 ÷ (1.08)³ = ₹67,504\nTerminal PV: ₹950,000 ÷ (1.08)³ = ₹754,298\n\nTotal = ₹959,833`,
+                    cashflows: [75000, 80000, 85000],
+                    terminal: 950000,
+                    wacc: 0.08
+                },
+                {
+                    title: "Service Sector DCF", 
+                    scenario: "A service company has these financial projections:",
+                    details: [
+                        "Year 1: ₹30,000",
+                        "Year 2: ₹35,000",
+                        "Year 3: ₹40,000",
+                        "Terminal Value (Year 3): ₹500,000",
+                        "Discount Rate (WACC): 15%"
+                    ],
+                    task: "Calculate the intrinsic value using discounted cash flow analysis.",
+                    answer: 408000,
+                    tolerance: 0.05,
+                    solution: `Year 1 PV: ₹30,000 ÷ (1.15)¹ = ₹26,087\nYear 2 PV: ₹35,000 ÷ (1.15)² = ₹26,455\nYear 3 PV: ₹40,000 ÷ (1.15)³ = ₹26,305\nTerminal PV: ₹500,000 ÷ (1.15)³ = ₹328,815\n\nTotal = ₹407,662`,
+                    cashflows: [30000, 35000, 40000],
+                    terminal: 500000,
+                    wacc: 0.15
+                },
+                {
+                    title: "Technology Startup DCF",
+                    scenario: "A tech startup shows rapid growth potential:",
+                    details: [
+                        "Year 1: ₹25,000",
+                        "Year 2: ₹40,000", 
+                        "Year 3: ₹60,000",
+                        "Terminal Value (Year 3): ₹750,000",
+                        "Discount Rate (WACC): 18%"
+                    ],
+                    task: "Value this high-growth company using DCF analysis.",
+                    answer: 580000,
+                    tolerance: 0.05,
+                    solution: `Year 1 PV: ₹25,000 ÷ (1.18)¹ = ₹21,186\nYear 2 PV: ₹40,000 ÷ (1.18)² = ₹28,734\nYear 3 PV: ₹60,000 ÷ (1.18)³ = ₹36,520\nTerminal PV: ₹750,000 ÷ (1.18)³ = ₹456,502\n\nTotal = ₹542,942`,
+                    cashflows: [25000, 40000, 60000],
+                    terminal: 750000,
+                    wacc: 0.18
+                }
+            ],
+            2: [ // Type 2 - Intermediate
+                {
+                    title: "Multi-Year DCF with Growth",
+                    scenario: "A growing company with 5-year projections:",
+                    details: [
+                        "Year 1: ₹100,000",
+                        "Year 2: ₹120,000",
+                        "Year 3: ₹144,000",
+                        "Year 4: ₹172,800",
+                        "Year 5: ₹207,360",
+                        "Terminal Value (Year 5): ₹2,500,000",
+                        "Discount Rate (WACC): 11%"
+                    ],
+                    task: "Calculate the enterprise value for this multi-year projection.",
+                    answer: 2200000,
+                    tolerance: 0.05,
+                    solution: `5-year DCF calculation with terminal value discounted to present value`,
+                    cashflows: [100000, 120000, 144000, 172800, 207360],
+                    terminal: 2500000,
+                    wacc: 0.11
+                },
+                {
+                    title: "Cyclical Business DCF",
+                    scenario: "A cyclical manufacturing business:",
+                    details: [
+                        "Year 1: ₹80,000",
+                        "Year 2: ₹60,000",
+                        "Year 3: ₹100,000",
+                        "Year 4: ₹120,000",
+                        "Year 5: ₹90,000",
+                        "Terminal Value (Year 5): ₹1,800,000",
+                        "Discount Rate (WACC): 13%"
+                    ],
+                    task: "Value this cyclical business considering varying cash flows.",
+                    answer: 1650000,
+                    tolerance: 0.05,
+                    solution: `Cyclical DCF with varying annual cash flows`,
+                    cashflows: [80000, 60000, 100000, 120000, 90000],
+                    terminal: 1800000,
+                    wacc: 0.13
+                },
+                {
+                    title: "REIT DCF Analysis",
+                    scenario: "A Real Estate Investment Trust (REIT):",
+                    details: [
+                        "Year 1: ₹150,000",
+                        "Year 2: ₹160,000",
+                        "Year 3: ₹170,000",
+                        "Year 4: ₹180,000",
+                        "Year 5: ₹190,000",
+                        "Terminal Value (Year 5): ₹3,200,000",
+                        "Discount Rate (WACC): 9%"
+                    ],
+                    task: "Calculate the REIT's net asset value using DCF.",
+                    answer: 2800000,
+                    tolerance: 0.05,
+                    solution: `REIT valuation with steady growth pattern`,
+                    cashflows: [150000, 160000, 170000, 180000, 190000],
+                    terminal: 3200000,
+                    wacc: 0.09
+                },
+                {
+                    title: "Pharmaceutical DCF",
+                    scenario: "A pharmaceutical company with R&D investments:",
+                    details: [
+                        "Year 1: ₹50,000",
+                        "Year 2: ₹70,000",
+                        "Year 3: ₹110,000",
+                        "Year 4: ₹160,000",
+                        "Year 5: ₹200,000",
+                        "Terminal Value (Year 5): ₹2,800,000",
+                        "Discount Rate (WACC): 14%"
+                    ],
+                    task: "Value this pharma company considering drug development cycles.",
+                    answer: 1900000,
+                    tolerance: 0.05,
+                    solution: `Pharma DCF with accelerating growth from drug launches`,
+                    cashflows: [50000, 70000, 110000, 160000, 200000],
+                    terminal: 2800000,
+                    wacc: 0.14
+                },
+                {
+                    title: "Energy Sector DCF",
+                    scenario: "An energy company with commodity exposure:",
+                    details: [
+                        "Year 1: ₹200,000",
+                        "Year 2: ₹180,000",
+                        "Year 3: ₹220,000",
+                        "Year 4: ₹240,000",
+                        "Year 5: ₹210,000",
+                        "Terminal Value (Year 5): ₹3,500,000",
+                        "Discount Rate (WACC): 12%"
+                    ],
+                    task: "Calculate the energy company's fair value.",
+                    answer: 2600000,
+                    tolerance: 0.05,
+                    solution: `Energy sector DCF with commodity price volatility`,
+                    cashflows: [200000, 180000, 220000, 240000, 210000],
+                    terminal: 3500000,
+                    wacc: 0.12
+                }
+            ],
+            3: [ // Type 3 - Advanced
+                {
+                    title: "Complex Multi-Stage DCF",
+                    scenario: "A technology company in different growth phases:",
+                    details: [
+                        "High Growth Phase (Years 1-3): 25% growth",
+                        "Year 1: ₹100,000",
+                        "Transition Phase (Years 4-6): 15% growth",
+                        "Mature Phase (Year 7+): 5% growth",
+                        "Terminal Value multiple: 20x final year FCF",
+                        "Discount Rate (WACC): 16%"
+                    ],
+                    task: "Build a multi-stage DCF model with changing growth rates.",
+                    answer: 1800000,
+                    tolerance: 0.07,
+                    solution: `Multi-stage DCF: High growth → Transition → Mature phase`,
+                    cashflows: [100000, 125000, 156250, 179688, 206641, 237637],
+                    terminal: 4990374,
+                    wacc: 0.16
+                },
+                {
+                    title: "Private Equity LBO Analysis",
+                    scenario: "Leveraged buyout scenario analysis:",
+                    details: [
+                        "EBITDA Year 1: ₹500,000",
+                        "EBITDA Growth: 8% annually",
+                        "Exit Multiple: 12x EBITDA (Year 5)",
+                        "Initial Debt: ₹2,000,000",
+                        "Debt Paydown: ₹300,000/year",
+                        "Required Return: 20%"
+                    ],
+                    task: "Calculate equity value in this LBO scenario.",
+                    answer: 4500000,
+                    tolerance: 0.08,
+                    solution: `LBO analysis with debt paydown and exit multiple`,
+                    cashflows: [200000, 216000, 233280, 251942, 272098],
+                    terminal: 7929408,
+                    wacc: 0.20
+                },
+                {
+                    title: "SOTP Valuation",
+                    scenario: "Sum-of-the-parts valuation for a conglomerate:",
+                    details: [
+                        "Division A: ₹800,000 FCF, 12x multiple",
+                        "Division B: ₹600,000 FCF, 15x multiple", 
+                        "Division C: ₹400,000 FCF, 8x multiple",
+                        "Corporate Overhead: ₹200,000 annually",
+                        "Net Debt: ₹1,500,000",
+                        "Discount for conglomerate: 15%"
+                    ],
+                    task: "Calculate the sum-of-the-parts enterprise value.",
+                    answer: 16500000,
+                    tolerance: 0.06,
+                    solution: `SOTP: (Div A + Div B + Div C - Overhead) - Discount`,
+                    cashflows: [800000, 600000, 400000],
+                    terminal: 0,
+                    wacc: 0.12
+                },
+                {
+                    title: "Option-Adjusted DCF",
+                    scenario: "Company with real options and scenarios:",
+                    details: [
+                        "Base Case FCF Year 1: ₹300,000",
+                        "Upside Scenario (30% prob): +50% FCF",
+                        "Downside Scenario (20% prob): -30% FCF",
+                        "Base Scenario (50% prob): Normal growth",
+                        "Growth Option Value: ₹2,000,000",
+                        "Abandonment Option Value: ₹500,000",
+                        "Discount Rate: 18%"
+                    ],
+                    task: "Value the company including real options.",
+                    answer: 4200000,
+                    tolerance: 0.08,
+                    solution: `Probability-weighted DCF + Real Options Value`,
+                    cashflows: [300000, 330000, 363000, 399300, 439230],
+                    terminal: 2927533,
+                    wacc: 0.18
+                },
+                {
+                    title: "Cross-Border DCF",
+                    scenario: "Multinational company with currency considerations:",
+                    details: [
+                        "US Operations: $500,000 FCF (USD)",
+                        "India Operations: ₹2,000,000 FCF (INR)",
+                        "Europe Operations: €300,000 FCF (EUR)",
+                        "Exchange Rates: USD/INR=83, EUR/INR=90",
+                        "Country Risk Premiums: US(0%), India(2%), EU(1%)",
+                        "Base WACC: 12%"
+                    ],
+                    task: "Calculate consolidated enterprise value in INR.",
+                    answer: 32000000,
+                    tolerance: 0.10,
+                    solution: `Multi-currency DCF with country risk adjustments`,
+                    cashflows: [2000000, 2200000, 2420000, 2662000, 2928200],
+                    terminal: 19521333,
+                    wacc: 0.12
+                }
+            ]
+        };
+
+        // Current state
+        let currentType = 1;
+        let currentQuestionIndex = 0;
+        let luckysheetInstance = null;
+
+        // Initialize the application
+        function initializeDCF() {
+            setupEventListeners();
+            loadQuestion();
+            initializeLuckysheet();
+        }
+
+        function setupEventListeners() {
+            // Type selection buttons
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    currentType = parseInt(e.target.dataset.type);
+                    currentQuestionIndex = 0;
+                    updateTypeButtons();
+                    loadQuestion();
+                    updateSpreadsheet();
+                });
+            });
+
+            // Answer checking
+            document.getElementById('checkAnswer').addEventListener('click', checkAnswer);
+            document.getElementById('showSolution').addEventListener('click', showSolution);
+            
+            // Enter key support
+            document.getElementById('finalAnswer').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+        }
+
+        function updateTypeButtons() {
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.type) === currentType);
+            });
+            updateQuestionCounter();
+        }
+
+        function updateQuestionCounter() {
+            document.getElementById('currentQuestion').textContent = 
+                `Question ${currentQuestionIndex + 1} of ${questions[currentType].length}`;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = currentQuestionIndex === questions[currentType].length - 1;
+        }
+
+        function changeQuestion(direction) {
+            const newIndex = currentQuestionIndex + direction;
+            if (newIndex >= 0 && newIndex < questions[currentType].length) {
+                currentQuestionIndex = newIndex;
+                loadQuestion();
+                updateSpreadsheet();
+                updateQuestionCounter();
+                clearFeedback();
+            }
+        }
+
+        function loadQuestion() {
+            const question = questions[currentType][currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="question-title">
+                    <div class="question-icon">Q</div>
+                    ${question.title}
+                </div>
+                <div class="question-text">
+                    <strong>Scenario:</strong> ${question.scenario}<br>
+                    ${question.details.map(detail => `• ${detail}`).join('<br>')}<br><br>
+                    <strong>Task:</strong> ${question.task}
+                </div>
+            `;
+            
+            // Clear previous answer
+            document.getElementById('finalAnswer').value = '';
+            clearFeedback();
+        }
+
+        function clearFeedback() {
+            const feedback = document.getElementById('feedback');
+            feedback.className = 'feedback';
+            feedback.innerHTML = '';
+        }
+
+        function initializeLuckysheet() {
+            // Destroy existing instance if it exists
+            if (luckysheetInstance) {
+                luckysheet.destroy();
+            }
+
+            const question = questions[currentType][currentQuestionIndex];
+            
+            const options = {
+                container: 'luckysheet',
+                showinfobar: false,
+                showsheetbar: false,
+                showstatisticBar: false,
+                enableAddRow: false,
+                enableAddCol: false,
+                showConfigmenu: false,
+                // Prevent scrolling issues
+                scrollbar: {
+                    x: false,
+                    y: false
+                },
+                data: [{
+                    name: "DCF Model",
+                    color: "",
+                    index: 0,
+                    status: 1,
+                    order: 0,
+                    hide: 0,
+                    row: 20,
+                    column: 10,
+                    defaultRowHeight: 25,
+                    defaultColWidth: 100,
+                    celldata: generateCellData(question)
+                }],
+                title: 'DCF Calculator',
+                userInfo: false,
+                lang: 'en',
+            };
+
+            // Initialize with timeout to ensure DOM is ready
+            setTimeout(() => {
+                luckysheet.create(options);
+                luckysheetInstance = luckysheet;
+            }, 100);
+        }
+
+        function generateCellData(question) {
+            const celldata = [];
+            const years = question.cashflows.length;
+            
+            // Headers
+            celldata.push({r: 0, c: 0, v: {v: "DCF Valuation Model", ct: {fa: "General", t: "g"}, m: "DCF Valuation Model", bg: "#16213e", fc: "#ffffff", bl: 1, fs: 14}});
+            
+            // Year headers
+            celldata.push({r: 2, c: 0, v: {v: "Year", ct: {fa: "General", t: "g"}, m: "Year", bg: "#f1f5f9", fc: "#16213e", bl: 1}});
+            for (let i = 0; i < years; i++) {
+                celldata.push({r: 2, c: i + 1, v: {v: i + 1, ct: {fa: "General", t: "n"}, m: (i + 1).toString(), bg: "#f1f5f9", fc: "#16213e", bl: 1}});
+            }
+            
+            // Cash flows
+            celldata.push({r: 3, c: 0, v: {v: "Free Cash Flow (₹)", ct: {fa: "General", t: "g"}, m: "Free Cash Flow (₹)", bg: "#f8fafc", fc: "#374151", bl: 1}});
+            for (let i = 0; i < years; i++) {
+                celldata.push({r: 3, c: i + 1, v: {v: question.cashflows[i], ct: {fa: "General", t: "n"}, m: question.cashflows[i].toString(), bg: "#ffffff", fc: "#374151"}});
+            }
+            
+            // Terminal value
+            if (question.terminal > 0) {
+                celldata.push({r: 4, c: 0, v: {v: "Terminal Value (₹)", ct: {fa: "General", t: "g"}, m: "Terminal Value (₹)", bg: "#f8fafc", fc: "#374151", bl: 1}});
+                for (let i = 0; i < years - 1; i++) {
+                    celldata.push({r: 4, c: i + 1, v: {v: "", ct: {fa: "General", t: "g"}, m: "", bg: "#ffffff", fc: "#374151"}});
+                }
+                celldata.push({r: 4, c: years, v: {v: question.terminal, ct: {fa: "General", t: "n"}, m: question.terminal.toString(), bg: "#ffffff", fc: "#374151"}});
+            }
+            
+            // WACC
+            celldata.push({r: 6, c: 0, v: {v: "Discount Rate (WACC)", ct: {fa: "General", t: "g"}, m: "Discount Rate (WACC)", bg: "#f8fafc", fc: "#374151", bl: 1}});
+            celldata.push({r: 6, c: 1, v: {v: question.wacc, ct: {fa: "0.00%", t: "n"}, m: (question.wacc * 100).toFixed(2) + "%", bg: "#ffffff", fc: "#374151"}});
+            
+            // Add formula placeholders
+            celldata.push({r: 8, c: 0, v: {v: "Present Value (₹)", ct: {fa: "General", t: "g"}, m: "Present Value (₹)", bg: "#dcfce7", fc: "#166534", bl: 1}});
+            celldata.push({r: 10, c: 0, v: {v: "Total Enterprise Value", ct: {fa: "General", t: "g"}, m: "Total Enterprise Value", bg: "#fef2f2", fc: "#991b1b", bl: 1}});
+            
+            return celldata;
+        }
+
+        function updateSpreadsheet() {
+            if (luckysheetInstance) {
+                initializeLuckysheet();
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseFloat(document.getElementById('finalAnswer').value);
+            const question = questions[currentType][currentQuestionIndex];
+            const feedback = document.getElementById('feedback');
+            
+            if (isNaN(userAnswer)) {
+                feedback.textContent = '❌ Please enter a valid number.';
+                feedback.className = 'feedback incorrect show';
+                return;
+            }
+
+            const percentDiff = Math.abs(userAnswer - question.answer) / question.answer;
+            
+            if (percentDiff <= question.tolerance) {
+                feedback.innerHTML = `
+                    ✅ <strong>Correct!</strong> Well done! <br>
+                    Your answer: ₹${userAnswer.toLocaleString('en-IN')}<br>
+                    Expected: ₹${question.answer.toLocaleString('en-IN')}<br>
+                    <small>You successfully calculated the DCF valuation!</small>
+                `;
+                feedback.className = 'feedback correct show';
+            } else {
+                feedback.innerHTML = `
+                    ❌ <strong>Not quite right.</strong><br>
+                    Your answer: ₹${userAnswer.toLocaleString('en-IN')}<br>
+                    Expected: ₹${question.answer.toLocaleString('en-IN')}<br>
+                    <small>Hint: Make sure you're discounting all cash flows to present value and summing them up.</small>
+                `;
+                feedback.className = 'feedback incorrect show';
+            }
+        }
+
+        function showSolution() {
+            const question = questions[currentType][currentQuestionIndex];
+            alert(`DCF Solution:\n\n${question.solution}\n\nExpected Answer: ₹${question.answer.toLocaleString('en-IN')}`);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeDCF);
+
+        // Prevent page scroll when interacting with spreadsheet
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#luckysheet')) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, true);
+    </script>
+</body>
+</html>
