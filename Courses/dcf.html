@@ -506,23 +506,54 @@
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span>Val</span><span class="accent">You</span> Hub
-            </div>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="dcf-calculator.html">DCF Calculator</a>
-            </div>
+    <header class="navbar glass" data-aos="fade-down">
+    <div class="nav-container">
+      <div class="logo" data-aos="zoom-in">Val<span class="accent">You</span> Hub</div>
+      <nav class="nav-links">
+        <div class="nav-item dropdown" data-aos="fade-right">
+          <a href="#hero">Home</a>
+          <div class="dropdown-menu">
+            <a href="#hero">Overview</a>
+            <a href="#about">Who We Are</a>
+          </div>
         </div>
-    </nav>
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="100">
+          <a href="#curriculum">Courses</a>
+          <div class="dropdown-menu">
+            <a href="dcf.html">DCF</a>
+            <a href="#npv">NPV</a>
+            <a href="#irr">IRR</a>
+            <a href="#wacc">WACC</a>
+            <a href="#p/e">P/E</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="200">
+          <a href="#testimonials">Testimonials</a>
+          <div class="dropdown-menu">
+            <a href="#success">Success Stories</a>
+            <a href="#reviews">Student Reviews</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown" data-aos="fade-right" data-aos-delay="300">
+          <a href="#faq">FAQ</a>
+          <div class="dropdown-menu">
+            <a href="#faq">General</a>
+            <a href="#mentorship">Mentorship</a>
+          </div>
+        </div>
+        <a href="#contact" class="contact-link" data-aos="fade-left">Contact</a>
+        <a href="#curriculum" class="start-btn" data-aos="fade-left" data-aos-delay="100">Start Learning</a>
+      </nav>
+      <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    </div>
+  </header>
 
+
+    
     <div class="dcf-container">
         <!-- Header Section -->
         <div class="header-section">
