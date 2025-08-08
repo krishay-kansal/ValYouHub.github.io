@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Testimonials - ValYou Hub</title>
     <meta name="description" content="Read success stories from our students who mastered finance concepts like DCF, NPV, IRR, WACC through ValYou Hub's practical learning approach">
+    <!-- AOS CSS for scroll animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
     <style>
         * {
             margin: 0;
@@ -20,9 +24,23 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 40px 0;
+            padding-left: 5vw;
+            padding-right: 5vw;
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.18);
+        }
+        @media (max-width: 900px) {
+            .container {
+                width: 98vw;
+                padding: 20px 2vw;
+                padding-left: 2vw;
+                padding-right: 2vw;
+            }
         }
 
         .header {
@@ -85,7 +103,7 @@
             border-radius: 14px;
             border: 1px solid #23325c;
             padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
         }
@@ -101,8 +119,8 @@
         }
 
         .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(1.04) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79,140,255,0.18);
         }
 
         .student-info {
@@ -232,20 +250,20 @@
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>Student Success Stories</h1>
-            <p>Discover how ValYou Hub has transformed careers and enhanced financial knowledge for students worldwide</p>
+        <header class="header" data-aos="fade-down">
+            <h1 data-aos="zoom-in">Student Success Stories</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Discover how ValYou Hub has transformed careers and enhanced financial knowledge for students worldwide</p>
         </header>
 
-        <div class="rating-summary">
+        <div class="rating-summary" data-aos="fade-up" data-aos-delay="200">
             <h2>9.0/10</h2>
             <div class="stars">★★★★★</div>
-            <p class="rating-text">Average rating from 10 verified students</p>
+            <p class="rating-text">Average rating from verified students</p>
         </div>
 
         <div class="testimonials-grid">
             <!-- Rahul Jain -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left">
                 <div class="student-info">
                     <img src="src/assets/rahul-jain.jpg" alt="Rahul Jain" class="student-avatar">
                     <div class="student-details">
@@ -267,7 +285,7 @@
             </div>
 
             <!-- Kunal Singh -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="100">
                 <div class="student-info">
                     <img src="src/assets/kunal-singh.jpg" alt="Kunal Singh" class="student-avatar">
                     <div class="student-details">
@@ -289,7 +307,7 @@
             </div>
 
             <!-- Shruti Gupta -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="200">
                 <div class="student-info">
                     <img src="src/assets/shruti-gupta.jpg" alt="Shruti Gupta" class="student-avatar">
                     <div class="student-details">
@@ -311,7 +329,7 @@
             </div>
 
             <!-- Kartik Goel -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="300">
                 <div class="student-info">
                     <img src="src/assets/kartik-goel.jpg" alt="Kartik Goel" class="student-avatar">
                     <div class="student-details">
@@ -333,7 +351,7 @@
             </div>
 
             <!-- Madhav Miglani -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="400">
                 <div class="student-info">
                     <img src="src/assets/madhav-miglani.jpg" alt="Madhav Miglani" class="student-avatar">
                     <div class="student-details">
@@ -355,7 +373,7 @@
             </div>
 
             <!-- Sneha Tripathi -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="500">
                 <div class="student-info">
                     <img src="src/assets/sneha-tripathi.jpg" alt="Sneha Tripathi" class="student-avatar">
                     <div class="student-details">
@@ -377,7 +395,7 @@
             </div>
 
             <!-- Soumya Tiwari -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="600">
                 <div class="student-info">
                     <img src="src/assets/soumya-tiwari.jpg" alt="Soumya Tiwari" class="student-avatar">
                     <div class="student-details">
@@ -399,7 +417,7 @@
             </div>
 
             <!-- Rohan Aggarwal -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="700">
                 <div class="student-info">
                     <img src="src/assets/rohan-aggarwal.jpg" alt="Rohan Aggarwal" class="student-avatar">
                     <div class="student-details">
@@ -421,7 +439,7 @@
             </div>
 
             <!-- Amit Kumar -->
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="800">
                 <div class="student-info">
                     <img src="src/assets/amit-kumar.jpg" alt="Amit Kumar" class="student-avatar">
                     <div class="student-details">
@@ -443,10 +461,10 @@
             </div>
         </div>
 
-        <div class="cta-section">
+        <div class="cta-section" data-aos="fade-up" data-aos-delay="900">
             <h2>Ready to Join Our Success Stories?</h2>
             <p>Master finance concepts like DCF, NPV, IRR, WACC, and P/E ratios through hands-on Excel experience</p>
-            <a href="#" class="cta-button">Start Learning Today</a>
+            <a href="#" class="cta-button" data-aos="zoom-in" data-aos-delay="950">Start Learning Today</a>
         </div>
     </div>
 </body>
