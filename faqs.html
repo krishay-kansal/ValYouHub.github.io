@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-   
+    <link rel="stylesheet" href="styles.css">
     <meta property="og:title" content="FAQ - ValYouHub">
     <meta property="og:description" content="Get answers to frequently asked questions about ValYouHub's valuation learning platform">
     <meta property="og:type" content="website">
@@ -27,8 +27,8 @@
 
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
-            color: #333;
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            color: #e5e7eb;
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -44,7 +44,7 @@
         .header {
             text-align: center;
             margin-bottom: 60px;
-            color: white;
+            color: #4f8cff;
         }
 
 
@@ -52,11 +52,9 @@
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, #fff, #f0f9ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #4f8cff;
+            background: none;
+            text-shadow: none;
         }
 
 
@@ -65,21 +63,22 @@
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
+            color: #b8bfc9;
         }
 
 
         .faq-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            background: #23325c;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
             backdrop-filter: blur(10px);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
 
         .faq-item {
-            border-bottom: 1px solid rgba(30, 64, 175, 0.1);
+            border-bottom: 1px solid #2c3e6c;
             transition: all 0.3s ease;
         }
 
@@ -90,7 +89,7 @@
 
 
         .faq-item:hover {
-            background: linear-gradient(90deg, rgba(30, 64, 175, 0.05), rgba(59, 130, 246, 0.05));
+            background: rgba(79, 140, 255, 0.08);
         }
 
 
@@ -103,7 +102,7 @@
             cursor: pointer;
             font-size: 1.1rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: #4f8cff;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -183,12 +182,9 @@
 
         .faq-answer-content {
             padding: 0 30px 25px 30px;
-            color: #555;
+            color: #e5e7eb;
             font-size: 1rem;
-            line-height: 1.7;
-            border-left: 4px solid transparent;
-            background: linear-gradient(to right, rgba(30, 64, 175, 0.1), transparent) 0 0 / 4px 100% no-repeat;
-            padding-left: 34px;
+            background: none;
         }
 
 
