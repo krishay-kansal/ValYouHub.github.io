@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic SEO -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About ValYou Hub – Finance Made Practical</title>
+  <meta name="description" content="ValYou Hub makes complex finance simple and practical. Learn NPV, DCF, IRR, WACC with hands-on, real-world learning." />
+  <link rel="canonical" href="https://krishay-kansal.github.io/ValYouHub.github.io/about" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="About ValYou Hub – Finance Made Practical" />
+  <meta property="og:description" content="Learn → Practice → Apply. Master core finance with real-world relevance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishay-kansal.github.io/ValYouHub.github.io/about" />
+  <meta property="og:image" content="https://krishay-kansal.github.io/ValYouHub.github.io/assets/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts (aligned to site) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <style>
+    :root{
+      /* Color tokens aligned with site */
+      --bg-900:#0b1f3a;        /* deep navy */
+      --bg-800:#0f335f;        /* navy-mid */
+      --primary-500:#007aff;   /* accent blue seen on site */
+      --primary-400:#2196ff;
+      --text-100:#e9f1ff;
+      --text-300:#c6dafc;
+      --muted-400:#9db7e4;
+      --card-bg:rgba(255,255,255,0.06);
+      --card-border:rgba(255,255,255,0.12);
+      --shadow:0 10px 30px rgba(0,122,255,.25);
+      --radius:16px;
+      --max-w:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+      color:var(--text-100);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(33,150,255,.12), transparent 60%),
+        linear-gradient(90deg, var(--bg-900) 0%, #0e2a4f 40%, #0f3c78 70%, #0f4ea5 100%);
+      background-color:var(--bg-900);
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Layout */
+    .container{max-width:var(--max-w);margin-inline:auto;padding:64px 20px}
+    header{position:relative}
+    .hero{
+      padding:92px 20px 72px;
+      background:linear-gradient(90deg, rgba(0,122,255,.06), rgba(0,122,255,0) 55%);
+    }
+    .hero-inner{max-width:var(--max-w);margin:0 auto;display:grid;gap:20px}
+    .eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--text-300);font-weight:600;font-size:.9rem}
+    h1{font-size:clamp(2rem,4vw+1rem,3rem);line-height:1.15;margin:.25rem 0 0}
+    p.lead{color:var(--text-300);max-width:60ch;margin:10px 0 22px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(135deg, var(--primary-500), var(--primary-400));
+      color:white;font-weight:600;box-shadow:var(--shadow);transition:transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px);filter:saturate(1.05)}
+    .grid{display:grid;gap:22px}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:960px){.grid-3,.grid-2{grid-template-columns:1fr}}
+    section{scroll-margin-top:80px}
+    section:not(.hero){padding-block:56px}
+    h2{font-size:1.75rem;margin:0 0 14px}
+    p{color:var(--text-300);margin:0 0 8px}
+
+    /* Cards */
+    .card{
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius:var(--radius);
+      padding:20px;
+      backdrop-filter:saturate(120%) blur(8px);
+    }
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--card-border);color:var(--text-300);font-size:.85rem}
+
+    /* Lists */
+    .features{display:grid;gap:14px}
+    .features li{list-style:none;display:flex;gap:10px;align-items:flex-start;color:var(--text-300)}
+    .features li::before{content:"✓";color:var(--primary-500);font-weight:700;margin-top:1px}
+
+    /* Steps */
+    .steps{display:grid;gap:16px}
+    .step{display:flex;gap:14px;align-items:flex-start}
+    .step-num{
+      width:36px;height:36px;border-radius:10px;display:inline-grid;place-items:center;
+      background:linear-gradient(135deg, rgba(0,122,255,.25), rgba(0,122,255,.05));
+      border:1px solid var(--card-border);color:var(--text-100);font-weight:700
+    }
+
+    /* Team */
+    .team{display:grid;gap:22px}
+    .team.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .avatar{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#0c2a4b;border:1px solid var(--card-border)}
+    .member h3{margin:12px 0 6px;font-size:1.1rem}
+    .role{color:var(--muted-400);font-size:.95rem;margin-bottom:8px}
+
+    /* Footer CTA */
+    .cta{
+      text-align:center;
+      padding:56px 20px 72px;
+      background:linear-gradient(180deg, rgba(0,122,255,.10), rgba(0,122,255,0));
+    }
+
+    /* Accessibility */
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:12px;top:12px;width:auto;height:auto;z-index:10;background:#fff;color:#000;padding:8px 12px;border-radius:8px}
+  </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AboutPage",
+    "name":"About ValYou Hub",
+    "url":"https://krishay-kansal.github.io/ValYouHub.github.io/about",
+    "mainEntity":{
+      "@type":"Organization",
+      "name":"ValYou Hub",
+      "description":"Making finance clear, practical, and accessible for everyone.",
+      "brand":"ValYou Hub"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    "name":"ValYou Hub Team",
+    "itemListElement":[
+      {"@type":"Person","name":"Krishay Kansal","jobTitle":"CFA Level II Candidate"},
+      {"@type":"Person","name":"Shikhar Mahipal","jobTitle":"CFA Level I"},
+      {"@type":"Person","name":"Diya Bansal","jobTitle":"Finance & Strategy Enthusiast"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <span class="eyebrow">About Us</span>
+      <h1>Master Finance. Apply It. Succeed.</h1>
+      <p class="lead">ValYou Hub makes complex financial concepts easy and practical—so you can use them with confidence in studies, careers, and real projects.</p>
+      <p><a class="btn" href="https://krishay-kansal.github.io/ValYouHub.github.io/#modules" aria-label="Start Learning Now on ValYou Hub">Start Learning Now</a></p>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Our Mission -->
+    <section aria-labelledby="mission-title">
+      <div class="container">
+        <div class="card">
+          <h2 id="mission-title">Our Mission</h2>
+          <p>We make finance clear, practical, and accessible for everyone—no jargon, no fluff.</p>
+          <p>Every concept bridges theory with real-world application, so you don’t just learn—you can do.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section aria-labelledby="offer-title">
+      <div class="container grid grid-2">
+        <article class="card">
+          <h2 id="offer-title">What We Offer</h2>
+          <ul class="features" aria-label="Core Finance Topics">
+            <li><strong>NPV</strong> – Understand value today and when to invest.</li>
+            <li><strong>DCF</strong> – Learn cash-flow based valuation end-to-end.</li>
+            <li><strong>IRR</strong> – Compare opportunities and returns properly.</li>
+            <li><strong>WACC</strong> – Estimate discount rates the right way.</li>
+          </ul>
+          <p class="pill">We explain the how, why, and where to apply each.</p>
+        </article>
+        <article class="card">
+          <h2>Hands-On Learning</h2>
+          <p>Practice directly in Excel with interactive, step-by-step exercises that simulate real projects.</p>
+          <p>Build muscle memory by calculating, auditing, and interpreting results the way analysts do.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section aria-labelledby="approach-title">
+      <div class="container">
+        <div class="card">
+          <h2 id="approach-title">Our Approach: Learn → Practice → Apply</h2>
+          <div class="steps grid grid-3" role="list">
+            <div class="step card" role="listitem">
+              <div class="step-num" aria-hidden="true">1</div>
+              <div>
+                <h3>Learn</h3>
+                <p>Crystal-clear lessons that simplify complex ideas.</p>
+              </div>
+            </div>
+            <div class="step card" role="listitem">
+              <div class="step-num" aria-hidden="true">2</div>
+              <div>
+                <h3>Practice</h3>
+                <p>Guided Excel tasks with checkpoints and tips.</p>
+              </div>
+            </div>
+            <div class="step card" role="listitem">
+              <div class="step-num" aria-hidden="true">3</div>
+              <div>
+                <h3>Apply</h3>
+                <p>Use your skills on real-world style cases and models.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section aria-labelledby="why-title">
+      <div class="container">
+        <div class="card">
+          <h2 id="why-title">Why Choose Us</h2>
+          <ul class="features">
+            <li>Practical focus with real outcomes.</li>
+            <li>Structured learning that builds confidence.</li>
+            <li>Flexible, self-paced access.</li>
+            <li>Industry relevance for internships and jobs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Team -->
+    <section aria-labelledby="team-title">
+      <div class="container">
+        <h2 id="team-title">Our Team</h2>
+        <div class="team grid grid-3">
+          <!-- Krishay -->
+          <article class="member card" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" content="Krishay Kansal" />
+            <div class="avatar">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1603415526960-f7e0328d9f54?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Krishay Kansal, finance educator" />
+            </div>
+            <h3 itemprop="name">Krishay Kansal</h3>
+            <div class="role" itemprop="jobTitle">CFA Level II Candidate, IIM Rohtak</div>
+            <p>Expert in financial modeling, valuation, and investment analysis. Passionate about turning complex formulas into simple, actionable insights.</p>
+            <p>Experience in equity research, case evaluations, and finance mentorship for real-world readiness.</p>
+          </article>
+
+          <!-- Shikhar -->
+          <article class="member card" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" content="Shikhar Mahipal" />
+            <div class="avatar">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Shikhar Mahipal, data-driven finance professional" />
+            </div>
+            <h3 itemprop="name">Shikhar Mahipal</h3>
+            <div class="role" itemprop="jobTitle">CFA Level I, IIM Rohtak</div>
+            <p>Combines finance with data analytics and BI tools. Builds dashboards, tracks corporate finance metrics, and crafts Excel-based practice modules.</p>
+            <p>Focused on practical, interactive learning and real-world case studies.</p>
+          </article>
+
+          <!-- Diya -->
+          <article class="member card" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" content="Diya Bansal" />
+            <div class="avatar">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Diya Bansal, finance and strategy enthusiast" />
+            </div>
+            <h3 itemprop="name">Diya Bansal</h3>
+            <div class="role" itemprop="jobTitle">Finance &amp; Strategy Enthusiast, IIM Rohtak</div>
+            <p>Versatile problem-solver with experience in strategic assessments and business analysis. Simplifies intricate topics for professional use.</p>
+            <p>Brings clarity and engagement to make technical subjects accessible.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Us Today -->
+    <section class="cta" aria-labelledby="join-title">
+      <div class="container" style="text-align:center">
+        <h2 id="join-title">Join Us Today</h2>
+        <p>Move from knowing to doing—start learning finance the smart way.</p>
+        <p style="margin-top:14px">
+          <a class="btn" href="https://krishay-kansal.github.io/ValYouHub.github.io/#modules" aria-label="Get Started on ValYou Hub">Get Started</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
