@@ -1,301 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic SEO -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About ValYou Hub – Finance Made Practical</title>
-  <meta name="description" content="ValYou Hub makes complex finance simple and practical. Learn NPV, DCF, IRR, WACC with hands-on, real-world learning." />
-  <link rel="canonical" href="https://krishay-kansal.github.io/ValYouHub.github.io/about" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ValYou Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="About ValYou Hub – Finance Made Practical" />
-  <meta property="og:description" content="Learn → Practice → Apply. Master core finance with real-world relevance." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://krishay-kansal.github.io/ValYouHub.github.io/about" />
-  <meta property="og:image" content="https://krishay-kansal.github.io/ValYouHub.github.io/assets/og-default.png" />
-  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (aligned to site) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1b2e 0%, #16213e 50%, #0f172a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
 
-  <!-- Styles -->
-  <style>
-    :root{
-      /* Color tokens aligned with site */
-      --bg-900:#0b1f3a;        /* deep navy */
-      --bg-800:#0f335f;        /* navy-mid */
-      --primary-500:#007aff;   /* accent blue seen on site */
-      --primary-400:#2196ff;
-      --text-100:#e9f1ff;
-      --text-300:#c6dafc;
-      --muted-400:#9db7e4;
-      --card-bg:rgba(255,255,255,0.06);
-      --card-border:rgba(255,255,255,0.12);
-      --shadow:0 10px 30px rgba(0,122,255,.25);
-      --radius:16px;
-      --max-w:1120px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-      color:var(--text-100);
-      background:
-        radial-gradient(1200px 600px at 15% 10%, rgba(33,150,255,.12), transparent 60%),
-        linear-gradient(90deg, var(--bg-900) 0%, #0e2a4f 40%, #0f3c78 70%, #0f4ea5 100%);
-      background-color:var(--bg-900);
-    }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
 
-    /* Layout */
-    .container{max-width:var(--max-w);margin-inline:auto;padding:64px 20px}
-    header{position:relative}
-    .hero{
-      padding:92px 20px 72px;
-      background:linear-gradient(90deg, rgba(0,122,255,.06), rgba(0,122,255,0) 55%);
-    }
-    .hero-inner{max-width:var(--max-w);margin:0 auto;display:grid;gap:20px}
-    .eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--text-300);font-weight:600;font-size:.9rem}
-    h1{font-size:clamp(2rem,4vw+1rem,3rem);line-height:1.15;margin:.25rem 0 0}
-    p.lead{color:var(--text-300);max-width:60ch;margin:10px 0 22px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
-      background:linear-gradient(135deg, var(--primary-500), var(--primary-400));
-      color:white;font-weight:600;box-shadow:var(--shadow);transition:transform .15s ease, filter .15s ease;
-    }
-    .btn:hover{transform:translateY(-1px);filter:saturate(1.05)}
-    .grid{display:grid;gap:22px}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:960px){.grid-3,.grid-2{grid-template-columns:1fr}}
-    section{scroll-margin-top:80px}
-    section:not(.hero){padding-block:56px}
-    h2{font-size:1.75rem;margin:0 0 14px}
-    p{color:var(--text-300);margin:0 0 8px}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    /* Cards */
-    .card{
-      background:var(--card-bg);
-      border:1px solid var(--card-border);
-      border-radius:var(--radius);
-      padding:20px;
-      backdrop-filter:saturate(120%) blur(8px);
-    }
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--card-border);color:var(--text-300);font-size:.85rem}
 
-    /* Lists */
-    .features{display:grid;gap:14px}
-    .features li{list-style:none;display:flex;gap:10px;align-items:flex-start;color:var(--text-300)}
-    .features li::before{content:"✓";color:var(--primary-500);font-weight:700;margin-top:1px}
+        .section {
+            padding: 60px 0;
+        }
 
-    /* Steps */
-    .steps{display:grid;gap:16px}
-    .step{display:flex;gap:14px;align-items:flex-start}
-    .step-num{
-      width:36px;height:36px;border-radius:10px;display:inline-grid;place-items:center;
-      background:linear-gradient(135deg, rgba(0,122,255,.25), rgba(0,122,255,.05));
-      border:1px solid var(--card-border);color:var(--text-100);font-weight:700
-    }
 
-    /* Team */
-    .team{display:grid;gap:22px}
-    .team.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .avatar{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#0c2a4b;border:1px solid var(--card-border)}
-    .member h3{margin:12px 0 6px;font-size:1.1rem}
-    .role{color:var(--muted-400);font-size:.95rem;margin-bottom:8px}
+        .hero-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* Footer CTA */
-    .cta{
-      text-align:center;
-      padding:56px 20px 72px;
-      background:linear-gradient(180deg, rgba(0,122,255,.10), rgba(0,122,255,0));
-    }
 
-    /* Accessibility */
-    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip:focus{left:12px;top:12px;width:auto;height:auto;z-index:10;background:#fff;color:#000;padding:8px 12px;border-radius:8px}
-  </style>
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"AboutPage",
-    "name":"About ValYou Hub",
-    "url":"https://krishay-kansal.github.io/ValYouHub.github.io/about",
-    "mainEntity":{
-      "@type":"Organization",
-      "name":"ValYou Hub",
-      "description":"Making finance clear, practical, and accessible for everyone.",
-      "brand":"ValYou Hub"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "name":"ValYou Hub Team",
-    "itemListElement":[
-      {"@type":"Person","name":"Krishay Kansal","jobTitle":"CFA Level II Candidate"},
-      {"@type":"Person","name":"Shikhar Mahipal","jobTitle":"CFA Level I"},
-      {"@type":"Person","name":"Diya Bansal","jobTitle":"Finance & Strategy Enthusiast"}
-    ]
-  }
-  </script>
+
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .cta-button {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .mission-section {
+            background: rgba(30, 58, 138, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 40px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+
+        .mission-text {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+
+        .feature-card {
+            background: rgba(30, 58, 138, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        }
+
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #60a5fa;
+        }
+
+
+        .feature-description {
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+
+        .approach-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+
+
+        .team-section {
+            background: rgba(30, 58, 138, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 40px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+
+        .team-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        }
+
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            border: 4px solid #3b82f6;
+            object-fit: cover;
+        }
+
+
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+
+
+        .team-title {
+            font-size: 1rem;
+            color: #f59e0b;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+
+        .team-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            text-align: left;
+        }
+
+
+        .final-cta {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            text-align: center;
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+
+        .final-cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+
+        .final-cta-text {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+
+        .concept-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+
+        .concept-item {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+
+        .concept-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+
+        .concept-title {
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 5px;
+        }
+
+
+        .concept-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+           
+            .section-title {
+                font-size: 2rem;
+            }
+           
+            .mission-section,
+            .team-section {
+                padding: 40px 20px;
+            }
+           
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+           
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="hero" role="banner">
-    <div class="hero-inner">
-      <span class="eyebrow">About Us</span>
-      <h1>Master Finance. Apply It. Succeed.</h1>
-      <p class="lead">ValYou Hub makes complex financial concepts easy and practical—so you can use them with confidence in studies, careers, and real projects.</p>
-      <p><a class="btn" href="https://krishay-kansal.github.io/ValYouHub.github.io/#modules" aria-label="Start Learning Now on ValYou Hub">Start Learning Now</a></p>
-    </div>
-  </header>
-
-  <main id="main">
-    <!-- Our Mission -->
-    <section aria-labelledby="mission-title">
-      <div class="container">
-        <div class="card">
-          <h2 id="mission-title">Our Mission</h2>
-          <p>We make finance clear, practical, and accessible for everyone—no jargon, no fluff.</p>
-          <p>Every concept bridges theory with real-world application, so you don’t just learn—you can do.</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Master Finance. Apply It. Succeed.</h1>
+                <p class="hero-subtitle">
+                    ValYou Hub makes complex financial concepts easy and practical, bridging the gap between theory and real-world application.
+                </p>
+                <a href="#start-learning" class="cta-button">Start Learning Now</a>
+            </div>
         </div>
-      </div>
     </section>
+
+
+    <!-- Our Mission -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-section">
+                <p class="mission-text">
+                    We're on a mission to make finance clear, practical, and accessible for everyone. We believe that financial literacy shouldn't be limited to textbooks and complex theories. Our goal is to bridge the gap between academic knowledge and real-world application, empowering learners to confidently apply financial concepts in their professional and personal lives.
+                </p>
+            </div>
+        </div>
+    </section>
+
 
     <!-- What We Offer -->
-    <section aria-labelledby="offer-title">
-      <div class="container grid grid-2">
-        <article class="card">
-          <h2 id="offer-title">What We Offer</h2>
-          <ul class="features" aria-label="Core Finance Topics">
-            <li><strong>NPV</strong> – Understand value today and when to invest.</li>
-            <li><strong>DCF</strong> – Learn cash-flow based valuation end-to-end.</li>
-            <li><strong>IRR</strong> – Compare opportunities and returns properly.</li>
-            <li><strong>WACC</strong> – Estimate discount rates the right way.</li>
-          </ul>
-          <p class="pill">We explain the how, why, and where to apply each.</p>
-        </article>
-        <article class="card">
-          <h2>Hands-On Learning</h2>
-          <p>Practice directly in Excel with interactive, step-by-step exercises that simulate real projects.</p>
-          <p>Build muscle memory by calculating, auditing, and interpreting results the way analysts do.</p>
-        </article>
-      </div>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="concept-list">
+                <div class="concept-item">
+                    <div class="concept-title">NPV</div>
+                    <div class="concept-description">Net Present Value - Understanding time value of money</div>
+                </div>
+                <div class="concept-item">
+                    <div class="concept-title">DCF</div>
+                    <div class="concept-description">Discounted Cash Flow - Valuing future cash flows</div>
+                </div>
+                <div class="concept-item">
+                    <div class="concept-title">IRR</div>
+                    <div class="concept-description">Internal Rate of Return - Measuring investment efficiency</div>
+                </div>
+                <div class="concept-item">
+                    <div class="concept-title">WACC</div>
+                    <div class="concept-description">Weighted Average Cost of Capital - Cost of financing</div>
+                </div>
+            </div>
+            <div class="mission-section">
+                <p class="mission-text">
+                    We don't just teach these concepts—we show you the "how," "why," and "where" to apply each one. Every lesson is designed to move you from knowing to doing, with practical examples and real-world scenarios.
+                </p>
+            </div>
+        </div>
     </section>
+
+
+    <!-- Hands-On Learning -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Hands-On Learning</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Interactive Excel Practice</h3>
+                    <p class="feature-description">
+                        Master financial modeling through guided Excel exercises. Build real models, practice with actual data, and develop the technical skills employers value.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Step-by-Step Exercises</h3>
+                    <p class="feature-description">
+                        Our carefully crafted exercises take you through each concept methodically, ensuring you understand both the mechanics and the reasoning behind every calculation.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3 class="feature-title">True Learning Experience</h3>
+                    <p class="feature-description">
+                        Move beyond memorization to genuine comprehension. Our interactive approach ensures you can apply concepts confidently in any situation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Our Approach -->
-    <section aria-labelledby="approach-title">
-      <div class="container">
-        <div class="card">
-          <h2 id="approach-title">Our Approach: Learn → Practice → Apply</h2>
-          <div class="steps grid grid-3" role="list">
-            <div class="step card" role="listitem">
-              <div class="step-num" aria-hidden="true">1</div>
-              <div>
-                <h3>Learn</h3>
-                <p>Crystal-clear lessons that simplify complex ideas.</p>
-              </div>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Approach</h2>
+            <div class="approach-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Learn</h3>
+                    <p>Understand core concepts through clear explanations and visual aids</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Practice</h3>
+                    <p>Apply knowledge through hands-on Excel exercises and real scenarios</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Apply</h3>
+                    <p>Use your skills confidently in professional and academic settings</p>
+                </div>
             </div>
-            <div class="step card" role="listitem">
-              <div class="step-num" aria-hidden="true">2</div>
-              <div>
-                <h3>Practice</h3>
-                <p>Guided Excel tasks with checkpoints and tips.</p>
-              </div>
+            <div class="mission-section">
+                <p class="mission-text">
+                    Every lesson is designed to move learners from knowing to doing. We believe that true mastery comes from understanding not just what to do, but when and why to do it.
+                </p>
             </div>
-            <div class="step card" role="listitem">
-              <div class="step-num" aria-hidden="true">3</div>
-              <div>
-                <h3>Apply</h3>
-                <p>Use your skills on real-world style cases and models.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
+
 
     <!-- Why Choose Us -->
-    <section aria-labelledby="why-title">
-      <div class="container">
-        <div class="card">
-          <h2 id="why-title">Why Choose Us</h2>
-          <ul class="features">
-            <li>Practical focus with real outcomes.</li>
-            <li>Structured learning that builds confidence.</li>
-            <li>Flexible, self-paced access.</li>
-            <li>Industry relevance for internships and jobs.</li>
-          </ul>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Practical Focus</h3>
+                    <p class="feature-description">
+                        Every concept is taught with real-world applications in mind, ensuring you can immediately use what you learn.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Structured Learning</h3>
+                    <p class="feature-description">
+                        Our curriculum follows a logical progression, building complexity gradually and reinforcing key concepts.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">Flexible Access</h3>
+                    <p class="feature-description">
+                        Learn at your own pace, whenever and wherever suits you best, with lifetime access to all materials.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3 class="feature-title">Industry Relevance</h3>
+                    <p class="feature-description">
+                        Our content is created by finance professionals who understand what skills are actually needed in the workplace.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
+
 
     <!-- Our Team -->
-    <section aria-labelledby="team-title">
-      <div class="container">
-        <h2 id="team-title">Our Team</h2>
-        <div class="team grid grid-3">
-          <!-- Krishay -->
-          <article class="member card" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" content="Krishay Kansal" />
-            <div class="avatar">
-              <img loading="lazy" src="https://images.unsplash.com/photo-1603415526960-f7e0328d9f54?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Krishay Kansal, finance educator" />
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-section">
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="src/assets/krishay-kansal.jpg" alt="Krishay Kansal" class="team-photo">
+                        <h3 class="team-name">Krishay Kansal</h3>
+                        <p class="team-title">CFA Level II Candidate, IIM Rohtak</p>
+                        <p class="team-description">
+                            Krishay brings a sharp analytical mind and deep expertise in financial modeling, valuation techniques, and investment analysis. As a CFA Level II candidate, he has an advanced understanding of global financial markets and corporate decision-making. Over the years, Krishay has worked on equity research projects, business case evaluations, and financial strategy development. He is passionate about breaking down complex formulas into simple, actionable insights for learners. Beyond teaching, he mentors students for finance competitions, ensuring they're ready for the challenges of the real world.
+                        </p>
+                    </div>
+                    <div class="team-card">
+                        <img src="src/assets/shikhar-mahipal.jpg" alt="Shikhar Mahipal" class="team-photo">
+                        <h3 class="team-name">Shikhar Mahipal</h3>
+                        <p class="team-title">CFA Level I, IIM Rohtak</p>
+                        <p class="team-description">
+                            Shikhar combines financial expertise with a strong command of data analytics and business intelligence tools. Skilled in financial analysis, valuation, and business strategy, he has worked on building sales dashboards, monitoring corporate finance metrics, and integrating BI tools like Tableau and Power BI into decision-making workflows. He believes finance education should be practical, interactive, and directly applicable, which drives his work in creating Excel-based practice modules and real-world case studies for learners. His goal is to equip students with skills they can confidently use in both academic and corporate environments.
+                        </p>
+                    </div>
+                    <div class="team-card">
+                        <img src="src/assets/diya-bansal.jpg" alt="Diya Bansal" class="team-photo">
+                        <h3 class="team-name">Diya Bansal</h3>
+                        <p class="team-title">Finance & Strategy Enthusiast, IIM Rohtak</p>
+                        <p class="team-description">
+                            Diya is a versatile problem-solver with a strong foundation in finance, strategy, and business analysis. She has hands-on experience in evaluating business cases, performing strategic financial assessments, and solving complex decision-making problems. With a knack for simplifying intricate topics, Diya ensures that learners not only understand key finance concepts but also know how to apply them in professional contexts. Her creative approach brings clarity and engagement to finance education, making even the most technical topics accessible and interesting.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <h3 itemprop="name">Krishay Kansal</h3>
-            <div class="role" itemprop="jobTitle">CFA Level II Candidate, IIM Rohtak</div>
-            <p>Expert in financial modeling, valuation, and investment analysis. Passionate about turning complex formulas into simple, actionable insights.</p>
-            <p>Experience in equity research, case evaluations, and finance mentorship for real-world readiness.</p>
-          </article>
-
-          <!-- Shikhar -->
-          <article class="member card" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" content="Shikhar Mahipal" />
-            <div class="avatar">
-              <img loading="lazy" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Shikhar Mahipal, data-driven finance professional" />
-            </div>
-            <h3 itemprop="name">Shikhar Mahipal</h3>
-            <div class="role" itemprop="jobTitle">CFA Level I, IIM Rohtak</div>
-            <p>Combines finance with data analytics and BI tools. Builds dashboards, tracks corporate finance metrics, and crafts Excel-based practice modules.</p>
-            <p>Focused on practical, interactive learning and real-world case studies.</p>
-          </article>
-
-          <!-- Diya -->
-          <article class="member card" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" content="Diya Bansal" />
-            <div class="avatar">
-              <img loading="lazy" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=1200&auto=format&fit=crop" alt="Sample professional portrait for Diya Bansal, finance and strategy enthusiast" />
-            </div>
-            <h3 itemprop="name">Diya Bansal</h3>
-            <div class="role" itemprop="jobTitle">Finance &amp; Strategy Enthusiast, IIM Rohtak</div>
-            <p>Versatile problem-solver with experience in strategic assessments and business analysis. Simplifies intricate topics for professional use.</p>
-            <p>Brings clarity and engagement to make technical subjects accessible.</p>
-          </article>
         </div>
-      </div>
     </section>
+
 
     <!-- Join Us Today -->
-    <section class="cta" aria-labelledby="join-title">
-      <div class="container" style="text-align:center">
-        <h2 id="join-title">Join Us Today</h2>
-        <p>Move from knowing to doing—start learning finance the smart way.</p>
-        <p style="margin-top:14px">
-          <a class="btn" href="https://krishay-kansal.github.io/ValYouHub.github.io/#modules" aria-label="Get Started on ValYou Hub">Get Started</a>
-        </p>
-      </div>
+    <section class="section">
+        <div class="container">
+            <div class="final-cta">
+                <h2 class="final-cta-title">Join Us Today</h2>
+                <p class="final-cta-text">
+                    Ready to transform your understanding of finance? Start your journey from knowing to doing with ValYou Hub.
+                </p>
+                <a href="#get-started" class="cta-button">Get Started</a>
+            </div>
+        </div>
     </section>
-  </main>
 </body>
 </html>
+

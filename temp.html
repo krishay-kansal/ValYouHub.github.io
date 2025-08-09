@@ -1,0 +1,51 @@
+<!-- Advanced Discounting Simulation Section (now includes PMT) -->
+  <section class="discounting-section glass" id="discounting-animation">
+    <div class="discounting-container">
+      <h2 data-aos="fade-up">Simulate Discounting of Money</h2>
+      <div class="discounting-controls">
+        <label for="discounting-n">Years (n): <span id="discounting-n-value">3</span></label>
+        <input type="range" id="discounting-n" min="0" max="10" value="3" />
+        <label for="discounting-rate">Rate of Interest (r): <span id="discounting-rate-value">10</span>%</label>
+        <input type="range" id="discounting-rate" min="1" max="20" value="10" />
+        <label for="discounting-pmt">Future Value (FV): ₹<span id="discounting-pmt-value">1000</span></label>
+        <input type="range" id="discounting-pmt" min="100" max="5000" step="50" value="1000" />
+        <div class="pmt-group">
+          <label for="discounting-annpmt">Annual Payment (PMT): ₹<span id="discounting-annpmt-value">0</span></label>
+          <input type="range" id="discounting-annpmt" min="0" max="5000" step="50" value="0" />
+        </div>
+      </div>
+      <div class="discounting-animation-wrapper">
+        <svg id="discounting-svg" width="600" height="220" viewBox="0 0 600 220">
+          <!-- Timeline -->
+          <line x1="80" y1="180" x2="520" y2="180" stroke="#4f8cff" stroke-width="6" />
+          <!-- Year markers -->
+          <g id="year-markers">
+            <circle cx="80" cy="180" r="10" fill="#4f8cff" />
+            <circle cx="180" cy="180" r="10" fill="#4f8cff" />
+            <circle cx="280" cy="180" r="10" fill="#4f8cff" />
+            <circle cx="380" cy="180" r="10" fill="#4f8cff" />
+            <circle cx="480" cy="180" r="10" fill="#4f8cff" />
+            <circle cx="520" cy="180" r="10" fill="#4f8cff" />
+          </g>
+          <!-- Money bill -->
+          <g id="money-group">
+            <rect x="-60" y="-30" width="120" height="60" rx="16" fill="#4f8cff" stroke="#23325c" stroke-width="4" />
+            <text x="0" y="0" text-anchor="middle" font-size="32" fill="#fff" font-family="Poppins" id="money-value">₹1000</text>
+          </g>
+          <!-- Arrow -->
+          <g id="arrow-group">
+            <polygon points="0,0 20,10 0,20" fill="#4f8cff" />
+          </g>
+        </svg>
+        <div class="discounting-formula" id="discounting-formula">
+          <span id="formula-fv">FV = ₹1000</span> &nbsp; | &nbsp;
+          <span id="formula-rate">r = 10%</span> &nbsp; | &nbsp;
+          <span id="formula-n">n = 3</span> &nbsp; | &nbsp;
+          <span id="formula-pmt">PMT = ₹0</span> &nbsp; | &nbsp;
+          <span id="formula-pv">PV = ₹751</span>
+        </div>
+      </div>
+      <p class="discounting-desc">Adjust the sliders to simulate how future money and annual payments are discounted to present value.</p>
+    </div>
+  </section>
+  <hr class="section-divider" />
