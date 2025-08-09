@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="aos-init.js"></script>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             margin: 0;
@@ -20,19 +19,20 @@
         body {
             font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            min-height: 100vh;
             color: #e5e7eb;
         }
 
         .container {
-            background: rgba(22, 33, 62, 0.92);
-            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
-            border-radius: 14px;
-            border: 1px solid #23325c;
+            width: 100%;
+            max-width: none;
+            margin: 0;
             padding: 40px 0;
             padding-left: 5vw;
             padding-right: 5vw;
-            max-width: 1200px;
-            margin: 40px auto;
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.18);
         }
         @media (max-width: 900px) {
             .container {
@@ -61,15 +61,13 @@
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
-            color: #b8bfc9;
         }
 
         .rating-summary {
-            background: #23325c;
-            border-radius: 12px;
-            border: 1px solid #2c3e6c;
-            color: #e5e7eb;
-            box-shadow: 0 2px 12px rgba(20,24,40,0.10);
+            background: rgba(22, 33, 62, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border-radius: 14px;
+            border: 1px solid #23325c;
             padding: 30px;
             text-align: center;
             margin-bottom: 50px;
@@ -79,7 +77,6 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 8px;
-            color: #4f8cff;
         }
 
         .stars {
@@ -96,16 +93,19 @@
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
+            gap: 30px;
             margin-bottom: 50px;
-            background: none;
         }
 
         .testimonial-card {
-            background: #23325c;
-            color: #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(20,24,40,0.10);
+            background: rgba(22, 33, 62, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.18);
+            border-radius: 14px;
+            border: 1px solid #23325c;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
         .testimonial-card::before {
