@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ValYouHub</title>
+    <meta name="description" content="Frequently Asked Questions about ValYouHub - Your interactive guide to understanding valuation">
+    <meta name="author" content="ValYouHub">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   
+    <meta property="og:title" content="FAQ - ValYouHub">
+    <meta property="og:description" content="Get answers to frequently asked questions about ValYouHub's valuation learning platform">
+    <meta property="og:type" content="website">
+   
+    <meta name="twitter:card" content="summary_large_image">
+   
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: white;
+        }
+
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+
+        .faq-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+
+        .faq-item {
+            border-bottom: 1px solid rgba(30, 64, 175, 0.1);
+            transition: all 0.3s ease;
+        }
+
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+
+        .faq-item:hover {
+            background: linear-gradient(90deg, rgba(30, 64, 175, 0.05), rgba(59, 130, 246, 0.05));
+        }
+
+
+        .faq-question {
+            width: 100%;
+            padding: 25px 30px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .faq-question::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+
+        .faq-question:hover::before,
+        .faq-item.active .faq-question::before {
+            transform: scaleY(1);
+        }
+
+
+        .faq-question:hover {
+            color: #1e40af;
+            background: linear-gradient(90deg, rgba(30, 64, 175, 0.08), transparent);
+        }
+
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+
+        .faq-icon::before {
+            content: '+';
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+
+        .faq-item.active .faq-icon {
+            transform: rotate(135deg);
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+        }
+
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(90deg, rgba(30, 64, 175, 0.02), rgba(59, 130, 246, 0.02));
+        }
+
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+
+        .faq-answer-content {
+            padding: 0 30px 25px 30px;
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+            border-left: 4px solid transparent;
+            background: linear-gradient(to right, rgba(30, 64, 175, 0.1), transparent) 0 0 / 4px 100% no-repeat;
+            padding-left: 34px;
+        }
+
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @keyframes slideDown {
+            from {
+                max-height: 0;
+                opacity: 0;
+            }
+            to {
+                max-height: 500px;
+                opacity: 1;
+            }
+        }
+
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .back-link::before {
+            content: '←';
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+
+        .contact-section {
+            text-align: center;
+            margin-top: 60px;
+            color: white;
+        }
+
+
+        .contact-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, #f0f9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+
+
+        .contact-button:hover {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+
+        .contact-button::after {
+            content: '→';
+            margin-left: 10px;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+
+        .contact-button:hover::after {
+            transform: translateX(5px);
+        }
+
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+
+        .stat-item {
+            text-align: center;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 150px;
+        }
+
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            background: linear-gradient(45deg, #fff, #f0f9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+
+            .header p {
+                font-size: 1rem;
+            }
+
+
+            .faq-question {
+                padding: 20px 20px;
+                font-size: 1rem;
+            }
+
+
+            .faq-answer-content {
+                padding: 0 20px 20px 24px;
+                font-size: 0.95rem;
+            }
+
+
+            .faq-icon {
+                margin-left: 15px;
+            }
+
+
+            .contact-text {
+                font-size: 1.1rem;
+                margin-bottom: 25px;
+            }
+
+
+            .contact-button {
+                padding: 12px 28px;
+                font-size: 1rem;
+            }
+
+
+            .stats {
+                gap: 20px;
+            }
+
+
+            .stat-item {
+                padding: 15px 20px;
+                min-width: 120px;
+            }
+
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       
+       
+        <div class="header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Get answers to the most common questions about ValYouHub and start your valuation learning journey today</p>
+        </div>
+
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What is ValYouHub?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        ValYouHub is your interactive guide to understanding valuation — the art and science of figuring out what something is truly worth. We take what's often seen as a dry, complex subject and turn it into a clear, structured, and surprisingly engaging journey. With us, you learn not just what valuation is, but how it's actually done.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Who is ValYouHub for?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        If you're a student exploring finance, an aspiring analyst, a startup enthusiast, or simply someone who's ever wondered, "Is this really worth that much?", you'll find a place here. Our platform caters to beginners while still offering depth for those who want to strengthen and sharpen their valuation skills.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How is ValYouHub different from other learning sites?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Think of us as the difference between reading a recipe and actually cooking the dish. We don't just list formulas — we guide you through valuation methods step-by-step, supported by examples and practice questions. By the end, you're not just memorising processes, you're applying them with confidence.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Do I need prior knowledge to use ValYouHub?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Not at all. If you can read this, you're ready to start. We begin with easy-to-follow basics and gradually build toward more advanced concepts, ensuring no one feels left behind. Whether you're new to finance or refreshing your knowledge, you'll find our lessons approachable yet insightful.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is the learning self-paced?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes — completely. Whether you prefer quick 10-minute study bursts between classes or a dedicated evening of deep learning, you decide the pace. There are no timers, no rigid schedules, and no "you missed the deadline" reminders — just steady progress at your own speed.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I test my knowledge?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        By actively applying it. After each topic, you'll find quizzes, scenario challenges, and real-world style problems that reinforce what you've learned. Every answer comes with a clear explanation, so you not only know what was right but understand why it was right.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Will I become a valuation expert overnight?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We wish! True expertise takes time, practice, and real-world exposure. What we offer is a faster, more guided path by giving you the right tools, processes, and examples from the start. You'll avoid common beginner mistakes and focus on building genuine skill from day one.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is ValYouHub free to use?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes — our core content is free to access so anyone can begin their valuation journey. As we grow, some premium features may be introduced, but our goal will always be to keep high-quality learning accessible to everyone with curiosity and dedication.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can I use what I learn here in real life?</span>
+                    <div class="faq-icon"></div>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely. From pricing a startup or negotiating a deal, to finally understanding why one company is worth billions while another isn't — valuation knowledge is everywhere once you know where to look. Our goal is to give you skills you can spot, use, and benefit from in daily life.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="contact-section">
+            <div class="contact-text">
+                Still curious? We love questions. Send yours our way.
+            </div>
+            <a href="#" class="contact-button">Contact Us</a>
+        </div>
+
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">Free Access</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <div class="stat-label">Available</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+           
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+               
+                question.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+                   
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                   
+                    // Toggle current item
+                    if (isActive) {
+                        item.classList.remove('active');
+                    } else {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+
+            // Add smooth scroll behavior for better UX
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    setTimeout(() => {
+                        const item = this.closest('.faq-item');
+                        if (item.classList.contains('active')) {
+                            item.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest'
+                            });
+                        }
+                    }, 100);
+                });
+            });
+
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    faqItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                }
+            });
+
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+
+            // Observe FAQ items for scroll animations
+            faqItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
+
