@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - ValYou Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            font-family: 'Poppins', 'Inter', Arial, sans-serif;
+            color: #e5e7eb;
+        }
+        .courses-hero {
+            background: linear-gradient(120deg, #23325c 0%, #4f8cff 100%);
+            color: #e5e7eb;
+            padding: 56px 0 32px 0;
+            text-align: center;
+        }
+        .courses-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+        .courses-hero p {
+            font-size: 1.25rem;
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+        .courses-intro {
+            max-width: 700px;
+            margin: 32px auto 0 auto;
+            font-size: 1.08rem;
+            color: #b8bfc9;
+            background: rgba(22, 33, 62, 0.92);
+            border-radius: 14px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            padding: 24px 32px;
+        }
+        .courses-flashcards {
+            margin: 48px auto;
+            max-width: 900px;
+            padding: 0 5vw;
+        }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        @media (max-width: 900px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .course-card {
+            background: #23325c;
+            color: #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(79,140,255,0.14);
+            padding: 0;
+            text-align: center;
+            transition: box-shadow 0.25s, transform 0.25s, border 0.25s;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid #23325c;
+            width: 100%;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .course-card:hover {
+            box-shadow: 0 12px 36px rgba(79,140,255,0.22);
+            transform: translateY(-6px) scale(1.03);
+            border-color: #4f8cff;
+        }
+        .course-card .icon-wrap {
+            margin-top: 32px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(120deg, #4f8cff 0%, #23325c 100%);
+            box-shadow: 0 2px 12px rgba(79,140,255,0.18);
+        }
+        .course-card i {
+            font-size: 2.2rem;
+            color: #fff;
+            width: 2.2rem;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .course-card h2 {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #4f8cff;
+            margin-bottom: 8px;
+            margin-top: 16px;
+            letter-spacing: 0.2px;
+        }
+        .course-card p {
+            font-size: 0.98rem;
+            color: #b8bfc9;
+            opacity: 0.98;
+            margin-bottom: 0;
+            padding: 0 18px;
+        }
+        .course-card .explore-btn {
+            margin-top: 18px;
+            background: linear-gradient(90deg,#23325c,#4f8cff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 9px 22px;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+            transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+            font-size: 0.98rem;
+            cursor: pointer;
+        }
+        .course-card .explore-btn:hover {
+            background: #4f8cff;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(79,140,255,0.18);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .course-card .sparkle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 1.1rem;
+            color: #4f8cff;
+            opacity: 0.6;
+        }
+    </style>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <section class="courses-hero">
+        <h1>Choose Your Finance Learning Path</h1>
+        <p>Advance your understanding of valuation with interactive, practical courses designed for aspiring professionals.</p>
+    </section>
+    <div class="courses-intro">
+        <p>
+            Select a topic below to begin. Each course is structured for clarity and real-world relevance, making finance concepts accessible and actionable.
+        </p>
+    </div>
+    <section class="courses-flashcards">
+        <div class="courses-grid">
+            <a href="dcf.html" style="width:100%;height:100%;" tabindex="0">
+                <div class="course-card" title="Explore DCF">
+                    <div class="icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+                    <h2>DCF (Discounted Cash Flow) & <br>NPV (Net Present Value)</h2>
+                    <p>Value businesses by projecting future cash flows and discounting them to present value. DCF & NPV is a cornerstone of professional valuation.</p>
+                    <button class="explore-btn">Explore DCF</button>
+                </div>
+            </a>
+            <a href="irr.html" style="width:100%;height:100%;" tabindex="0">
+                <div class="course-card" title="Explore IRR">
+                    <div class="icon-wrap"><i class="fa-solid fa-percent"></i></div>
+                    <h2>IRR (Internal Rate of Return)</h2>
+                    <p>Calculate the internal rate of return and use IRR to evaluate investments and projects with confidence.</p>
+                    <button class="explore-btn">Explore IRR</button>
+                </div>
+            </a>
+            <a href="wacc.html" style="width:100%;height:100%;" tabindex="0">
+                <div class="course-card" title="Explore WACC">
+                    <div class="icon-wrap"><i class="fa-solid fa-balance-scale"></i></div>
+                    <h2>WACC (Weighted Average Cost of Capital)</h2>
+                    <p>Determine the weighted average cost of capital and apply WACC in valuation, budgeting, and financial decision-making.</p>
+                    <button class="explore-btn">Explore WACC</button>
+                </div>
+            </a>
+            <a href="pe-ratio.html" style="width:100%;height:100%;" tabindex="0">
+                <div class="course-card" title="Explore P/E Ratio">
+                    <div class="icon-wrap"><i class="fa-solid fa-coins"></i></div>
+                    <h2>P/E Ratio (Price-to-Earnings)</h2>
+                    <p>Use the price-to-earnings ratio to compare companies, identify value opportunities, and inform investment decisions.</p>
+                    <button class="explore-btn">Explore P/E Ratio</button>
+                </div>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
