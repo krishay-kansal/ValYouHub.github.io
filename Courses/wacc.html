@@ -1,806 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Practice IRR Calculations – Interactive Spreadsheet</title>
-  <meta name="description" content="Practice IRR calculations with an interactive, Excel-like spreadsheet. Includes Basic, Intermediate, Advanced question banks and auto-evaluation." />
-  <meta name="author" content="ValYou Hub" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="/irr-practice.html" />
-  <meta property="og:title" content="Practice IRR Calculations – Interactive Spreadsheet" />
-  <meta property="og:description" content="Try 15 IRR practice questions with an in-page spreadsheet supporting formulas: IRR, NPV, SUM. Auto-evaluate and step-by-step solutions." />
-  <meta property="og:type" content="website" />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WACC Explained — The Capital Garden | ValYouHub</title>
+  <meta name="description" content="A cinematic, friendly guide to WACC (Weighted Average Cost of Capital) with visuals, a worked example, and a Luckysheet practice lab." />
+  <link rel="canonical" href="wacc.html" />
+  <meta property="og:title" content="WACC Explained — The Capital Garden" />
+  <meta property="og:description" content="Intuitive WACC explainer with visual metaphors, blending demo, and practice sheet." />
+  <meta property="og:type" content="article" />
+  <meta name="theme-color" content="#f2a444" />
   <style>
-    /* =============================================================
-       Practice IRR Calculations – Single-file module
-       Usage/Customization Guide (read this block to customize):
-       ---------------------------------------------------------
-       - Edit the questionBank array in the <script> near the bottom to add or modify questions.
-       - Tolerance:
-         const UI_TOLERANCE_PERCENT = 0.01; // ±1.00 percentage points for marking
-         const ENGINE_TOLERANCE = 1e-4;     // IRR convergence tolerance
-       - Functions supported in formulas: SUM, NPV(rate, values...), IRR(values[, guess])
-         Differences vs Excel NPV:
-           Excel's NPV assumes the first cash flow occurs one period after time 0. This implementation follows the same convention.
-           If you include the time-0 cash flow, do not include it inside NPV() range—add it separately if needed.
-       - Add new functions: update functionMap in script.
-       - Grid size: change GRID_ROWS / GRID_COLS in script.
-       - Teacher View exposes solution overlay without altering student's sheet.
-       - Everything runs client-side; no servers or frameworks.
-       ============================================================= */
-
     :root {
-      --bg: #0f172a;           /* slate-900 */
-      --panel: #111827;        /* gray-900 */
-      --muted: #1f2937;        /* gray-800 */
-      --text: #e5e7eb;         /* gray-200 */
-      --subtle: #9ca3af;       /* gray-400 */
-      --accent: #22d3ee;       /* cyan-400 */
-      --accent-2: #a78bfa;     /* violet-400 */
-      --ok: #34d399;           /* emerald-400 */
-      --warn: #f59e0b;         /* amber-500 */
-      --danger: #f87171;       /* red-400 */
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-xs: 6px;
-      --tr: 200ms cubic-bezier(.2,.7,.2,1);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      /* Pastel base + saffron accent (HSL) */
+      --bg: 210 40% 98%;
+      --fg: 222 47% 11%;
+      --muted: 210 16% 92%;
+      --muted-2: 210 16% 88%;
+      --card: 0 0% 100%;
+      --shadow: 220 40% 2%;
+      --accent: 35 90% 58%;  /* saffron */
+      --accent-600: 35 90% 52%;
+      --accent-700: 35 90% 46%;
+      --teal: 174 62% 35%;
+      --teal-soft: 174 55% 88%;
+      --rose: 2 80% 58%;
+      --radius: 16px;
+      --container: 1200px;
+      --ease: cubic-bezier(.2,.7,.2,1);
     }
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
-      margin: 0; background: radial-gradient(1200px 600px at 10% -10%, #0b1324 0%, var(--bg) 45%),
-                               radial-gradient(800px 400px at 110% -10%, #121c35 0%, transparent 50%);
-      color: var(--text); font-family: var(--sans); line-height: 1.5;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: hsl(var(--fg));
+      background: hsl(var(--bg));
+      line-height: 1.55;
     }
+    img, svg { max-width: 100%; height: auto; }
+    a { color: hsl(var(--teal)); text-decoration: none; }
 
-    header { padding: 24px; text-align: center; }
-    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: .2px; }
-    header p { margin: 6px 0 0; color: var(--subtle); }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: linear-gradient(180deg, hsl(var(--bg)) 60%, hsl(var(--bg) / 0));
+      border-bottom: 1px solid hsl(var(--muted));
+      backdrop-filter: blur(6px);
+    }
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 12px 20px; }
+    .brand { display: flex; gap: 10px; align-items: center; font-weight: 700; letter-spacing: .2px; }
+    .pill { font-size: 12px; color: hsl(var(--fg) / .7); background: hsl(var(--muted)); padding: 6px 10px; border-radius: 999px; }
 
-    main { max-width: 1200px; margin: 0 auto 80px; padding: 0 16px 32px; }
+    main { overflow-x: hidden; }
 
-    .controls, .statusbar {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
-      border: 1px solid rgba(255,255,255,.06);
+    h1, h2 { line-height: 1.15; margin: 0 0 12px; }
+    h1 { font-size: clamp(32px, 6vw, 52px); }
+    h2 { font-size: clamp(24px, 4vw, 36px); }
+    p { margin: 0 0 10px; font-size: clamp(15px, 2.4vw, 18px); }
+
+    /* Card + section styling */
+    section { padding: 72px 20px; }
+    .scene { position: relative; }
+    .card {
+      background: hsl(var(--card));
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: 0 10px 30px hsl(var(--shadow) / .08);
+      padding: clamp(16px, 3vw, 28px);
+      border: 1px solid hsl(var(--muted));
     }
 
-    .controls {
-      display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 16px;
-      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(6px);
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: grid; place-items: center; padding-top: 10vh; padding-bottom: 10vh;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, hsl(var(--accent) / .2), transparent 60%),
+        linear-gradient(180deg, hsl(var(--bg)), hsl(var(--teal-soft)) 100%);
+    }
+    .hero-inner { max-width: var(--container); width: 100%; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+
+    .microcopy { color: hsl(var(--fg) / .75); font-size: 14px; margin-bottom: 8px; }
+    .cta-accent { display: inline-block; background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-600))); color: #0b0b0b; font-weight: 700; padding: 10px 14px; border-radius: 12px; box-shadow: 0 8px 24px hsl(var(--accent) / .35); }
+
+    .garden {
+      position: relative; width: 100%; aspect-ratio: 16/10; border-radius: var(--radius);
+      background: linear-gradient(180deg, #e6f8f2 0%, #dff4ee 40%, #fefbf4 40%, #fbf4e6 100%);
+      overflow: hidden; border: 1px solid hsl(var(--muted));
+    }
+    .layer { position: absolute; inset: 0; will-change: transform; }
+    .coins { position: absolute; inset: 0; pointer-events: none; }
+    .coin { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff6c9 0%, #ffd15c 35%, #f2a444 70%); box-shadow: 0 2px 8px hsl(var(--accent) / .4); animation: float 6s var(--ease) infinite; opacity: .85; }
+    .coin:nth-child(2){ animation-delay: .8s; }
+    .coin:nth-child(3){ animation-delay: 1.6s; }
+    .coin:nth-child(4){ animation-delay: 2.1s; }
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-18px) translateX(6px); }
+      100% { transform: translateY(0) translateX(0); }
     }
 
-    .controls .left, .controls .right { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    /* Reveal-on-view helper */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
 
-    .controls select, .controls button, .controls input[type="checkbox"], .controls .btn {
-      background: var(--muted); color: var(--text);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius-xs);
-      padding: 10px 12px; cursor: pointer; transition: transform var(--tr), background var(--tr), border var(--tr);
-      font-weight: 600; letter-spacing: .3px; font-size: .95rem;
+    /* Scene 2: Anchor */
+    .anchor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: var(--container); margin: 0 auto; }
+    @media (max-width: 900px) { .anchor-wrap { grid-template-columns: 1fr; } }
+    .anchor-illustration { aspect-ratio: 16/9; border-radius: var(--radius); overflow: hidden; border: 1px solid hsl(var(--muted)); position: relative; background: linear-gradient(180deg,#eaf3ff,#f7fbff); }
+    .tax-cloud { position: absolute; top: 10%; right: 8%; background: #ffffffcc; border: 1px dashed hsl(var(--teal)); padding: 8px 10px; border-radius: 999px; font-size: 12px; box-shadow: 0 6px 18px hsl(var(--shadow) / .06); }
+
+    /* Scene 3: Equity Tree */
+    .tree-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: var(--container); margin: 0 auto; }
+    @media (max-width: 900px) { .tree-wrap { grid-template-columns: 1fr; } }
+    .tree-illustration { aspect-ratio: 16/9; border-radius: var(--radius); overflow: hidden; border: 1px solid hsl(var(--muted)); position: relative; background: linear-gradient(180deg,#fefbf4,#fffdf8); }
+    .sun { position: absolute; top: 8%; left: 8%; width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fffbe3, #ffd36a 60%, #f2a444 100%); box-shadow: 0 0 0 8px #fff8, 0 6px 24px hsl(var(--accent) / .55); filter: saturate(110%); }
+    .leaf { position: absolute; width: 10px; height: 14px; background: radial-gradient(ellipse at 50% 35%, #b4f0d2 0%, #5ac8a5 60%, #2f8f7c 100%); border-radius: 50% 50% 45% 45%; transform-origin: bottom center; animation: shimmer 3.4s ease-in-out infinite; }
+    .leaf:nth-child(2){ animation-delay: .6s }
+    .leaf:nth-child(3){ animation-delay: 1.2s }
+    @keyframes shimmer { 0%,100% { transform: rotate(0deg) scale(1) } 50% { transform: rotate(3deg) scale(1.03) } }
+
+    /* Scene 4: Market Weights */
+    .market { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+    @media (max-width: 900px) { .market { grid-template-columns: 1fr; } }
+    .stacks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .stack { background: linear-gradient(180deg, #fff, hsl(var(--muted-2))); border: 1px solid hsl(var(--muted)); border-radius: var(--radius); padding: 16px; box-shadow: 0 10px 24px hsl(var(--shadow) / .06); text-align: center; }
+    .coins-stack { height: 140px; display: grid; align-content: end; gap: 4px; }
+    .brick { height: 10px; border-radius: 3px; background: radial-gradient(circle at 30% 30%, #fff6c3, #ffd15c 60%, #f2a444); box-shadow: 0 2px 6px hsl(var(--accent) / .3); }
+
+    /* Scene 5: Conveyor */
+    .conveyor { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; }
+    @media (max-width: 900px) { .conveyor { grid-template-columns: 1fr; } }
+    .belt-area { position: relative; border: 1px solid hsl(var(--muted)); border-radius: var(--radius); background: linear-gradient(180deg,#f6faf9,#ffffff); padding: 16px; overflow: hidden; }
+    .belt { position: relative; height: 64px; background: repeating-linear-gradient( -45deg, #c9d6cf 0 12px, #b9c6be 12px 24px ); border-radius: 12px; box-shadow: inset 0 2px 6px #0001; display: flex; align-items: center; gap: 12px; padding: 0 12px; }
+    .load { display: inline-grid; place-items: center; width: 72px; height: 44px; border-radius: 10px; background: linear-gradient(180deg,#fff6c9,#ffd15c 60%, #f2a444); color: #0b0b0b; font-weight: 700; border: 1px solid #f3c15a; box-shadow: 0 4px 14px #f2a44466; }
+    .label-small { font-size: 12px; color: hsl(var(--fg) / .75); }
+    .blender { margin-top: 14px; border: 1px solid hsl(var(--muted)); border-radius: 12px; padding: 12px; background: linear-gradient(180deg,#f7fbff,#ffffff); display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+    .gauge { width: 160px; aspect-ratio: 1/1; border-radius: 50%; background: conic-gradient(from 210deg, #d7efe7 0 240deg, #ffe9c8 240deg 330deg, #ffe0b0 330deg 360deg); display: grid; place-items: center; position: relative; box-shadow: inset 0 6px 18px #00000010; }
+    .needle { position: absolute; width: 4px; height: 60px; background: #263238; transform-origin: bottom center; bottom: 50%; border-radius: 2px; transform: rotate(-100deg); transition: transform 1.6s var(--ease) .2s; }
+    .tick { position: absolute; width: 2px; height: 10px; background: #333; opacity: .15; transform-origin: bottom center; bottom: 50%; }
+    .gauge-label { position: absolute; bottom: 16px; font-weight: 800; background: #fff; padding: 6px 10px; border-radius: 8px; border: 1px solid hsl(var(--muted)); box-shadow: 0 6px 16px #00000010; }
+    .belt-area.in .needle { transform: rotate(18deg); } /* lands near 10.2% */
+
+    /* Scene 6: Assembly Table */
+    .table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 12px; border: 1px solid hsl(var(--muted)); }
+    .table th, .table td { padding: 12px 14px; border-bottom: 1px solid hsl(var(--muted)); text-align: left; font-size: 16px; }
+    .table thead th { background: linear-gradient(180deg, #fff, hsl(var(--muted))); font-weight: 800; }
+    .table tfoot td { background: linear-gradient(180deg, hsl(var(--teal-soft)), #fff); font-weight: 800; }
+
+    /* Scene 7: Decision Badge */
+    .decision { display: grid; gap: 16px; justify-items: center; text-align: center; }
+    .badge {
+      display: inline-grid; place-items: center;
+      padding: 18px 22px; border-radius: 999px;
+      background: radial-gradient( 120px 60px at 50% 0%, hsl(var(--accent) / .3), transparent 80%),
+                  linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-700)));
+      color: #111; font-weight: 900; letter-spacing: .2px; box-shadow: 0 10px 26px hsl(var(--accent) / .45);
+      transform: translateY(6px); opacity: 0; transition: transform .7s var(--ease), opacity .7s var(--ease);
     }
-    .controls .btn-secondary { background: #0b1221; }
-    .controls select:hover, .controls button:hover, .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
-    .controls button:active, .btn:active { transform: translateY(0); }
+    .decision.in .badge { transform: none; opacity: 1; }
+    .mini-examples { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: min(680px, 100%); }
+    @media (max-width: 640px) { .mini-examples { grid-template-columns: 1fr; } }
+    .mini { border: 1px solid hsl(var(--muted)); border-radius: 12px; padding: 12px; background: #fff; display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; }
+    .check { width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #d7f7e8, #60d394); display: grid; place-items: center; color: #063; font-weight: 900; }
+    .cross { width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ffd9d9, #ff7a7a); display: grid; place-items: center; color: #600; font-weight: 900; }
 
-    .tog { display: inline-flex; align-items: center; gap: 8px; font-size: .95rem; color: var(--subtle); }
-    .tog input { width: 20px; height: 20px; }
+    /* Practice area */
+    .practice-wrap { max-width: var(--container); margin: 0 auto; display: grid; gap: 16px; }
+    .practice-instructions { background: #fff; border: 1px solid hsl(var(--muted)); border-radius: 12px; padding: 14px; box-shadow: 0 8px 24px hsl(var(--shadow) / .06); }
+    #luckysheet { width: 100%; height: 680px; border: 1px solid hsl(var(--muted)); border-radius: 12px; overflow: hidden; }
 
-    .layout { display: grid; grid-template-columns: 1.1fr 1.4fr; gap: 16px; margin-top: 16px; }
-    @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+    /* Accessibility helpers */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-    .panel { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.005));
-             border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: var(--shadow); }
-
-    .question-panel { padding: 16px; display: grid; gap: 12px; }
-    .question-panel h2 { margin: 0; font-size: 1.2rem; }
-    .q-meta { color: var(--subtle); font-size: .9rem; }
-    .question { background: #0b1221; border: 1px dashed rgba(255,255,255,.1); padding: 12px; border-radius: var(--radius-sm); }
-    .hint { color: var(--subtle); font-size: .9rem; }
-
-    .sheet-wrap { padding: 12px; }
-
-    .sheet-toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-    .formula-bar { flex: 1; background: #0b1221; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-xs); padding: 8px 10px; font-family: var(--mono); color: var(--text); }
-
-    .grid {
-      overflow: auto; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-sm);
-      background: #0b1221; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    table.sheet { border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; }
-    .sheet th, .sheet td { border: 1px solid rgba(255,255,255,.08); min-width: 110px; height: 32px; }
-    .sheet th { position: sticky; top: 0; background: #0c1730; z-index: 2; color: var(--subtle); font-weight: 700; text-align: center; }
-    .row-header { position: sticky; left: 0; background: #0c1730; z-index: 1; color: var(--subtle); text-align: center; font-weight: 700; width: 46px; min-width: 46px; }
-
-    .cell { padding: 6px 8px; font-family: var(--mono); color: var(--text); background: rgba(255,255,255,.02); }
-    .cell[data-type="formula"] { background: rgba(39, 174, 96, 0.06); }
-    .cell[data-error="true"] { background: rgba(248,113,113,.08); color: #fecaca; }
-    .cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
-
-    .cell[contenteditable="true"]:focus { background: #0e1a33; }
-
-    .statusbar { margin-top: 12px; padding: 10px 12px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; color: var(--subtle); }
-    .statusbar .badge { background: #0b1221; color: var(--text); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; padding: 6px 10px; font-weight: 700; }
-
-    .solution, .teacher { padding: 12px; display: none; }
-    .solution.active, .teacher.active { display: block; }
-
-    .note { color: var(--subtle); font-size: .9rem; }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
-    .actions .btn { background: #0b1221; }
-
-    .good { color: var(--ok); font-weight: 700; }
-    .bad { color: var(--danger); font-weight: 700; }
-
-    .highlight { animation: pulse 1.8s ease-in-out infinite; box-shadow: 0 0 0 3px rgba(34,211,238,.2) inset; }
-    @keyframes pulse { 0%{background-color: rgba(34,211,238,.07);} 50%{background-color: rgba(34,211,238,.02);} 100%{background-color: rgba(34,211,238,.07);} }
-
-    .score { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
-
-    .printable { display: none; }
-    @media print {
-      header, .controls, .statusbar, .actions, .solution, .teacher, .grid { display: none !important; }
-      .printable { display: block; }
-      body { background: #fff; color: #000; }
-      .panel { border: none; box-shadow: none; }
+    /* Signature micro-interaction: subtle pointer-gradient following mouse */
+    .ambient {
+      position: fixed; inset: -20vmax; z-index: -1; pointer-events: none;
+      background: radial-gradient( 40vmax 40vmax at var(--mx, 50%) var(--my, 10%), hsl(var(--accent) / .12), transparent 60% );
+      transition: background-position .2s ease-out;
     }
   </style>
 </head>
 <body>
+  <div class="ambient" aria-hidden="true"></div>
   <header>
-    <h1>Practice IRR Calculations</h1>
-    <p>Interactive, Excel-like module. Type formulas like =IRR(B2:B6) or =NPV(0.12,B3:B6).</p>
+    <div class="wrap" role="banner">
+      <div class="brand" aria-label="ValYouHub - WACC Guide">
+        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="hsl(var(--teal))" d="M12 2l2.09 6.26H20l-5.05 3.67L16.18 18 12 14.77 7.82 18l1.23-6.07L4 8.26h5.91z"/></svg>
+        <span>ValYouHub</span>
+        <span class="pill">WACC — Weighted Average Cost of Capital</span>
+      </div>
+    </div>
   </header>
-
   <main>
-    <section class="controls" aria-label="Controls">
-      <div class="left">
-        <label for="difficulty">Difficulty:</label>
-        <select id="difficulty" aria-label="Select difficulty">
-          <option value="basic">Basic</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
-
-        <span class="tog"><input type="checkbox" id="shuffle"> <label for="shuffle">Shuffle/Randomize</label></span>
-        <span class="tog"><input type="checkbox" id="teacherToggle"> <label for="teacherToggle">Teacher View</label></span>
-      </div>
-      <div class="right">
-        <button id="prev" title="Previous question">◀ Prev</button>
-        <button id="next" title="Next question">Next ▶</button>
-        <button id="generate" class="btn-secondary" title="Generate a similar question">Generate Similar</button>
-        <button id="print" class="btn-secondary" title="Print worksheet view">Print</button>
+    <!-- 1) Opening — The Capital Garden -->
+    <section class="scene hero" aria-labelledby="h1">
+      <div class="hero-inner">
+        <div>
+          <p class="microcopy">No maths yet — just stories. Scroll to see the numbers assembled.</p>
+          <h1 id="h1">The Capital Garden</h1>
+          <p>Two funding plants feed projects. Tall Equity Trees, and steady Debt Vines.</p>
+          <p>WACC is their blended return your project must beat to create value.</p>
+          <p><span class="cta-accent">Remember: blend the costs by their weights.</span></p>
+        </div>
+        <div>
+          <div class="garden card" aria-label="Stylized garden showing equity trees and debt vines." data-parallax data-speed="0.15">
+            <!-- Background hills -->
+            <svg class="layer" viewBox="0 0 800 500" role="img" aria-label="Garden background">
+              <defs>
+                <linearGradient id="hill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#d5efe6"/>
+                  <stop offset="100%" stop-color="#bfe3d8"/>
+                </linearGradient>
+              </defs>
+              <rect width="800" height="200" y="300" fill="#f2e5cb" />
+              <path d="M0,320 Q200,250 400,300 T800,300 L800,500 L0,500 Z" fill="url(#hill)"/>
+              <path d="M0,350 Q240,280 480,330 T800,340 L800,500 L0,500 Z" fill="#cde9df"/>
+            </svg>
+            <!-- Equity trees (left) -->
+            <svg class="layer" viewBox="0 0 800 500" aria-hidden="true">
+              <g transform="translate(120,240)">
+                <rect x="-12" y="60" width="24" height="80" rx="6" fill="#8b6b4e"/>
+                <circle cx="0" cy="50" r="46" fill="#6dc7a8"/>
+                <circle cx="-36" cy="70" r="34" fill="#82d7b8"/>
+                <circle cx="30" cy="80" r="30" fill="#5ab79a"/>
+                <text x="-38" y="140" fill="#0b3d3a" font-size="16" font-weight="700">Equity Trees</text>
+              </g>
+              <g transform="translate(240,220)">
+                <rect x="-10" y="70" width="20" height="70" rx="6" fill="#8b6b4e"/>
+                <circle cx="0" cy="60" r="38" fill="#6dc7a8"/>
+                <circle cx="-28" cy="78" r="26" fill="#82d7b8"/>
+              </g>
+            </svg>
+            <!-- Debt vines (right) -->
+            <svg class="layer" viewBox="0 0 800 500" aria-hidden="true">
+              <g transform="translate(600,320)">
+                <path d="M-100,-30 C-70,-54 -40,-20 -10,-40" stroke="#3f7f6e" stroke-width="6" fill="none" />
+                <path d="M-80,-10 C-50,-34 -20,0 10,-20" stroke="#3f7f6e" stroke-width="6" fill="none" />
+                <circle cx="30" cy="-20" r="14" fill="#2b5a50" />
+                <rect x="14" y="-10" width="32" height="12" rx="4" fill="#113f3a" />
+                <text x="-36" y="30" fill="#113f3a" font-size="16" font-weight="700">Debt Vines</text>
+                <text x="-2" y="-30" fill="#113f3a" font-size="12">Bank</text>
+              </g>
+            </svg>
+            <!-- Coins flow hints -->
+            <div class="coins" aria-hidden="true">
+              <div class="coin" style="left:18%; top:38%"></div>
+              <div class="coin" style="left:22%; top:32%"></div>
+              <div class="coin" style="left:64%; top:56%"></div>
+              <div class="coin" style="left:68%; top:52%"></div>
+            </div>
+            <div class="layer" style="display:grid; place-items:end start; padding:16px;">
+              <span class="pill">WACC — the blended return your project must beat</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="layout">
-      <article class="panel question-panel" aria-labelledby="question-title">
-        <h2 id="question-title">Current Question</h2>
-        <div class="q-meta"><span id="qPath">Basic • Question 1/5</span></div>
-        <div class="question" id="questionText">...</div>
-        <div class="hint" id="hintText">Hint: Enter =IRR(B2:B5) into the Answer cell (B10). Use =NPV(rate, range) to check your IRR by seeing NPV ≈ 0.</div>
-
-        <div class="actions">
-          <button id="evaluate">Auto-evaluate</button>
-          <button id="showSolution">Show Solution</button>
-          <button id="reset">Reset</button>
+    <!-- 2) Cost of Debt — The Bank Anchor -->
+    <section class="scene" aria-labelledby="anchor-title">
+      <div class="anchor-wrap">
+        <div class="anchor-illustration reveal" data-parallax data-speed="0.06">
+          <div class="tax-cloud">Tax Shield ↓ effective cost</div>
+          <svg viewBox="0 0 800 450" role="img" aria-label="An anchor labeled Debt attached to an island">
+            <defs>
+              <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#dff4ff"/>
+                <stop offset="100%" stop-color="#c9ebff"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="180" width="800" height="270" fill="url(#sea)"/>
+            <ellipse cx="200" cy="200" rx="140" ry="36" fill="#f5e6c9" />
+            <path d="M200,50 C180,90 160,130 160,160 C160,206 200,230 200,230 C200,230 240,206 240,160 C240,130 220,90 200,50 Z" fill="#efdbb7" />
+            <!-- Anchor -->
+            <g transform="translate(450,240)">
+              <path d="M0,-100 v56" stroke="#37474f" stroke-width="12"/>
+              <circle cx="0" cy="-112" r="16" fill="#37474f"/>
+              <path d="M-60,0 a60,60 0 0 0 120,0" fill="none" stroke="#37474f" stroke-width="12"/>
+              <path d="M-60,0 q60,40 120,0" fill="none" stroke="#607d8b" stroke-width="8"/>
+              <text x="-22" y="22" fill="#0b3d3a" font-size="16" font-weight="700">Debt</text>
+            </g>
+            <!-- Chain to island -->
+            <path d="M330,180 q60,30 120,20" stroke="#8a9ba7" stroke-width="6" fill="none" stroke-dasharray="6 8"/>
+          </svg>
         </div>
-
-        <div class="statusbar" role="status">
-          <span>Answer cell: <strong>B10</strong></span>
-          <span id="evalStatus" class="badge">Awaiting input…</span>
-          <span class="score">
-            <span class="badge" id="scoreBadge">Score: 0 / 0</span>
-          </span>
+        <div class="card reveal">
+          <h2 id="anchor-title">Cost of Debt — the Bank Anchor</h2>
+          <p>Debt is cheaper. Lenders want interest, not upside.</p>
+          <p>Interest is tax-deductible, so the tax shield lowers its effective cost.</p>
+          <p class="label-small">But too much anchor and the project can sink.</p>
         </div>
-
-        <section id="solutionPanel" class="solution" aria-live="polite"></section>
-        <aside id="teacherPanel" class="teacher" aria-live="polite"></aside>
-
-        <p class="note">Tip: The implemented IRR uses Newton's method with a robust bisection fallback. If no solution is found or multiple IRRs exist, you'll see a helpful message and the best candidate shown. NPV follows Excel's timing convention (period 1 starts after time 0).</p>
-      </article>
-
-      <section class="panel sheet-wrap" aria-label="Spreadsheet">
-        <div class="sheet-toolbar">
-          <label for="formula">fx</label>
-          <input id="formula" class="formula-bar" aria-label="Formula bar" placeholder="=IRR(B2:B6)" />
-        </div>
-        <div class="grid" id="grid"></div>
-      </section>
+      </div>
     </section>
 
-    <section class="panel printable" id="printable">
-      <div style="padding:16px">
-        <h2>Worksheet</h2>
-        <p id="printQuestion"></p>
-        <ul id="printValues"></ul>
+    <!-- 3) Cost of Equity — The Growth Tree -->
+    <section class="scene" aria-labelledby="tree-title">
+      <div class="tree-wrap">
+        <div class="card reveal">
+          <h2 id="tree-title">Cost of Equity — the Growth Tree</h2>
+          <p>Equity asks for growth and upside.</p>
+          <p>Investors take swing risk, so return expectations are higher.</p>
+        </div>
+        <div class="tree-illustration reveal" data-parallax data-speed="0.08">
+          <div class="sun" aria-hidden="true" title="Return Expectations"></div>
+          <!-- Trunk and canopy -->
+          <svg viewBox="0 0 800 450" role="img" aria-label="A lively tree with investors as birds">
+            <g transform="translate(370,320)">
+              <rect x="-14" y="-60" width="28" height="120" rx="10" fill="#8b6b4e"/>
+              <circle cx="0" cy="-80" r="70" fill="#6dc7a8"/>
+              <circle cx="-60" cy="-58" r="46" fill="#82d7b8"/>
+              <circle cx="60" cy="-50" r="40" fill="#5ab79a"/>
+              <text x="-36" y="80" fill="#0b3d3a" font-size="16" font-weight="700">Equity</text>
+              <!-- Birds = investors -->
+              <g aria-label="Investors as birds">
+                <path d="M-40,-96 q10,6 20,0" stroke="#2b5a50" stroke-width="3" fill="none"/>
+                <path d="M20,-70 q10,6 20,0" stroke="#2b5a50" stroke-width="3" fill="none"/>
+              </g>
+            </g>
+          </svg>
+          <!-- Leaves that pop as dividends -->
+          <div class="leaf" style="left:62%; top:36%"></div>
+          <div class="leaf" style="left:58%; top:48%"></div>
+          <div class="leaf" style="left:52%; top:32%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) Weights Marketplace — Who Pays What -->
+    <section class="scene" aria-labelledby="market-title">
+      <div class="market">
+        <div class="card reveal">
+          <h2 id="market-title">Weights marketplace — who pays what</h2>
+          <p>Weights tell us how much of each capital type funds the project.</p>
+          <p>Example: Debt ₹600 and Equity ₹1,400 → Debt 30%, Equity 70%.</p>
+        </div>
+        <div class="stacks">
+          <div class="stack reveal">
+            <div class="label-small">Debt Stack</div>
+            <div class="coins-stack" aria-label="Debt coins stack">
+              <div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div>
+              <div class="brick"></div><div class="brick"></div><div class="brick"></div>
+            </div>
+            <div>₹600 → 30%</div>
+          </div>
+          <div class="stack reveal">
+            <div class="label-small">Equity Stack</div>
+            <div class="coins-stack" aria-label="Equity coins stack">
+              <div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div>
+              <div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div>
+              <div class="brick"></div><div class="brick"></div><div class="brick"></div><div class="brick"></div>
+            </div>
+            <div>₹1,400 → 70%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) The WACC Conveyor — Blending the Cost -->
+    <section class="scene" aria-labelledby="conveyor-title">
+      <div class="conveyor">
+        <div class="belt-area reveal">
+          <h2 id="conveyor-title">The WACC Conveyor — blending the cost</h2>
+          <div class="label-small">Capital Mix</div>
+          <div class="belt" aria-label="Conveyor belt carrying debt and equity to a blender">
+            <div class="load" title="Cost of Debt">6%<div class="label-small">after tax</div></div>
+            <div class="load" title="Cost of Equity">12%</div>
+            <div aria-hidden="true" style="height: 4px; background:#a6b4ac; flex:1; opacity:.6; border-radius: 2px;"></div>
+          </div>
+          <div class="blender">
+            <div class="gauge" aria-label="Blended rate gauge">
+              <div class="needle"></div>
+              <!-- ticks -->
+              <div class="tick" style="transform: rotate(-90deg) translateY(-60px)"></div>
+              <div class="tick" style="transform: rotate(-45deg) translateY(-60px)"></div>
+              <div class="tick" style="transform: rotate(0deg) translateY(-60px)"></div>
+              <div class="tick" style="transform: rotate(45deg) translateY(-60px)"></div>
+              <div class="tick" style="transform: rotate(90deg) translateY(-60px)"></div>
+              <div class="gauge-label">WACC = 10.2%</div>
+            </div>
+            <div>
+              <p>WACC is the average cost of capital, weighted by each source's share.</p>
+              <p>It's the hurdle rate investors use to judge projects.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="card reveal" aria-label="Quick comparison">
+          <h2 style="font-size:20px; margin-bottom:8px;">WACC vs. Cost of Equity</h2>
+          <p>Cost of Equity: asks for growth and upside. No tax shield.</p>
+          <p>WACC: blends Debt and Equity costs by their weights.</p>
+          <p class="label-small">Garden + Anchor → one blended hurdle.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 6) WACC Assembly Table (worked example) -->
+    <section class="scene" aria-labelledby="assembly-title">
+      <div class="wrap">
+        <div class="card reveal">
+          <h2 id="assembly-title">WACC Assembly — worked example</h2>
+          <table class="table" aria-describedby="assembly-caption">
+            <caption id="assembly-caption" class="sr-only">Numbers used in the visual scenes and arithmetic steps</caption>
+            <thead>
+              <tr><th>Component</th><th>Amount</th><th>Weight</th><th>Cost (after tax for debt)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Debt</td><td>₹600</td><td>0.30</td><td>0.06</td></tr>
+              <tr><td>Equity</td><td>₹1,400</td><td>0.70</td><td>0.12</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">WACC = 0.30×0.06 + 0.70×0.12 = 0.102 → <strong>WACC = 10.2%</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+          <p style="margin-top:10px">Use WACC as the discount/hurdle rate for average‑risk projects. If expected returns &gt; WACC → value creation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7) Visual Decision Badge -->
+    <section class="scene decision" aria-labelledby="decision-title">
+      <h2 id="decision-title" class="sr-only">Decision badge</h2>
+      <div class="badge">✔ Project likely creates value if return &gt; 10.2%</div>
+      <div class="mini-examples reveal">
+        <div class="mini"><div class="check">✓</div><div><strong>Project A:</strong> expected return = 12% (beats 10.2%)</div></div>
+        <div class="mini"><div class="cross">✕</div><div><strong>Project B:</strong> expected return = 8% (below 10.2%)</div></div>
+      </div>
+    </section>
+
+    <!-- Practice Section with Luckysheet -->
+    <section class="scene" aria-labelledby="practice-title">
+      <div class="practice-wrap">
+        <div class="practice-instructions">
+          <h2 id="practice-title">🎯 Practice WACC Calculations</h2>
+          <p>Click a cell to edit values. Use formulas like Excel. Compute WACC for each question.</p>
+          <p class="label-small">Formula hint: =DebtWeight*CostOfDebt*(1-TaxRate) + EquityWeight*CostOfEquity, where weights = amount/total.</p>
+        </div>
+        <div id="luckysheet" role="region" aria-label="Luckysheet practice grid"></div>
       </div>
     </section>
   </main>
 
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; gap:12px; padding: 24px 20px; border-top:1px solid hsl(var(--muted)); color:hsl(var(--fg)/.65);">
+      <div>© <span id="year"></span> ValYouHub • WACC learning page</div>
+      <div><a href="#h1">Back to top</a></div>
+    </div>
+  </footer>
+
+  <!-- JSON-LD for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "WACC Explained — The Capital Garden",
+    "description": "An intuitive WACC walkthrough using visual metaphors, a worked example, and interactive practice.",
+    "author": {"@type":"Organization","name":"ValYouHub"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "wacc.html"}
+  }
+  </script>
+
+  <!-- Luckysheet CSS/JS (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/css/pluginsCss.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/plugins.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/css/luckysheet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/assets/iconfont/iconfont.css" />
+  <script src="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/js/plugin.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/luckysheet.umd.js"></script>
+
   <script>
-    /* =============================================================
-       Spreadsheet engine (minimal, safe, no eval)
-       - A1 references, ranges (A1:B5)
-       - Functions: SUM, NPV(rate, values...), IRR(values[,guess])
-       - Arithmetic: + - * / and parentheses
-       - Recalculates entire grid on changes (fine for small sheet)
-       ============================================================= */
+    // Accessibility & ambient
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // ---------- Config ----------
-    const GRID_ROWS = 20;
-    const GRID_COLS = 8; // A..H
-    const ANSWER_CELL = { r: 10, c: 2 }; // B10
-    const UI_TOLERANCE_PERCENT = 0.01; // ±1 percentage point for correctness feedback
-    const ENGINE_TOLERANCE = 1e-4;     // IRR numeric tolerance
-    const MAX_IRR = 5.0;               // 500%
-    const MIN_IRR = -0.999;            // -99.9%
-
-    // ---------- Utilities ----------
-    const colToIndex = (col) => {
-      let n = 0; for (let i=0;i<col.length;i++){ n = n*26 + (col.charCodeAt(i)-64);} return n; };
-    const indexToCol = (n) => { let s=""; while(n>0){ let m=(n-1)%26; s=String.fromCharCode(65+m)+s; n=(n-1)/26|0;} return s; };
-    const inBounds = (r,c) => r>=1 && r<=GRID_ROWS && c>=1 && c<=GRID_COLS;
-
-    function parseCellRef(ref){
-      const m = /^([A-Z]+)(\d+)$/.exec(ref.trim());
-      if(!m) return null; return { r: parseInt(m[2],10), c: colToIndex(m[1]) };
-    }
-
-    function expandRange(a1, a2){
-      const s = parseCellRef(a1); const e = parseCellRef(a2); if(!s||!e) return [];
-      const cells=[]; const r1=Math.min(s.r,e.r), r2=Math.max(s.r,e.r); const c1=Math.min(s.c,e.c), c2=Math.max(s.c,e.c);
-      for(let r=r1;r<=r2;r++){ for(let c=c1;c<=c2;c++){ cells.push({r,c}); } }
-      return cells;
-    }
-
-    // ---------- IRR / NPV ----------
-    function npv(rate, values){
-      // Excel-like: cash flows occur at periods 1..n (no time-0 in the range)
-      let sum=0; for(let i=0;i<values.length;i++){ const v=Number(values[i])||0; sum += v / Math.pow(1+rate, i+1); }
-      return sum;
-    }
-
-    function irr(values, guess = 0.1){
-      // Robust IRR search: try Newton first; fallback to bracketing + bisection.
-      const maxIter = 200; const tol=ENGINE_TOLERANCE;
-      const f = (r) => values.reduce((acc,v,i)=> acc + v/Math.pow(1+r,i), 0); // includes time-0 at i=0
-      const df = (r) => values.reduce((acc,v,i)=> acc + (-i)*v/Math.pow(1+r,i+1), 0); // derivative
-
-      // If all flows same sign -> no IRR
-      const signs = values.map(v=>Math.sign(v)).filter(s=>s!==0);
-      const hasSignChange = signs.some((s,i)=> i>0 && s!==signs[i-1]);
-      if(!hasSignChange) return { ok:false, reason:'No sign change in cash flows (IRR undefined).' };
-
-      // Newton attempt
-      let r = guess;
-      for(let i=0;i<maxIter;i++){
-        if(r <= MIN_IRR+1e-8) r = MIN_IRR + 1e-6; // avoid division by zero
-        const y = f(r);
-        if(Math.abs(y) < tol) return { ok:true, value:r, method:'newton', iterations:i+1 };
-        const dy = df(r); if(Math.abs(dy) < 1e-12){ break; }
-        const nr = r - y/dy;
-        if(!isFinite(nr)) break;
-        r = Math.max(MIN_IRR+1e-6, Math.min(MAX_IRR, nr));
-      }
-
-      // Bracket by scanning for sign changes of NPV of full series (with time-0)
-      const f2 = f;
-      let brackets = [];
-      const steps = 200; const lo=MIN_IRR+1e-6, hi=MAX_IRR; let prevR=lo, prevY=f2(prevR);
-      for(let i=1;i<=steps;i++){
-        const rr = lo + (hi-lo)*i/steps; const yy=f2(rr);
-        if(prevY===0) { brackets.push([prevR, prevR]); break; }
-        if(yy===0 || (yy>0) !== (prevY>0)) { brackets.push([prevR, rr]); }
-        prevR=rr; prevY=yy;
-      }
-      if(brackets.length===0) return { ok:false, reason:'Could not bracket a root. Multiple or no IRR.' };
-
-      // Bisection on first bracket (pick the root with positive r if found)
-      let chosen = brackets[0];
-      // prefer positive solutions
-      for(const b of brackets){ if(b[1] > 0 && b[0] < 0.99) { chosen = b; break; } }
-      let [a,b] = chosen; let ya=f2(a), yb=f2(b);
-      if(!isFinite(ya) || !isFinite(yb)) return { ok:false, reason:'Numerical issue in bracketing.' };
-      if(ya===0) return { ok:true, value:a, method:'bisection', iterations:0 };
-      if(yb===0) return { ok:true, value:b, method:'bisection', iterations:0 };
-      if((ya>0)===(yb>0)) return { ok:false, reason:'Bracket does not cross zero.' };
-
-      let iter=0; while(iter<maxIter){
-        const mid = 0.5*(a+b); const ym = f2(mid);
-        if(Math.abs(ym) < tol) return { ok:true, value:mid, method:'bisection', iterations:iter+1 };
-        if((ya>0)!==(ym>0)) { b=mid; yb=ym; } else { a=mid; ya=ym; }
-        iter++;
-      }
-      return { ok:true, value:0.5*(a+b), method:'bisection-timeout', iterations:iter };
-    }
-
-    // ---------- Parser ----------
-    // Token types: number, ident, cell, rangeSep(:), comma, lparen, rparen, op(+ - * /)
-    function tokenize(input){
-      const s = input.trim();
-      const tokens=[]; let i=0;
-      const isDigit = ch => ch>='0' && ch<='9' || ch==='.';
-      const isAlpha = ch => /[A-Za-z_]/.test(ch);
-      while(i<s.length){
-        const ch = s[i];
-        if(ch===' '||ch==='\t') { i++; continue; }
-        if('+-*/'.includes(ch)) { tokens.push({type:'op', value:ch}); i++; continue; }
-        if(ch==='('){ tokens.push({type:'lparen'}); i++; continue; }
-        if(ch===')'){ tokens.push({type:'rparen'}); i++; continue; }
-        if(ch===','){ tokens.push({type:'comma'}); i++; continue; }
-        if(ch===':'){ tokens.push({type:'colon'}); i++; continue; }
-        if(isDigit(ch)){
-          let j=i+1; while(j<s.length && (isDigit(s[j]) || s[j]==='e' || s[j]==='E' || s[j]==='-')) j++;
-          tokens.push({type:'number', value: parseFloat(s.slice(i,j))}); i=j; continue;
-        }
-        if(isAlpha(ch)){
-          let j=i+1; while(j<s.length && /[A-Za-z0-9_]/.test(s[j])) j++;
-          const text = s.slice(i,j).toUpperCase();
-          // Could be IDENT or CELL (A1 style) — decide later in parser by next tokens
-          tokens.push({type:'ident', value:text}); i=j; continue;
-        }
-        // Unknown char
-        throw new Error('Unexpected character: '+ch);
-      }
-      return tokens;
-    }
-
-    // Recursive descent parser
-    function parseFormula(input){
-      // Remove leading '=' if present
-      const s = input.trim().replace(/^=/,'');
-      const tokens = tokenize(s);
-      let pos = 0;
-
-      function peek(){ return tokens[pos]; }
-      function consume(){ return tokens[pos++]; }
-      function expect(type){ const t=consume(); if(!t||t.type!==type) throw new Error('Expected '+type); return t; }
-
-      function parsePrimary(){
-        const t = peek(); if(!t) throw new Error('Unexpected end');
-        if(t.type==='number'){ consume(); return {type:'num', value:t.value}; }
-        if(t.type==='ident'){
-          // Might be function call, cell ref, or bare identifier (cell like A10)
-          // Lookahead for pattern IDENT NUMBER => cell; IDENT '(' => func
-          const name = t.value; consume();
-          const t2 = peek();
-          if(t2 && t2.type==='lparen'){
-            // function call
-            consume(); // '('
-            const args=[]; if(peek() && peek().type!=='rparen'){
-              while(true){ args.push(parseArg()); if(peek() && peek().type==='comma'){ consume(); continue; } break; }
-            }
-            expect('rparen');
-            return { type:'func', name, args };
-          }
-          // Try cell ref like A12 (name letters + number in next token?)
-          // Our tokenizer emitted entire A12 as ident; detect pattern letters+digits
-          const m = /^([A-Z]+)(\d+)$/.exec(name);
-          if(m) { return {type:'cell', ref:name}; }
-          // Bare identifier not supported
-          throw new Error('Unknown identifier: '+name);
-        }
-        if(t.type==='lparen'){ consume(); const e=parseExpr(); expect('rparen'); return e; }
-        throw new Error('Unexpected token in primary');
-      }
-
-      function parseArg(){
-        // Support range A1:B5 as primary ':' primary; we only allow cell:cell
-        // Try to parse a cell then ':' then cell
-        const save = pos; let left = null;
-        try {
-          left = parsePrimary();
-          if(left.type==='cell' && peek() && peek().type==='colon'){
-            consume(); const right = parsePrimary();
-            if(right.type!=='cell') throw new Error('Invalid range');
-            return { type:'range', a:left.ref, b:right.ref };
-          }
-          // No range; return expression (left may be num/cell/func)
-          return left;
-        } catch(e){ pos = save; return parseExpr(); }
-      }
-
-      function parseFactor(){
-        return parsePrimary();
-      }
-      function parseTerm(){
-        let node = parseFactor();
-        while(peek() && (peek().value==='*' || peek().value==='/' )){
-          const op = consume().value; const right = parseFactor(); node = { type:'bin', op, left:node, right };
-        }
-        return node;
-      }
-      function parseExpr(){
-        let node = parseTerm();
-        while(peek() && (peek().value==='+' || peek().value==='-' )){
-          const op = consume().value; const right = parseTerm(); node = { type:'bin', op, left:node, right };
-        }
-        return node;
-      }
-
-      const ast = parseExpr();
-      if(peek()) throw new Error('Unexpected token at end');
-      return ast;
-    }
-
-    // Evaluation
-    function evaluateAST(ast, getCell){
-      const fn = (node)=>{
-        if(node.type==='num') return node.value;
-        if(node.type==='cell'){
-          const c = parseCellRef(node.ref); if(!c) return NaN; return Number(getCell(c.r,c.c));
-        }
-        if(node.type==='range'){
-          const cells = expandRange(node.a, node.b); return cells.map(({r,c})=> Number(getCell(r,c)) );
-        }
-        if(node.type==='func'){
-          const name = node.name.toUpperCase();
-          if(name==='SUM'){
-            const vals = node.args.flatMap(arg => arg.type==='range' ? evaluateAST(arg, getCell) : [fn(arg)]);
-            return vals.reduce((a,b)=>a+(Number(b)||0),0);
-          }
-          if(name==='NPV'){
-            if(node.args.length<2) throw new Error('NPV(rate, values...)');
-            const rate = Number(fn(node.args[0]));
-            const vals = node.args.slice(1).flatMap(arg => arg.type==='range' ? evaluateAST(arg, getCell) : [fn(arg)]);
-            return npv(rate, vals);
-          }
-          if(name==='IRR'){
-            if(node.args.length<1) throw new Error('IRR(range[,guess])');
-            const list = node.args[0].type==='range' ? evaluateAST(node.args[0], getCell) : [fn(node.args[0])];
-            const guess = node.args[1] ? Number(fn(node.args[1])) : 0.1;
-            // For IRR, include time-0 flow: if user provided B1:B5 with initial investment at B1
-            const res = irr(list, guess);
-            if(!res.ok) throw new Error(res.reason||'IRR failed');
-            return res.value;
-          }
-          throw new Error('Unknown function '+name);
-        }
-        if(node.type==='bin'){
-          const l = Number(fn(node.left)); const r = Number(fn(node.right));
-          switch(node.op){ case '+': return l+r; case '-': return l-r; case '*': return l*r; case '/': return l/r; default: return NaN; }
-        }
-        return NaN;
-      };
-      return fn(ast);
-    }
-
-    // ---------- Grid/Sheet Model ----------
-    const model = [];
-    for(let r=1;r<=GRID_ROWS;r++){
-      const row=[]; for(let c=1;c<=GRID_COLS;c++){ row.push({ raw:'', value:'', error:null }); } model.push(row);
-    }
-
-    let selected = { r:1, c:1 };
-
-    function getCellValue(r,c){
-      if(!inBounds(r,c)) return '';
-      const cell = model[r-1][c-1];
-      // Lazy evaluate based on raw
-      try {
-        cell.error = null;
-        if(typeof cell.raw === 'string' && cell.raw.trim().startsWith('=')){
-          const ast = parseFormula(cell.raw);
-          const val = evaluateAST(ast, (rr,cc)=> getCellValue(rr,cc));
-          cell.value = val;
-        } else if(cell.raw==='' || cell.raw===null || typeof cell.raw==='undefined'){
-          cell.value = '';
-        } else {
-          const num = Number(cell.raw);
-          cell.value = isNaN(num) ? cell.raw : num;
-        }
-      } catch(e){ cell.value = NaN; cell.error = e.message; }
-      return cell.value;
-    }
-
-    function recalcAll(){
-      for(let r=1;r<=GRID_ROWS;r++){
-        for(let c=1;c<=GRID_COLS;c++){
-          getCellValue(r,c);
-        }
-      }
-      renderGrid();
-    }
-
-    // ---------- Rendering ----------
-    const gridEl = document.getElementById('grid');
-    const formulaBar = document.getElementById('formula');
-
-    function renderGrid(){
-      const table = document.createElement('table'); table.className = 'sheet'; table.setAttribute('role','grid');
-      const thead = document.createElement('thead'); const hr = document.createElement('tr');
-      const corner = document.createElement('th'); corner.className='row-header'; corner.textContent=''; hr.appendChild(corner);
-      for(let c=1;c<=GRID_COLS;c++){ const th=document.createElement('th'); th.textContent=indexToCol(c); hr.appendChild(th); }
-      thead.appendChild(hr); table.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-      for(let r=1;r<=GRID_ROWS;r++){
-        const tr = document.createElement('tr');
-        const rh = document.createElement('th'); rh.className='row-header'; rh.textContent=String(r); tr.appendChild(rh);
-        for(let c=1;c<=GRID_COLS;c++){
-          const td = document.createElement('td');
-          const cell = model[r-1][c-1];
-          td.className='cell';
-          td.dataset.row = r; td.dataset.col = c;
-          const isFormula = (typeof cell.raw==='string' && cell.raw.trim().startsWith('='));
-          td.setAttribute('data-type', isFormula ? 'formula' : 'value');
-          td.setAttribute('data-error', cell.error? 'true':'false');
-          td.tabIndex = 0;
-          td.textContent = (isFormula ? (typeof cell.value==='number' && isFinite(cell.value) ? formatNumber(cell.value) : String(cell.value))
-                                        : (cell.raw!==''? String(cell.raw) : ''));
-          if(selected.r===r && selected.c===c) td.classList.add('selected');
-          td.addEventListener('focus', ()=> onSelect(r,c));
-          td.addEventListener('dblclick', ()=> startEdit(td, r, c));
-          td.addEventListener('keydown', (e)=> onCellKey(e, td, r, c));
-          tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-      }
-      table.appendChild(tbody);
-      gridEl.innerHTML=''; gridEl.appendChild(table);
-
-      // Update formula bar
-      const cell = model[selected.r-1][selected.c-1];
-      formulaBar.value = (cell.raw!=='' && cell.raw!=null) ? String(cell.raw) : '';
-    }
-
-    function formatNumber(v){
-      if(Math.abs(v)>=1000 || Math.abs(v)<=-1000) return v.toLocaleString(undefined,{maximumFractionDigits:6});
-      return Number(v.toFixed(6)).toString();
-    }
-
-    function onSelect(r,c){ selected={r,c}; renderGrid(); }
-
-    function startEdit(td, r, c){ td.setAttribute('contenteditable','true'); td.focus(); placeCaretAtEnd(td);
-      td.addEventListener('blur', finishEdit);
-      function finishEdit(){
-        td.removeEventListener('blur', finishEdit);
-        td.removeAttribute('contenteditable');
-        const text = td.textContent || '';
-        model[r-1][c-1].raw = text.trim();
-        recalcAll();
-      }
-    }
-
-    function onCellKey(e, td, r, c){
-      if(e.key==='Enter') { e.preventDefault(); startEdit(td, r, c); return; }
-      if(e.key==='ArrowRight'){ e.preventDefault(); onSelect(r, Math.min(GRID_COLS, c+1)); }
-      if(e.key==='ArrowLeft'){ e.preventDefault(); onSelect(r, Math.max(1, c-1)); }
-      if(e.key==='ArrowDown'){ e.preventDefault(); onSelect(Math.min(GRID_ROWS, r+1), c); }
-      if(e.key==='ArrowUp'){ e.preventDefault(); onSelect(Math.max(1, r-1), c); }
-      if(e.key.length===1){ // begin typing replaces content
-        startEdit(td, r, c); td.textContent = e.key; placeCaretAtEnd(td);
-      }
-    }
-
-    function placeCaretAtEnd(el){ const range = document.createRange(); range.selectNodeContents(el); range.collapse(false); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range); }
-
-    formulaBar.addEventListener('keydown', (e)=>{
-      if(e.key==='Enter'){
-        e.preventDefault(); const {r,c} = selected; model[r-1][c-1].raw = formulaBar.value.trim(); recalcAll();
-      }
+    // Signature ambient gradient follows pointer
+    const amb = document.querySelector('.ambient');
+    window.addEventListener('pointermove', e => {
+      const x = (e.clientX / window.innerWidth) * 100 + '%';
+      const y = (e.clientY / window.innerHeight) * 100 + '%';
+      amb && amb.style.setProperty('--mx', x);
+      amb && amb.style.setProperty('--my', y);
     });
 
-    // ---------- Question Bank ----------
-    // Each question: { tier:'basic'|'intermediate'|'advanced', flows:[v0,v1,...], text:string }
-    const questionBank = [
-      // BASIC (5)
-      {tier:'basic', flows:[-500, 150, 200, 250], text:'Initial investment = -500, Year1 = 150, Year2 = 200, Year3 = 250. Compute IRR.'},
-      {tier:'basic', flows:[-1000, 400, 400, 400], text:'Initial investment = -1,000, Year1 = 400, Year2 = 400, Year3 = 400. Compute IRR.'},
-      {tier:'basic', flows:[-800, 200, 300, 400], text:'Initial investment = -800, Year1 = 200, Year2 = 300, Year3 = 400. Compute IRR.'},
-      {tier:'basic', flows:[-600, 100, 200, 400], text:'Initial investment = -600, Year1 = 100, Year2 = 200, Year3 = 400. Compute IRR.'},
-      {tier:'basic', flows:[-1200, 300, 400, 500], text:'Initial investment = -1,200, Year1 = 300, Year2 = 400, Year3 = 500. Compute IRR.'},
-      // INTERMEDIATE (5)
-      {tier:'intermediate', flows:[-2000, 600, 700, 800, 900], text:'Initial investment = -2,000, Year1 = 600, Year2 = 700, Year3 = 800, Year4 = 900. Compute IRR.'},
-      {tier:'intermediate', flows:[-3000, 1000, 1000, 1000, 1000], text:'Initial investment = -3,000, Year1 = 1,000, Year2 = 1,000, Year3 = 1,000, Year4 = 1,000. Compute IRR.'},
-      {tier:'intermediate', flows:[-2500, 500, 700, 900, 1200], text:'Initial investment = -2,500, Year1 = 500, Year2 = 700, Year3 = 900, Year4 = 1,200. Compute IRR.'},
-      {tier:'intermediate', flows:[-4000, 1200, 1300, 1400, 1500], text:'Initial investment = -4,000, Year1 = 1,200, Year2 = 1,300, Year3 = 1,400, Year4 = 1,500. Compute IRR.'},
-      {tier:'intermediate', flows:[-2200, 600, 650, 700, 750], text:'Initial investment = -2,200, Year1 = 600, Year2 = 650, Year3 = 700, Year4 = 750. Compute IRR.'},
-      // ADVANCED (5)
-      {tier:'advanced', flows:[-5000, 2000, -500, 3000, 2000, 1000], text:'Initial investment = -5,000, Year1 = 2,000, Year2 = -500, Year3 = 3,000, Year4 = 2,000, Year5 = 1,000. Compute IRR (note negative cash flow in Year2).'},
-      {tier:'advanced', flows:[-6000, 2500, 2500, -1000, 4000, 2000], text:'Initial investment = -6,000, Year1 = 2,500, Year2 = 2,500, Year3 = -1,000, Year4 = 4,000, Year5 = 2,000. Compute IRR (multiple sign changes).'},
-      {tier:'advanced', flows:[-3500, 1000, 1200, 1400, 1600, 1800], text:'Initial investment = -3,500, Year1 = 1,000, Year2 = 1,200, Year3 = 1,400, Year4 = 1,600, Year5 = 1,800. Compute IRR.'},
-      {tier:'advanced', flows:[-8000, 2000, 2000, 2000, 2000, 2500], text:'Initial investment = -8,000, Year1 = 2,000, Year2 = 2,000, Year3 = 2,000, Year4 = 2,000, Year5 = 2,500. Compute IRR.'},
-      {tier:'advanced', flows:[-10000, 3000, 3000, 3500, 3500, 4000], text:'Initial investment = -10,000, Year1 = 3,000, Year2 = 3,000, Year3 = 3,500, Year4 = 3,500, Year5 = 4,000. Compute IRR.'}
+    // Parallax + reveal (graceful if JS disabled)
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      // Parallax
+      const px = Array.from(document.querySelectorAll('[data-parallax]'));
+      const parallax = () => {
+        const sy = window.scrollY || window.pageYOffset;
+        px.forEach(el => {
+          const speed = parseFloat(el.getAttribute('data-speed')||'0.06');
+          el.style.transform = `translateY(${sy * speed}px)`;
+        });
+      };
+      window.addEventListener('scroll', parallax, { passive: true });
+      parallax();
+
+      // Reveal on view
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('in');
+        });
+      }, { threshold: 0.18 });
+      document.querySelectorAll('.reveal, .belt-area, .decision').forEach(el=> io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal, .belt-area, .decision').forEach(el=> el.classList.add('in'));
+    }
+
+    // Luckysheet Practice Builder
+    // Data blocks: 3 levels × 5 questions each.
+    function percentCell(n){
+      return { v: n, m: (n*100).toFixed(1)+'%', ct:{ t:'n', fa:'0.0%'} };
+    }
+    function moneyCell(n){
+      return { v: n, m: '₹'+Number(n).toLocaleString('en-IN'), ct:{ t:'n', fa:'#,##0' } };
+    }
+
+    const basic = [
+      {D:600, E:1400, CoD:0.08, CoE:0.12, T:0.25},
+      {D:500, E:500,   CoD:0.06, CoE:0.10, T:0.30},
+      {D:300, E:700,   CoD:0.07, CoE:0.11, T:0.25},
+      {D:800, E:1200,  CoD:0.09, CoE:0.13, T:0.20},
+      {D:200, E:800,   CoD:0.05, CoE:0.09, T:0.25},
+    ];
+    const intermediate = [
+      {D:900,  E:1100, CoD:0.075, CoE:0.125, T:0.30},
+      {D:1200, E:800,  CoD:0.085, CoE:0.140, T:0.25},
+      {D:450,  E:1550, CoD:0.065, CoE:0.105, T:0.22},
+      {D:1000, E:1000, CoD:0.070, CoE:0.115, T:0.28},
+      {D:700,  E:1300, CoD:0.080, CoE:0.120, T:0.33},
+    ];
+    const advanced = [
+      {D:12500, E:17500, CoD:0.072, CoE:0.128, T:0.27},
+      {D:30000, E:20000, CoD:0.091, CoE:0.154, T:0.25},
+      {D:18750, E:31250, CoD:0.069, CoE:0.109, T:0.30},
+      {D:22000, E:28000, CoD:0.083, CoE:0.132, T:0.24},
+      {D:15500, E:34500, CoD:0.077, CoE:0.116, T:0.29},
     ];
 
-    // ---------- Question State ----------
-    let currentTier = 'basic';
-    let order = { basic:[0,1,2,3,4], intermediate:[0,1,2,3,4], advanced:[0,1,2,3,4] };
-    let idx = 0; // index within tier (0..4)
-
-    function getTierQuestions(tier){ return questionBank.filter(q => q.tier===tier); }
-
-    function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } }
-
-    function updateOrder(){
-      if(document.getElementById('shuffle').checked){
-        order[currentTier] = [0,1,2,3,4]; shuffleArray(order[currentTier]); idx=0;
-      } else {
-        order[currentTier] = [0,1,2,3,4]; idx=0;
-      }
+    function blockRows(startRow, levelName, questions) {
+      const rows = [];
+      // Header row (labels)
+      rows.push({ r:startRow, c:0, v:{ v: levelName, m: levelName }});
+      const head = ['Debt (₹)','Equity (₹)','Cost of Debt','Cost of Equity','Tax Rate','WACC (answer)'];
+      head.forEach((h, i)=> rows.push({ r:startRow+1, c:i, v:{ v:h, m:h }}));
+      // Each question occupies one row
+      questions.forEach((q, idx)=>{
+        const r = startRow + 2 + idx;
+        rows.push({ r, c:0, v: moneyCell(q.D) });
+        rows.push({ r, c:1, v: moneyCell(q.E) });
+        rows.push({ r, c:2, v: percentCell(q.CoD) });
+        rows.push({ r, c:3, v: percentCell(q.CoE) });
+        rows.push({ r, c:4, v: percentCell(q.T) });
+        // c5 is answer left blank for learner
+        rows.push({ r, c:5, v: { v: '', m: '' } });
+      });
+      return rows;
     }
 
-    function currentQuestion(){
-      const qs = getTierQuestions(currentTier); const qIndex = order[currentTier][idx]; return { q:qs[qIndex], index:qIndex };
+    function buildPractice() {
+      const celldata = [];
+      let start = 0;
+      [
+        { name:'Basic (5)', data: basic },
+        { name:'Intermediate (5)', data: intermediate },
+        { name:'Advanced (5)', data: advanced },
+      ].forEach(group => {
+        celldata.push(...blockRows(start, group.name, group.data));
+        start += 2 + group.data.length + 2; // header + rows + spacer
+      });
+
+      luckysheet.create({
+        container: 'luckysheet',
+        showinfobar: false,
+        lang: 'en',
+        data: [{
+          name: 'Practice', index: 0, status: 1, order: 0,
+          row: Math.max(60, celldata.reduce((m,c)=> Math.max(m, c.r), 0) + 10),
+          column: 12,
+          celldata
+        }]
+      });
     }
 
-    // ---------- Prefill Sheet for Question ----------
-    function clearSheet(){ for(let r=1;r<=GRID_ROWS;r++){ for(let c=1;c<=GRID_COLS;c++){ model[r-1][c-1]={raw:'', value:'', error:null}; } } }
-
-    function prefillForQuestion(question){
-      clearSheet();
-      // Layout: Column A labels, Column B values
-      setCell(1,1,'Initial Investment'); setCell(1,2, question.flows[0]);
-      for(let i=1;i<question.flows.length;i++){
-        setCell(i+1,1, `Year ${i}`); setCell(i+1,2, question.flows[i]);
-      }
-      // Hint area and answer
-      setCell(9,1,'Formula hint'); setCell(9,2,'=IRR(B1:B'+(question.flows.length)+')');
-      setCell(10,1,'Your Answer (IRR)'); setCell(10,2,'');
-      // A small check area for NPV at the trial IRR
-      setCell(12,1,'Check NPV at your IRR'); setCell(12,2,'=NPV(B10, B2:B'+(question.flows.length)+') + B1');
-      recalcAll();
-      highlightAnswerCell();
+    // Only initialize Luckysheet after scripts are loaded
+    if (window.luckysheet) {
+      buildPractice();
+    } else {
+      window.addEventListener('load', buildPractice);
     }
-
-    function setCell(r,c,raw){ model[r-1][c-1].raw = String(raw); }
-
-    function highlightAnswerCell(){
-      // Add a brief highlight to B10
-      const cells = gridEl.querySelectorAll('.cell');
-      cells.forEach(td => td.classList.remove('highlight'));
-      const selector = `.cell[data-row="${ANSWER_CELL.r}"][data-col="${ANSWER_CELL.c}"]`;
-      const el = gridEl.querySelector(selector); if(el) { el.classList.add('highlight'); }
-    }
-
-    // ---------- UI / Evaluation ----------
-    const qText = document.getElementById('questionText');
-    const qPath = document.getElementById('qPath');
-    const diffSel = document.getElementById('difficulty');
-    const solPanel = document.getElementById('solutionPanel');
-    const teacherPanel = document.getElementById('teacherPanel');
-    const evalStatus = document.getElementById('evalStatus');
-    const scoreBadge = document.getElementById('scoreBadge');
-
-    const score = JSON.parse(localStorage.getItem('irrScore')||'{}');
-    if(!score.sessions) score.sessions = { correct:0, attempts:0 };
-    updateScore();
-
-    function updateScore(){ scoreBadge.textContent = `Score: ${score.sessions.correct} / ${score.sessions.attempts}`; localStorage.setItem('irrScore', JSON.stringify(score)); }
-
-    function showQuestion(){
-      const { q } = currentQuestion();
-      qText.textContent = q.text;
-      qPath.textContent = `${capitalize(currentTier)} • Question ${idx+1}/5`;
-      document.getElementById('solutionPanel').classList.remove('active');
-      document.getElementById('teacherPanel').classList.remove('active');
-      prefillForQuestion(q);
-      document.getElementById('printQuestion').textContent = q.text;
-      const ul = document.getElementById('printValues'); ul.innerHTML='';
-      ul.appendChild(el('li', {}, `Initial Investment: ${q.flows[0]}`));
-      for(let i=1;i<q.flows.length;i++) ul.appendChild(el('li',{},`Year ${i}: ${q.flows[i]}`));
-      evalStatus.textContent = 'Awaiting input…';
-    }
-
-    function el(tag, attrs={}, text){ const n=document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v)); if(text!=null) n.textContent=text; return n; }
-    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
-
-    function getAnswerCell(){ return model[ANSWER_CELL.r-1][ANSWER_CELL.c-1]; }
-
-    function evaluateAnswer(){
-      const { q } = currentQuestion();
-      const flows = q.flows.slice(); // [t0,t1,...]
-      // Correct IRR from engine
-      const sol = irr(flows, 0.1);
-      if(!sol.ok){ evalStatus.innerHTML = `Evaluation: <span class="bad">${sol.reason}</span>`; showSolutionContent(q, sol, null); return; }
-      const correct = sol.value;
-      // Student answer: try to compute value of B10
-      const ansCell = getAnswerCell(); const ansVal = Number(getCellValue(ANSWER_CELL.r,ANSWER_CELL.c));
-      if(!isFinite(ansVal)){
-        evalStatus.innerHTML = 'Evaluation: <span class="bad">Invalid or empty Answer cell (B10).</span>';
-        return;
-      }
-      const diff = Math.abs(ansVal - correct);
-      const ok = diff <= UI_TOLERANCE_PERCENT/100; // convert percentage points to decimal
-      score.sessions.attempts++;
-      if(ok) score.sessions.correct++;
-      updateScore();
-
-      const pct = (v)=> (v*100).toFixed(2)+'%';
-      evalStatus.innerHTML = ok ? `Evaluation: <span class="good">Correct</span> – Your IRR ${pct(ansVal)} vs Correct ${pct(correct)} (|Δ|=${(diff*100).toFixed(2)}pp)`
-                                : `Evaluation: <span class="bad">Incorrect</span> – Your IRR ${pct(ansVal)} vs Correct ${pct(correct)} (tol ±${(UI_TOLERANCE_PERCENT).toFixed(2)}pp)`;
-
-      showSolutionContent(q, sol, ansVal);
-    }
-
-    function showSolutionContent(q, sol, studentVal){
-      const flows = q.flows.slice();
-      if(!sol.ok){ solPanel.innerHTML = `<div class="bad">${sol.reason || 'No IRR found.'}</div>`; solPanel.classList.add('active'); return; }
-      const r = sol.value; const pct = (v)=> (v*100).toFixed(3)+'%';
-      // NPV at IRR should be approx 0 using Excel timing. flows = [t0,t1,...]
-      const pvTerms = flows.slice(1).map((v,i)=> v/Math.pow(1+r, i+1));
-      const npvAtIRR = pvTerms.reduce((a,b)=>a+b,0) + flows[0];
-      const steps = pvTerms.map((v,i)=> `Year ${i+1}: ${v.toFixed(4)}`).join('<br>');
-      const eq = `NPV(${r.toFixed(6)}, cashflows[1..]) + CF0 = 0`;
-      solPanel.innerHTML = `
-        <div>
-          <h3>Solution</h3>
-          <p>Computed IRR: <strong>${pct(r)}</strong> (${sol.method}, ${sol.iterations} iterations)</p>
-          <p>NPV at IRR (should be ~0): <strong>${npvAtIRR.toFixed(6)}</strong></p>
-          <p>${eq}</p>
-          <div style="margin-top:8px">Discounted cash flows:<br>${steps}</div>
-          <div style="margin-top:8px">Suggested formula in Answer (B10): <code style="font-family:var(--mono)">=IRR(B1:B${flows.length})</code></div>
-          ${studentVal!=null? `<div style="margin-top:8px">Your IRR: <strong>${pct(studentVal)}</strong></div>`:''}
-        </div>`;
-      solPanel.classList.add('active');
-
-      // Highlight B10
-      highlightAnswerCell();
-    }
-
-    function showTeacher(){
-      const { q } = currentQuestion(); const flows = q.flows.slice();
-      const sol = irr(flows, 0.1);
-      if(!sol.ok){ teacherPanel.innerHTML = `<div class="bad">${sol.reason}</div>`; teacherPanel.classList.add('active'); return; }
-      const r = sol.value; const pct=(v)=> (v*100).toFixed(3)+'%';
-      const dflows = flows.slice(1).map((v,i)=> v/Math.pow(1+r, i+1));
-      const list = dflows.map((v,i)=> `<li>Year ${i+1}: PV = ${v.toFixed(6)}</li>`).join('');
-      teacherPanel.innerHTML = `
-        <div>
-          <h3>Teacher View</h3>
-          <p>Correct IRR: <strong>${pct(r)}</strong></p>
-          <ul>${list}</ul>
-          <p>Check cell B12 computes <code>NPV(B10, B2:B${flows.length}) + B1</code></p>
-        </div>`;
-      teacherPanel.classList.add('active');
-    }
-
-    // ---------- Event Wiring ----------
-    document.getElementById('prev').addEventListener('click', ()=>{ idx = (idx+4)%5; showQuestion(); });
-    document.getElementById('next').addEventListener('click', ()=>{ idx = (idx+1)%5; showQuestion(); });
-    document.getElementById('shuffle').addEventListener('change', ()=>{ updateOrder(); showQuestion(); });
-    document.getElementById('difficulty').addEventListener('change', (e)=>{
-      currentTier = e.target.value; updateOrder(); showQuestion();
-    });
-
-    document.getElementById('evaluate').addEventListener('click', evaluateAnswer);
-    document.getElementById('showSolution').addEventListener('click', ()=>{ const {q}=currentQuestion(); const flows=q.flows.slice(); const sol=irr(flows,0.1); showSolutionContent(q, sol, null); });
-    document.getElementById('reset').addEventListener('click', ()=> showQuestion());
-
-    document.getElementById('teacherToggle').addEventListener('change', (e)=>{
-      if(e.target.checked){ showTeacher(); }
-      else { teacherPanel.classList.remove('active'); teacherPanel.innerHTML=''; }
-    });
-
-    document.getElementById('generate').addEventListener('click', ()=>{
-      // Generate similar: same periods length, randomize amounts with sensible ranges
-      const { q } = currentQuestion();
-      const n = q.flows.length-1; // years
-      const flows = [ -rand(300, 10000) ]; // initial negative
-      for(let i=0;i<n;i++) flows.push(rand(100, 5000) * (Math.random()<0.15? -1:1));
-      const newQ = { tier: q.tier, flows, text: `Generated similar – Initial = ${flows[0]}, ` + flows.slice(1).map((v,i)=>`Y${i+1}=${v}`).join(', ') + `. Compute IRR.` };
-      prefillForQuestion(newQ);
-      qText.textContent = newQ.text;
-      solPanel.classList.remove('active'); teacherPanel.classList.remove('active');
-    });
-
-    function rand(a,b){ return Math.round(a + Math.random()*(b-a)); }
-
-    document.getElementById('print').addEventListener('click', ()=> window.print());
-
-    // ---------- Init ----------
-    renderGrid(); updateOrder(); showQuestion();
   </script>
 </body>
 </html>
