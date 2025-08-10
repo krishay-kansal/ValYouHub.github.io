@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - ValYou Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .contact-section {
+      background: rgba(22, 33, 62, 0.92);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(20,24,40,0.18);
+      max-width: 900px;
+      margin: 48px auto;
+      padding: 40px 32px;
+      color: #e5e7eb;
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .contact-header h1 {
+      font-size: 2.4rem;
+      color: #4f8cff;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .contact-header p {
+      color: #b8bfc9;
+      font-size: 1.15rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 32px;
+      justify-content: space-between;
+    }
+    .contact-info-main, .contact-info-dept {
+      flex: 1 1 320px;
+      min-width: 260px;
+    }
+    .contact-info-main a, .contact-info-dept a {
+      color: #4f8cff;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .contact-info-main {
+      margin-bottom: 18px;
+    }
+    .contact-info-main .info-row {
+      margin-bottom: 12px;
+      font-size: 1.08rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-info-main .info-row i {
+      color: #4f8cff;
+      font-size: 1.1rem;
+    }
+    .contact-info-dept {
+      margin-bottom: 18px;
+    }
+    .contact-info-dept .dept-row {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-info-dept .dept-row i {
+      color: #4f8cff;
+      font-size: 1rem;
+    }
+    .contact-form-section {
+      margin-bottom: 40px;
+    }
+    .contact-form {
+      background: #23325c;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(79,140,255,0.10);
+      padding: 32px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #e5e7eb;
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #4f8cff;
+    }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #2c3e6c;
+      background: #16213e;
+      color: #e5e7eb;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+      border-color: #4f8cff;
+      outline: none;
+    }
+    .contact-form .error {
+      border-color: #ff4f4f !important;
+    }
+    .contact-form .error-message {
+      color: #ff4f4f;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .contact-form .consent-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .contact-form .consent-row label {
+      margin-bottom: 0;
+      font-weight: 400;
+      color: #b8bfc9;
+      font-size: 0.98rem;
+    }
+    .contact-form .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .contact-form .submit-btn {
+      background: linear-gradient(90deg,#23325c,#4f8cff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 10px 24px;
+      box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .contact-form .submit-btn:hover {
+      background: #4f8cff;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(79,140,255,0.18);
+    }
+    .contact-form .success-message {
+      color: #00cfff;
+      font-size: 1.05rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .contact-form .failure-message {
+      color: #ff4f4f;
+      font-size: 1.05rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .contact-map-section {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .contact-map {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(79,140,255,0.10);
+      margin-bottom: 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .contact-map-btn {
+      background: linear-gradient(90deg,#23325c,#4f8cff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 10px 24px;
+      box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .contact-map-btn:hover {
+      background: #4f8cff;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(79,140,255,0.18);
+    }
+    .contact-social-section {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .contact-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+    .contact-social-icons a {
+      color: #4f8cff;
+      font-size: 2rem;
+      transition: color 0.2s;
+    }
+    .contact-social-icons a:hover {
+      color: #00cfff;
+    }
+    .newsletter-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .newsletter-row input[type="email"] {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #2c3e6c;
+      background: #16213e;
+      color: #e5e7eb;
+      font-size: 1rem;
+      width: 220px;
+      transition: border 0.2s;
+    }
+    .newsletter-row input[type="email"]:focus {
+      border-color: #4f8cff;
+      outline: none;
+    }
+    .newsletter-row button {
+      background: linear-gradient(90deg,#23325c,#4f8cff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 10px 18px;
+      box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .newsletter-row button:hover {
+      background: #4f8cff;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(79,140,255,0.18);
+    }
+    @media (max-width: 700px) {
+      .contact-section {
+        padding: 18px 4vw;
+      }
+      .contact-info {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .contact-form {
+        padding: 18px 8px;
+      }
+      .contact-map {
+        max-width: 98vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-section">
+    <div class="contact-header">
+      <h1>Contact Us</h1>
+      <p>We're here to help. Reach out for admissions, support, partnerships, or media inquiries.</p>
+    </div>
+    <div class="contact-info">
+      <div class="contact-info-main">
+        <br><div class="info-row"><i class="fa-solid fa-location-dot"></i> Head Office: 123 Finance Avenue, Mumbai, Maharashtra, 400001, India </div>
+<a href="#contactMapSection">
+        <div class="info-row"><i class="fa-solid fa-location-dot"></i>         Get Directions </div></a>
+        <div class="info-row"><i class="fa-solid fa-phone"></i> <a href="tel:+912212345678">+91 22 1234 5678</a></div>
+        
+      </div>
+      <div class="contact-info-dept">
+        <div class="dept-row"><i class="fa-solid fa-user-graduate"></i> Admissions: <a href="mailto:admissions@valyouhub.com">admissions@valyouhub.com</a></div>
+        <div class="dept-row"><i class="fa-solid fa-headset"></i> Support: <a href="mailto:support@valyouhub.com">support@valyouhub.com</a></div>
+        <div class="dept-row"><i class="fa-solid fa-handshake"></i> Partnerships: <a href="mailto:partnerships@valyouhub.com">partnerships@valyouhub.com</a></div>
+        <div class="dept-row"><i class="fa-solid fa-bullhorn"></i> Media: <a href="mailto:media@valyouhub.com">media@valyouhub.com</a></div>
+        <div class="dept-row"><i class="fa-solid fa-file-invoice-dollar"></i> Billing: <a href="mailto:billing@valyouhub.com">billing@valyouhub.com</a></div>
+      </div>
+    </div>
+    <div class="contact-form-section">
+  <form class="contact-form" id="contactForm" enctype="multipart/form-data" novalidate>
+        <label for="fullname">Full Name *</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <div class="error-message" id="error-fullname"></div>
+
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required>
+        <div class="error-message" id="error-email"></div>
+
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+        <div class="error-message" id="error-message"></div>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone">
+
+        <label for="company">Company/Organization</label>
+        <input type="text" id="company" name="company">
+
+        <label for="enquiry">Enquiry Type</label>
+        <select id="enquiry" name="enquiry">
+          <option value="Admissions">Admissions</option>
+          <option value="Technical Support">Technical Support</option>
+          <option value="Corporate Training">Corporate Training</option>
+          <option value="Press">Press</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div class="consent-row">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">I agree to ValYou Hub storing my details for the purpose of responding to my enquiry.</label>
+        </div>
+        <div class="error-message" id="error-consent"></div>
+
+        <label for="attachment">Attachment (Optional)</label>
+        <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.png">
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">Submit</button>
+        </div>
+        <div class="success-message" id="success-message"></div>
+        <div class="failure-message" id="failure-message"></div>
+      </form>
+    </div>
+  <!-- ...existing code... -->
+    <div class="contact-social-section">
+      <div class="contact-social-icons">
+        <a href="https://www.linkedin.com/company/valyouhub" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/valyouhub" target="_blank" title="Twitter/X"><i class="fas fa-times"></i></a>
+        <a href="https://instagram.com/valyouhub" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@valyouhub" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/919876543210" target="_blank" title="WhatsApp Business"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="newsletter-row">
+        <input type="email" id="newsletterEmail" placeholder="Your email for updates">
+        <button type="button" id="subscribeBtn">Subscribe</button>
+      </div>
+      <div class="success-message" id="newsletter-success"></div>
+      <div class="failure-message" id="newsletter-failure"></div>
+    </div>
+    <!-- ...existing code... -->
+    <div class="contact-map-section" style="margin-top:48px;" id="contactMapSection">
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps?q=19.0760,72.8777&z=15&output=embed" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=19.0760,72.8777" target="_blank"><button class="contact-map-btn">View on Google Maps</button></a>
+    
+    <script>
+      // AJAX Formspree submission
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        let valid = true;
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        document.getElementById('success-message').textContent = '';
+        document.getElementById('failure-message').textContent = '';
+        // Validate required fields
+        const fullname = form.fullname.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        const consent = form.consent.checked;
+        if (!fullname) {
+          valid = false;
+          form.fullname.classList.add('error');
+          document.getElementById('error-fullname').textContent = 'Full name is required.';
+        }
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          valid = false;
+          form.email.classList.add('error');
+          document.getElementById('error-email').textContent = 'Valid email is required.';
+        }
+        if (!message) {
+          valid = false;
+          form.message.classList.add('error');
+          document.getElementById('error-message').textContent = 'Message is required.';
+        }
+        if (!consent) {
+          valid = false;
+          document.getElementById('error-consent').textContent = 'Consent is required.';
+        }
+        if (!valid) return;
+        // Prepare form data
+        const formData = new FormData(form);
+        try {
+          const response = await fetch('https://formspree.io/f/xovlykyw', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          if (response.ok) {
+            document.getElementById('success-message').textContent = 'Thank you for contacting us! We will respond soon.';
+            form.reset();
+          } else {
+            const data = await response.json();
+            document.getElementById('failure-message').textContent = (data && data.errors && data.errors.length) ? data.errors[0].message : 'There was an error submitting your message. Please try again.';
+          }
+        } catch (err) {
+          document.getElementById('failure-message').textContent = 'Network error. Please try again.';
+        }
+      });
+      // Newsletter Subscription
+      document.getElementById('subscribeBtn').addEventListener('click', function() {
+        const email = document.getElementById('newsletterEmail').value.trim();
+        document.getElementById('newsletter-success').textContent = '';
+        document.getElementById('newsletter-failure').textContent = '';
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          document.getElementById('newsletter-failure').textContent = 'Please enter a valid email address.';
+          return;
+        }
+        document.getElementById('newsletter-success').textContent = 'Subscribed! You will receive updates.';
+        document.getElementById('newsletterEmail').value = '';
+      });
+      // Show Formspree feedback after redirect
+      if (window.location.search.includes('success')) {
+        document.getElementById('success-message').textContent = 'Thank you for contacting us! We will respond soon.';
+      }
+      if (window.location.search.includes('error')) {
+        document.getElementById('failure-message').textContent = 'There was an error submitting your message. Please try again.';
+      }
+    </script>
+</body>
+</html>
