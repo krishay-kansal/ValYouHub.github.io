@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice IRR Calculations – Interactive Spreadsheet</title>
+  <meta name="description" content="Practice IRR calculations with an interactive, Excel-like spreadsheet. Includes Basic, Intermediate, Advanced question banks and auto-evaluation." />
+  <meta name="author" content="ValYou Hub" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="/irr-practice.html" />
+  <meta property="og:title" content="Practice IRR Calculations – Interactive Spreadsheet" />
+  <meta property="og:description" content="Try 15 IRR practice questions with an in-page spreadsheet supporting formulas: IRR, NPV, SUM. Auto-evaluate and step-by-step solutions." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* =============================================================
+       Practice IRR Calculations – Single-file module
+       Usage/Customization Guide (read this block to customize):
+       ---------------------------------------------------------
+       - Edit the questionBank array in the <script> near the bottom to add or modify questions.
+       - Tolerance:
+         const UI_TOLERANCE_PERCENT = 0.01; // ±1.00 percentage points for marking
+         const ENGINE_TOLERANCE = 1e-4;     // IRR convergence tolerance
+       - Functions supported in formulas: SUM, NPV(rate, values...), IRR(values[, guess])
+         Differences vs Excel NPV:
+           Excel's NPV assumes the first cash flow occurs one period after time 0. This implementation follows the same convention.
+           If you include the time-0 cash flow, do not include it inside NPV() range—add it separately if needed.
+       - Add new functions: update functionMap in script.
+       - Grid size: change GRID_ROWS / GRID_COLS in script.
+       - Teacher View exposes solution overlay without altering student's sheet.
+       - Everything runs client-side; no servers or frameworks.
+       ============================================================= */
+
+    :root {
+      --bg: #0f172a;           /* slate-900 */
+      --panel: #111827;        /* gray-900 */
+      --muted: #1f2937;        /* gray-800 */
+      --text: #e5e7eb;         /* gray-200 */
+      --subtle: #9ca3af;       /* gray-400 */
+      --accent: #22d3ee;       /* cyan-400 */
+      --accent-2: #a78bfa;     /* violet-400 */
+      --ok: #34d399;           /* emerald-400 */
+      --warn: #f59e0b;         /* amber-500 */
+      --danger: #f87171;       /* red-400 */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+      --tr: 200ms cubic-bezier(.2,.7,.2,1);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: radial-gradient(1200px 600px at 10% -10%, #0b1324 0%, var(--bg) 45%),
+                               radial-gradient(800px 400px at 110% -10%, #121c35 0%, transparent 50%);
+      color: var(--text); font-family: var(--sans); line-height: 1.5;
+    }
+
+    header { padding: 24px; text-align: center; }
+    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: .2px; }
+    header p { margin: 6px 0 0; color: var(--subtle); }
+
+    main { max-width: 1200px; margin: 0 auto 80px; padding: 0 16px 32px; }
+
+    .controls, .statusbar {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 16px;
+      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(6px);
+    }
+
+    .controls .left, .controls .right { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    .controls select, .controls button, .controls input[type="checkbox"], .controls .btn {
+      background: var(--muted); color: var(--text);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-xs);
+      padding: 10px 12px; cursor: pointer; transition: transform var(--tr), background var(--tr), border var(--tr);
+      font-weight: 600; letter-spacing: .3px; font-size: .95rem;
+    }
+    .controls .btn-secondary { background: #0b1221; }
+    .controls select:hover, .controls button:hover, .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .controls button:active, .btn:active { transform: translateY(0); }
+
+    .tog { display: inline-flex; align-items: center; gap: 8px; font-size: .95rem; color: var(--subtle); }
+    .tog input { width: 20px; height: 20px; }
+
+    .layout { display: grid; grid-template-columns: 1.1fr 1.4fr; gap: 16px; margin-top: 16px; }
+    @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+
+    .panel { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.005));
+             border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    .question-panel { padding: 16px; display: grid; gap: 12px; }
+    .question-panel h2 { margin: 0; font-size: 1.2rem; }
+    .q-meta { color: var(--subtle); font-size: .9rem; }
+    .question { background: #0b1221; border: 1px dashed rgba(255,255,255,.1); padding: 12px; border-radius: var(--radius-sm); }
+    .hint { color: var(--subtle); font-size: .9rem; }
+
+    .sheet-wrap { padding: 12px; }
+
+    .sheet-toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .formula-bar { flex: 1; background: #0b1221; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-xs); padding: 8px 10px; font-family: var(--mono); color: var(--text); }
+
+    .grid {
+      overflow: auto; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-sm);
+      background: #0b1221; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    table.sheet { border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; }
+    .sheet th, .sheet td { border: 1px solid rgba(255,255,255,.08); min-width: 110px; height: 32px; }
+    .sheet th { position: sticky; top: 0; background: #0c1730; z-index: 2; color: var(--subtle); font-weight: 700; text-align: center; }
+    .row-header { position: sticky; left: 0; background: #0c1730; z-index: 1; color: var(--subtle); text-align: center; font-weight: 700; width: 46px; min-width: 46px; }
+
+    .cell { padding: 6px 8px; font-family: var(--mono); color: var(--text); background: rgba(255,255,255,.02); }
+    .cell[data-type="formula"] { background: rgba(39, 174, 96, 0.06); }
+    .cell[data-error="true"] { background: rgba(248,113,113,.08); color: #fecaca; }
+    .cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+    .cell[contenteditable="true"]:focus { background: #0e1a33; }
+
+    .statusbar { margin-top: 12px; padding: 10px 12px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; color: var(--subtle); }
+    .statusbar .badge { background: #0b1221; color: var(--text); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; padding: 6px 10px; font-weight: 700; }
+
+    .solution, .teacher { padding: 12px; display: none; }
+    .solution.active, .teacher.active { display: block; }
+
+    .note { color: var(--subtle); font-size: .9rem; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .actions .btn { background: #0b1221; }
+
+    .good { color: var(--ok); font-weight: 700; }
+    .bad { color: var(--danger); font-weight: 700; }
+
+    .highlight { animation: pulse 1.8s ease-in-out infinite; box-shadow: 0 0 0 3px rgba(34,211,238,.2) inset; }
+    @keyframes pulse { 0%{background-color: rgba(34,211,238,.07);} 50%{background-color: rgba(34,211,238,.02);} 100%{background-color: rgba(34,211,238,.07);} }
+
+    .score { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
+
+    .printable { display: none; }
+    @media print {
+      header, .controls, .statusbar, .actions, .solution, .teacher, .grid { display: none !important; }
+      .printable { display: block; }
+      body { background: #fff; color: #000; }
+      .panel { border: none; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Practice IRR Calculations</h1>
+    <p>Interactive, Excel-like module. Type formulas like =IRR(B2:B6) or =NPV(0.12,B3:B6).</p>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Controls">
+      <div class="left">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" aria-label="Select difficulty">
+          <option value="basic">Basic</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+
+        <span class="tog"><input type="checkbox" id="shuffle"> <label for="shuffle">Shuffle/Randomize</label></span>
+        <span class="tog"><input type="checkbox" id="teacherToggle"> <label for="teacherToggle">Teacher View</label></span>
+      </div>
+      <div class="right">
+        <button id="prev" title="Previous question">◀ Prev</button>
+        <button id="next" title="Next question">Next ▶</button>
+        <button id="generate" class="btn-secondary" title="Generate a similar question">Generate Similar</button>
+        <button id="print" class="btn-secondary" title="Print worksheet view">Print</button>
+      </div>
+    </section>
+
+    <section class="layout">
+      <article class="panel question-panel" aria-labelledby="question-title">
+        <h2 id="question-title">Current Question</h2>
+        <div class="q-meta"><span id="qPath">Basic • Question 1/5</span></div>
+        <div class="question" id="questionText">...</div>
+        <div class="hint" id="hintText">Hint: Enter =IRR(B2:B5) into the Answer cell (B10). Use =NPV(rate, range) to check your IRR by seeing NPV ≈ 0.</div>
+
+        <div class="actions">
+          <button id="evaluate">Auto-evaluate</button>
+          <button id="showSolution">Show Solution</button>
+          <button id="reset">Reset</button>
+        </div>
+
+        <div class="statusbar" role="status">
+          <span>Answer cell: <strong>B10</strong></span>
+          <span id="evalStatus" class="badge">Awaiting input…</span>
+          <span class="score">
+            <span class="badge" id="scoreBadge">Score: 0 / 0</span>
+          </span>
+        </div>
+
+        <section id="solutionPanel" class="solution" aria-live="polite"></section>
+        <aside id="teacherPanel" class="teacher" aria-live="polite"></aside>
+
+        <p class="note">Tip: The implemented IRR uses Newton's method with a robust bisection fallback. If no solution is found or multiple IRRs exist, you'll see a helpful message and the best candidate shown. NPV follows Excel's timing convention (period 1 starts after time 0).</p>
+      </article>
+
+      <section class="panel sheet-wrap" aria-label="Spreadsheet">
+        <div class="sheet-toolbar">
+          <label for="formula">fx</label>
+          <input id="formula" class="formula-bar" aria-label="Formula bar" placeholder="=IRR(B2:B6)" />
+        </div>
+        <div class="grid" id="grid"></div>
+      </section>
+    </section>
+
+    <section class="panel printable" id="printable">
+      <div style="padding:16px">
+        <h2>Worksheet</h2>
+        <p id="printQuestion"></p>
+        <ul id="printValues"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* =============================================================
+       Spreadsheet engine (minimal, safe, no eval)
+       - A1 references, ranges (A1:B5)
+       - Functions: SUM, NPV(rate, values...), IRR(values[,guess])
+       - Arithmetic: + - * / and parentheses
+       - Recalculates entire grid on changes (fine for small sheet)
+       ============================================================= */
+
+    // ---------- Config ----------
+    const GRID_ROWS = 20;
+    const GRID_COLS = 8; // A..H
+    const ANSWER_CELL = { r: 10, c: 2 }; // B10
+    const UI_TOLERANCE_PERCENT = 0.01; // ±1 percentage point for correctness feedback
+    const ENGINE_TOLERANCE = 1e-4;     // IRR numeric tolerance
+    const MAX_IRR = 5.0;               // 500%
+    const MIN_IRR = -0.999;            // -99.9%
+
+    // ---------- Utilities ----------
+    const colToIndex = (col) => {
+      let n = 0; for (let i=0;i<col.length;i++){ n = n*26 + (col.charCodeAt(i)-64);} return n; };
+    const indexToCol = (n) => { let s=""; while(n>0){ let m=(n-1)%26; s=String.fromCharCode(65+m)+s; n=(n-1)/26|0;} return s; };
+    const inBounds = (r,c) => r>=1 && r<=GRID_ROWS && c>=1 && c<=GRID_COLS;
+
+    function parseCellRef(ref){
+      const m = /^([A-Z]+)(\d+)$/.exec(ref.trim());
+      if(!m) return null; return { r: parseInt(m[2],10), c: colToIndex(m[1]) };
+    }
+
+    function expandRange(a1, a2){
+      const s = parseCellRef(a1); const e = parseCellRef(a2); if(!s||!e) return [];
+      const cells=[]; const r1=Math.min(s.r,e.r), r2=Math.max(s.r,e.r); const c1=Math.min(s.c,e.c), c2=Math.max(s.c,e.c);
+      for(let r=r1;r<=r2;r++){ for(let c=c1;c<=c2;c++){ cells.push({r,c}); } }
+      return cells;
+    }
+
+    // ---------- IRR / NPV ----------
+    function npv(rate, values){
+      // Excel-like: cash flows occur at periods 1..n (no time-0 in the range)
+      let sum=0; for(let i=0;i<values.length;i++){ const v=Number(values[i])||0; sum += v / Math.pow(1+rate, i+1); }
+      return sum;
+    }
+
+    function irr(values, guess = 0.1){
+      // Robust IRR search: try Newton first; fallback to bracketing + bisection.
+      const maxIter = 200; const tol=ENGINE_TOLERANCE;
+      const f = (r) => values.reduce((acc,v,i)=> acc + v/Math.pow(1+r,i), 0); // includes time-0 at i=0
+      const df = (r) => values.reduce((acc,v,i)=> acc + (-i)*v/Math.pow(1+r,i+1), 0); // derivative
+
+      // If all flows same sign -> no IRR
+      const signs = values.map(v=>Math.sign(v)).filter(s=>s!==0);
+      const hasSignChange = signs.some((s,i)=> i>0 && s!==signs[i-1]);
+      if(!hasSignChange) return { ok:false, reason:'No sign change in cash flows (IRR undefined).' };
+
+      // Newton attempt
+      let r = guess;
+      for(let i=0;i<maxIter;i++){
+        if(r <= MIN_IRR+1e-8) r = MIN_IRR + 1e-6; // avoid division by zero
+        const y = f(r);
+        if(Math.abs(y) < tol) return { ok:true, value:r, method:'newton', iterations:i+1 };
+        const dy = df(r); if(Math.abs(dy) < 1e-12){ break; }
+        const nr = r - y/dy;
+        if(!isFinite(nr)) break;
+        r = Math.max(MIN_IRR+1e-6, Math.min(MAX_IRR, nr));
+      }
+
+      // Bracket by scanning for sign changes of NPV of full series (with time-0)
+      const f2 = f;
+      let brackets = [];
+      const steps = 200; const lo=MIN_IRR+1e-6, hi=MAX_IRR; let prevR=lo, prevY=f2(prevR);
+      for(let i=1;i<=steps;i++){
+        const rr = lo + (hi-lo)*i/steps; const yy=f2(rr);
+        if(prevY===0) { brackets.push([prevR, prevR]); break; }
+        if(yy===0 || (yy>0) !== (prevY>0)) { brackets.push([prevR, rr]); }
+        prevR=rr; prevY=yy;
+      }
+      if(brackets.length===0) return { ok:false, reason:'Could not bracket a root. Multiple or no IRR.' };
+
+      // Bisection on first bracket (pick the root with positive r if found)
+      let chosen = brackets[0];
+      // prefer positive solutions
+      for(const b of brackets){ if(b[1] > 0 && b[0] < 0.99) { chosen = b; break; } }
+      let [a,b] = chosen; let ya=f2(a), yb=f2(b);
+      if(!isFinite(ya) || !isFinite(yb)) return { ok:false, reason:'Numerical issue in bracketing.' };
+      if(ya===0) return { ok:true, value:a, method:'bisection', iterations:0 };
+      if(yb===0) return { ok:true, value:b, method:'bisection', iterations:0 };
+      if((ya>0)===(yb>0)) return { ok:false, reason:'Bracket does not cross zero.' };
+
+      let iter=0; while(iter<maxIter){
+        const mid = 0.5*(a+b); const ym = f2(mid);
+        if(Math.abs(ym) < tol) return { ok:true, value:mid, method:'bisection', iterations:iter+1 };
+        if((ya>0)!==(ym>0)) { b=mid; yb=ym; } else { a=mid; ya=ym; }
+        iter++;
+      }
+      return { ok:true, value:0.5*(a+b), method:'bisection-timeout', iterations:iter };
+    }
+
+    // ---------- Parser ----------
+    // Token types: number, ident, cell, rangeSep(:), comma, lparen, rparen, op(+ - * /)
+    function tokenize(input){
+      const s = input.trim();
+      const tokens=[]; let i=0;
+      const isDigit = ch => ch>='0' && ch<='9' || ch==='.';
+      const isAlpha = ch => /[A-Za-z_]/.test(ch);
+      while(i<s.length){
+        const ch = s[i];
+        if(ch===' '||ch==='\t') { i++; continue; }
+        if('+-*/'.includes(ch)) { tokens.push({type:'op', value:ch}); i++; continue; }
+        if(ch==='('){ tokens.push({type:'lparen'}); i++; continue; }
+        if(ch===')'){ tokens.push({type:'rparen'}); i++; continue; }
+        if(ch===','){ tokens.push({type:'comma'}); i++; continue; }
+        if(ch===':'){ tokens.push({type:'colon'}); i++; continue; }
+        if(isDigit(ch)){
+          let j=i+1; while(j<s.length && (isDigit(s[j]) || s[j]==='e' || s[j]==='E' || s[j]==='-')) j++;
+          tokens.push({type:'number', value: parseFloat(s.slice(i,j))}); i=j; continue;
+        }
+        if(isAlpha(ch)){
+          let j=i+1; while(j<s.length && /[A-Za-z0-9_]/.test(s[j])) j++;
+          const text = s.slice(i,j).toUpperCase();
+          // Could be IDENT or CELL (A1 style) — decide later in parser by next tokens
+          tokens.push({type:'ident', value:text}); i=j; continue;
+        }
+        // Unknown char
+        throw new Error('Unexpected character: '+ch);
+      }
+      return tokens;
+    }
+
+    // Recursive descent parser
+    function parseFormula(input){
+      // Remove leading '=' if present
+      const s = input.trim().replace(/^=/,'');
+      const tokens = tokenize(s);
+      let pos = 0;
+
+      function peek(){ return tokens[pos]; }
+      function consume(){ return tokens[pos++]; }
+      function expect(type){ const t=consume(); if(!t||t.type!==type) throw new Error('Expected '+type); return t; }
+
+      function parsePrimary(){
+        const t = peek(); if(!t) throw new Error('Unexpected end');
+        if(t.type==='number'){ consume(); return {type:'num', value:t.value}; }
+        if(t.type==='ident'){
+          // Might be function call, cell ref, or bare identifier (cell like A10)
+          // Lookahead for pattern IDENT NUMBER => cell; IDENT '(' => func
+          const name = t.value; consume();
+          const t2 = peek();
+          if(t2 && t2.type==='lparen'){
+            // function call
+            consume(); // '('
+            const args=[]; if(peek() && peek().type!=='rparen'){
+              while(true){ args.push(parseArg()); if(peek() && peek().type==='comma'){ consume(); continue; } break; }
+            }
+            expect('rparen');
+            return { type:'func', name, args };
+          }
+          // Try cell ref like A12 (name letters + number in next token?)
+          // Our tokenizer emitted entire A12 as ident; detect pattern letters+digits
+          const m = /^([A-Z]+)(\d+)$/.exec(name);
+          if(m) { return {type:'cell', ref:name}; }
+          // Bare identifier not supported
+          throw new Error('Unknown identifier: '+name);
+        }
+        if(t.type==='lparen'){ consume(); const e=parseExpr(); expect('rparen'); return e; }
+        throw new Error('Unexpected token in primary');
+      }
+
+      function parseArg(){
+        // Support range A1:B5 as primary ':' primary; we only allow cell:cell
+        // Try to parse a cell then ':' then cell
+        const save = pos; let left = null;
+        try {
+          left = parsePrimary();
+          if(left.type==='cell' && peek() && peek().type==='colon'){
+            consume(); const right = parsePrimary();
+            if(right.type!=='cell') throw new Error('Invalid range');
+            return { type:'range', a:left.ref, b:right.ref };
+          }
+          // No range; return expression (left may be num/cell/func)
+          return left;
+        } catch(e){ pos = save; return parseExpr(); }
+      }
+
+      function parseFactor(){
+        return parsePrimary();
+      }
+      function parseTerm(){
+        let node = parseFactor();
+        while(peek() && (peek().value==='*' || peek().value==='/' )){
+          const op = consume().value; const right = parseFactor(); node = { type:'bin', op, left:node, right };
+        }
+        return node;
+      }
+      function parseExpr(){
+        let node = parseTerm();
+        while(peek() && (peek().value==='+' || peek().value==='-' )){
+          const op = consume().value; const right = parseTerm(); node = { type:'bin', op, left:node, right };
+        }
+        return node;
+      }
+
+      const ast = parseExpr();
+      if(peek()) throw new Error('Unexpected token at end');
+      return ast;
+    }
+
+    // Evaluation
+    function evaluateAST(ast, getCell){
+      const fn = (node)=>{
+        if(node.type==='num') return node.value;
+        if(node.type==='cell'){
+          const c = parseCellRef(node.ref); if(!c) return NaN; return Number(getCell(c.r,c.c));
+        }
+        if(node.type==='range'){
+          const cells = expandRange(node.a, node.b); return cells.map(({r,c})=> Number(getCell(r,c)) );
+        }
+        if(node.type==='func'){
+          const name = node.name.toUpperCase();
+          if(name==='SUM'){
+            const vals = node.args.flatMap(arg => arg.type==='range' ? evaluateAST(arg, getCell) : [fn(arg)]);
+            return vals.reduce((a,b)=>a+(Number(b)||0),0);
+          }
+          if(name==='NPV'){
+            if(node.args.length<2) throw new Error('NPV(rate, values...)');
+            const rate = Number(fn(node.args[0]));
+            const vals = node.args.slice(1).flatMap(arg => arg.type==='range' ? evaluateAST(arg, getCell) : [fn(arg)]);
+            return npv(rate, vals);
+          }
+          if(name==='IRR'){
+            if(node.args.length<1) throw new Error('IRR(range[,guess])');
+            const list = node.args[0].type==='range' ? evaluateAST(node.args[0], getCell) : [fn(node.args[0])];
+            const guess = node.args[1] ? Number(fn(node.args[1])) : 0.1;
+            // For IRR, include time-0 flow: if user provided B1:B5 with initial investment at B1
+            const res = irr(list, guess);
+            if(!res.ok) throw new Error(res.reason||'IRR failed');
+            return res.value;
+          }
+          throw new Error('Unknown function '+name);
+        }
+        if(node.type==='bin'){
+          const l = Number(fn(node.left)); const r = Number(fn(node.right));
+          switch(node.op){ case '+': return l+r; case '-': return l-r; case '*': return l*r; case '/': return l/r; default: return NaN; }
+        }
+        return NaN;
+      };
+      return fn(ast);
+    }
+
+    // ---------- Grid/Sheet Model ----------
+    const model = [];
+    for(let r=1;r<=GRID_ROWS;r++){
+      const row=[]; for(let c=1;c<=GRID_COLS;c++){ row.push({ raw:'', value:'', error:null }); } model.push(row);
+    }
+
+    let selected = { r:1, c:1 };
+
+    function getCellValue(r,c){
+      if(!inBounds(r,c)) return '';
+      const cell = model[r-1][c-1];
+      // Lazy evaluate based on raw
+      try {
+        cell.error = null;
+        if(typeof cell.raw === 'string' && cell.raw.trim().startsWith('=')){
+          const ast = parseFormula(cell.raw);
+          const val = evaluateAST(ast, (rr,cc)=> getCellValue(rr,cc));
+          cell.value = val;
+        } else if(cell.raw==='' || cell.raw===null || typeof cell.raw==='undefined'){
+          cell.value = '';
+        } else {
+          const num = Number(cell.raw);
+          cell.value = isNaN(num) ? cell.raw : num;
+        }
+      } catch(e){ cell.value = NaN; cell.error = e.message; }
+      return cell.value;
+    }
+
+    function recalcAll(){
+      for(let r=1;r<=GRID_ROWS;r++){
+        for(let c=1;c<=GRID_COLS;c++){
+          getCellValue(r,c);
+        }
+      }
+      renderGrid();
+    }
+
+    // ---------- Rendering ----------
+    const gridEl = document.getElementById('grid');
+    const formulaBar = document.getElementById('formula');
+
+    function renderGrid(){
+      const table = document.createElement('table'); table.className = 'sheet'; table.setAttribute('role','grid');
+      const thead = document.createElement('thead'); const hr = document.createElement('tr');
+      const corner = document.createElement('th'); corner.className='row-header'; corner.textContent=''; hr.appendChild(corner);
+      for(let c=1;c<=GRID_COLS;c++){ const th=document.createElement('th'); th.textContent=indexToCol(c); hr.appendChild(th); }
+      thead.appendChild(hr); table.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      for(let r=1;r<=GRID_ROWS;r++){
+        const tr = document.createElement('tr');
+        const rh = document.createElement('th'); rh.className='row-header'; rh.textContent=String(r); tr.appendChild(rh);
+        for(let c=1;c<=GRID_COLS;c++){
+          const td = document.createElement('td');
+          const cell = model[r-1][c-1];
+          td.className='cell';
+          td.dataset.row = r; td.dataset.col = c;
+          const isFormula = (typeof cell.raw==='string' && cell.raw.trim().startsWith('='));
+          td.setAttribute('data-type', isFormula ? 'formula' : 'value');
+          td.setAttribute('data-error', cell.error? 'true':'false');
+          td.tabIndex = 0;
+          td.textContent = (isFormula ? (typeof cell.value==='number' && isFinite(cell.value) ? formatNumber(cell.value) : String(cell.value))
+                                        : (cell.raw!==''? String(cell.raw) : ''));
+          if(selected.r===r && selected.c===c) td.classList.add('selected');
+          td.addEventListener('focus', ()=> onSelect(r,c));
+          td.addEventListener('dblclick', ()=> startEdit(td, r, c));
+          td.addEventListener('keydown', (e)=> onCellKey(e, td, r, c));
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+      gridEl.innerHTML=''; gridEl.appendChild(table);
+
+      // Update formula bar
+      const cell = model[selected.r-1][selected.c-1];
+      formulaBar.value = (cell.raw!=='' && cell.raw!=null) ? String(cell.raw) : '';
+    }
+
+    function formatNumber(v){
+      if(Math.abs(v)>=1000 || Math.abs(v)<=-1000) return v.toLocaleString(undefined,{maximumFractionDigits:6});
+      return Number(v.toFixed(6)).toString();
+    }
+
+    function onSelect(r,c){ selected={r,c}; renderGrid(); }
+
+    function startEdit(td, r, c){ td.setAttribute('contenteditable','true'); td.focus(); placeCaretAtEnd(td);
+      td.addEventListener('blur', finishEdit);
+      function finishEdit(){
+        td.removeEventListener('blur', finishEdit);
+        td.removeAttribute('contenteditable');
+        const text = td.textContent || '';
+        model[r-1][c-1].raw = text.trim();
+        recalcAll();
+      }
+    }
+
+    function onCellKey(e, td, r, c){
+      if(e.key==='Enter') { e.preventDefault(); startEdit(td, r, c); return; }
+      if(e.key==='ArrowRight'){ e.preventDefault(); onSelect(r, Math.min(GRID_COLS, c+1)); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); onSelect(r, Math.max(1, c-1)); }
+      if(e.key==='ArrowDown'){ e.preventDefault(); onSelect(Math.min(GRID_ROWS, r+1), c); }
+      if(e.key==='ArrowUp'){ e.preventDefault(); onSelect(Math.max(1, r-1), c); }
+      if(e.key.length===1){ // begin typing replaces content
+        startEdit(td, r, c); td.textContent = e.key; placeCaretAtEnd(td);
+      }
+    }
+
+    function placeCaretAtEnd(el){ const range = document.createRange(); range.selectNodeContents(el); range.collapse(false); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range); }
+
+    formulaBar.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter'){
+        e.preventDefault(); const {r,c} = selected; model[r-1][c-1].raw = formulaBar.value.trim(); recalcAll();
+      }
+    });
+
+    // ---------- Question Bank ----------
+    // Each question: { tier:'basic'|'intermediate'|'advanced', flows:[v0,v1,...], text:string }
+    const questionBank = [
+      // BASIC (5)
+      {tier:'basic', flows:[-500, 150, 200, 250], text:'Initial investment = -500, Year1 = 150, Year2 = 200, Year3 = 250. Compute IRR.'},
+      {tier:'basic', flows:[-1000, 400, 400, 400], text:'Initial investment = -1,000, Year1 = 400, Year2 = 400, Year3 = 400. Compute IRR.'},
+      {tier:'basic', flows:[-800, 200, 300, 400], text:'Initial investment = -800, Year1 = 200, Year2 = 300, Year3 = 400. Compute IRR.'},
+      {tier:'basic', flows:[-600, 100, 200, 400], text:'Initial investment = -600, Year1 = 100, Year2 = 200, Year3 = 400. Compute IRR.'},
+      {tier:'basic', flows:[-1200, 300, 400, 500], text:'Initial investment = -1,200, Year1 = 300, Year2 = 400, Year3 = 500. Compute IRR.'},
+      // INTERMEDIATE (5)
+      {tier:'intermediate', flows:[-2000, 600, 700, 800, 900], text:'Initial investment = -2,000, Year1 = 600, Year2 = 700, Year3 = 800, Year4 = 900. Compute IRR.'},
+      {tier:'intermediate', flows:[-3000, 1000, 1000, 1000, 1000], text:'Initial investment = -3,000, Year1 = 1,000, Year2 = 1,000, Year3 = 1,000, Year4 = 1,000. Compute IRR.'},
+      {tier:'intermediate', flows:[-2500, 500, 700, 900, 1200], text:'Initial investment = -2,500, Year1 = 500, Year2 = 700, Year3 = 900, Year4 = 1,200. Compute IRR.'},
+      {tier:'intermediate', flows:[-4000, 1200, 1300, 1400, 1500], text:'Initial investment = -4,000, Year1 = 1,200, Year2 = 1,300, Year3 = 1,400, Year4 = 1,500. Compute IRR.'},
+      {tier:'intermediate', flows:[-2200, 600, 650, 700, 750], text:'Initial investment = -2,200, Year1 = 600, Year2 = 650, Year3 = 700, Year4 = 750. Compute IRR.'},
+      // ADVANCED (5)
+      {tier:'advanced', flows:[-5000, 2000, -500, 3000, 2000, 1000], text:'Initial investment = -5,000, Year1 = 2,000, Year2 = -500, Year3 = 3,000, Year4 = 2,000, Year5 = 1,000. Compute IRR (note negative cash flow in Year2).'},
+      {tier:'advanced', flows:[-6000, 2500, 2500, -1000, 4000, 2000], text:'Initial investment = -6,000, Year1 = 2,500, Year2 = 2,500, Year3 = -1,000, Year4 = 4,000, Year5 = 2,000. Compute IRR (multiple sign changes).'},
+      {tier:'advanced', flows:[-3500, 1000, 1200, 1400, 1600, 1800], text:'Initial investment = -3,500, Year1 = 1,000, Year2 = 1,200, Year3 = 1,400, Year4 = 1,600, Year5 = 1,800. Compute IRR.'},
+      {tier:'advanced', flows:[-8000, 2000, 2000, 2000, 2000, 2500], text:'Initial investment = -8,000, Year1 = 2,000, Year2 = 2,000, Year3 = 2,000, Year4 = 2,000, Year5 = 2,500. Compute IRR.'},
+      {tier:'advanced', flows:[-10000, 3000, 3000, 3500, 3500, 4000], text:'Initial investment = -10,000, Year1 = 3,000, Year2 = 3,000, Year3 = 3,500, Year4 = 3,500, Year5 = 4,000. Compute IRR.'}
+    ];
+
+    // ---------- Question State ----------
+    let currentTier = 'basic';
+    let order = { basic:[0,1,2,3,4], intermediate:[0,1,2,3,4], advanced:[0,1,2,3,4] };
+    let idx = 0; // index within tier (0..4)
+
+    function getTierQuestions(tier){ return questionBank.filter(q => q.tier===tier); }
+
+    function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } }
+
+    function updateOrder(){
+      if(document.getElementById('shuffle').checked){
+        order[currentTier] = [0,1,2,3,4]; shuffleArray(order[currentTier]); idx=0;
+      } else {
+        order[currentTier] = [0,1,2,3,4]; idx=0;
+      }
+    }
+
+    function currentQuestion(){
+      const qs = getTierQuestions(currentTier); const qIndex = order[currentTier][idx]; return { q:qs[qIndex], index:qIndex };
+    }
+
+    // ---------- Prefill Sheet for Question ----------
+    function clearSheet(){ for(let r=1;r<=GRID_ROWS;r++){ for(let c=1;c<=GRID_COLS;c++){ model[r-1][c-1]={raw:'', value:'', error:null}; } } }
+
+    function prefillForQuestion(question){
+      clearSheet();
+      // Layout: Column A labels, Column B values
+      setCell(1,1,'Initial Investment'); setCell(1,2, question.flows[0]);
+      for(let i=1;i<question.flows.length;i++){
+        setCell(i+1,1, `Year ${i}`); setCell(i+1,2, question.flows[i]);
+      }
+      // Hint area and answer
+      setCell(9,1,'Formula hint'); setCell(9,2,'=IRR(B1:B'+(question.flows.length)+')');
+      setCell(10,1,'Your Answer (IRR)'); setCell(10,2,'');
+      // A small check area for NPV at the trial IRR
+      setCell(12,1,'Check NPV at your IRR'); setCell(12,2,'=NPV(B10, B2:B'+(question.flows.length)+') + B1');
+      recalcAll();
+      highlightAnswerCell();
+    }
+
+    function setCell(r,c,raw){ model[r-1][c-1].raw = String(raw); }
+
+    function highlightAnswerCell(){
+      // Add a brief highlight to B10
+      const cells = gridEl.querySelectorAll('.cell');
+      cells.forEach(td => td.classList.remove('highlight'));
+      const selector = `.cell[data-row="${ANSWER_CELL.r}"][data-col="${ANSWER_CELL.c}"]`;
+      const el = gridEl.querySelector(selector); if(el) { el.classList.add('highlight'); }
+    }
+
+    // ---------- UI / Evaluation ----------
+    const qText = document.getElementById('questionText');
+    const qPath = document.getElementById('qPath');
+    const diffSel = document.getElementById('difficulty');
+    const solPanel = document.getElementById('solutionPanel');
+    const teacherPanel = document.getElementById('teacherPanel');
+    const evalStatus = document.getElementById('evalStatus');
+    const scoreBadge = document.getElementById('scoreBadge');
+
+    const score = JSON.parse(localStorage.getItem('irrScore')||'{}');
+    if(!score.sessions) score.sessions = { correct:0, attempts:0 };
+    updateScore();
+
+    function updateScore(){ scoreBadge.textContent = `Score: ${score.sessions.correct} / ${score.sessions.attempts}`; localStorage.setItem('irrScore', JSON.stringify(score)); }
+
+    function showQuestion(){
+      const { q } = currentQuestion();
+      qText.textContent = q.text;
+      qPath.textContent = `${capitalize(currentTier)} • Question ${idx+1}/5`;
+      document.getElementById('solutionPanel').classList.remove('active');
+      document.getElementById('teacherPanel').classList.remove('active');
+      prefillForQuestion(q);
+      document.getElementById('printQuestion').textContent = q.text;
+      const ul = document.getElementById('printValues'); ul.innerHTML='';
+      ul.appendChild(el('li', {}, `Initial Investment: ${q.flows[0]}`));
+      for(let i=1;i<q.flows.length;i++) ul.appendChild(el('li',{},`Year ${i}: ${q.flows[i]}`));
+      evalStatus.textContent = 'Awaiting input…';
+    }
+
+    function el(tag, attrs={}, text){ const n=document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v)); if(text!=null) n.textContent=text; return n; }
+    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+    function getAnswerCell(){ return model[ANSWER_CELL.r-1][ANSWER_CELL.c-1]; }
+
+    function evaluateAnswer(){
+      const { q } = currentQuestion();
+      const flows = q.flows.slice(); // [t0,t1,...]
+      // Correct IRR from engine
+      const sol = irr(flows, 0.1);
+      if(!sol.ok){ evalStatus.innerHTML = `Evaluation: <span class="bad">${sol.reason}</span>`; showSolutionContent(q, sol, null); return; }
+      const correct = sol.value;
+      // Student answer: try to compute value of B10
+      const ansCell = getAnswerCell(); const ansVal = Number(getCellValue(ANSWER_CELL.r,ANSWER_CELL.c));
+      if(!isFinite(ansVal)){
+        evalStatus.innerHTML = 'Evaluation: <span class="bad">Invalid or empty Answer cell (B10).</span>';
+        return;
+      }
+      const diff = Math.abs(ansVal - correct);
+      const ok = diff <= UI_TOLERANCE_PERCENT/100; // convert percentage points to decimal
+      score.sessions.attempts++;
+      if(ok) score.sessions.correct++;
+      updateScore();
+
+      const pct = (v)=> (v*100).toFixed(2)+'%';
+      evalStatus.innerHTML = ok ? `Evaluation: <span class="good">Correct</span> – Your IRR ${pct(ansVal)} vs Correct ${pct(correct)} (|Δ|=${(diff*100).toFixed(2)}pp)`
+                                : `Evaluation: <span class="bad">Incorrect</span> – Your IRR ${pct(ansVal)} vs Correct ${pct(correct)} (tol ±${(UI_TOLERANCE_PERCENT).toFixed(2)}pp)`;
+
+      showSolutionContent(q, sol, ansVal);
+    }
+
+    function showSolutionContent(q, sol, studentVal){
+      const flows = q.flows.slice();
+      if(!sol.ok){ solPanel.innerHTML = `<div class="bad">${sol.reason || 'No IRR found.'}</div>`; solPanel.classList.add('active'); return; }
+      const r = sol.value; const pct = (v)=> (v*100).toFixed(3)+'%';
+      // NPV at IRR should be approx 0 using Excel timing. flows = [t0,t1,...]
+      const pvTerms = flows.slice(1).map((v,i)=> v/Math.pow(1+r, i+1));
+      const npvAtIRR = pvTerms.reduce((a,b)=>a+b,0) + flows[0];
+      const steps = pvTerms.map((v,i)=> `Year ${i+1}: ${v.toFixed(4)}`).join('<br>');
+      const eq = `NPV(${r.toFixed(6)}, cashflows[1..]) + CF0 = 0`;
+      solPanel.innerHTML = `
+        <div>
+          <h3>Solution</h3>
+          <p>Computed IRR: <strong>${pct(r)}</strong> (${sol.method}, ${sol.iterations} iterations)</p>
+          <p>NPV at IRR (should be ~0): <strong>${npvAtIRR.toFixed(6)}</strong></p>
+          <p>${eq}</p>
+          <div style="margin-top:8px">Discounted cash flows:<br>${steps}</div>
+          <div style="margin-top:8px">Suggested formula in Answer (B10): <code style="font-family:var(--mono)">=IRR(B1:B${flows.length})</code></div>
+          ${studentVal!=null? `<div style="margin-top:8px">Your IRR: <strong>${pct(studentVal)}</strong></div>`:''}
+        </div>`;
+      solPanel.classList.add('active');
+
+      // Highlight B10
+      highlightAnswerCell();
+    }
+
+    function showTeacher(){
+      const { q } = currentQuestion(); const flows = q.flows.slice();
+      const sol = irr(flows, 0.1);
+      if(!sol.ok){ teacherPanel.innerHTML = `<div class="bad">${sol.reason}</div>`; teacherPanel.classList.add('active'); return; }
+      const r = sol.value; const pct=(v)=> (v*100).toFixed(3)+'%';
+      const dflows = flows.slice(1).map((v,i)=> v/Math.pow(1+r, i+1));
+      const list = dflows.map((v,i)=> `<li>Year ${i+1}: PV = ${v.toFixed(6)}</li>`).join('');
+      teacherPanel.innerHTML = `
+        <div>
+          <h3>Teacher View</h3>
+          <p>Correct IRR: <strong>${pct(r)}</strong></p>
+          <ul>${list}</ul>
+          <p>Check cell B12 computes <code>NPV(B10, B2:B${flows.length}) + B1</code></p>
+        </div>`;
+      teacherPanel.classList.add('active');
+    }
+
+    // ---------- Event Wiring ----------
+    document.getElementById('prev').addEventListener('click', ()=>{ idx = (idx+4)%5; showQuestion(); });
+    document.getElementById('next').addEventListener('click', ()=>{ idx = (idx+1)%5; showQuestion(); });
+    document.getElementById('shuffle').addEventListener('change', ()=>{ updateOrder(); showQuestion(); });
+    document.getElementById('difficulty').addEventListener('change', (e)=>{
+      currentTier = e.target.value; updateOrder(); showQuestion();
+    });
+
+    document.getElementById('evaluate').addEventListener('click', evaluateAnswer);
+    document.getElementById('showSolution').addEventListener('click', ()=>{ const {q}=currentQuestion(); const flows=q.flows.slice(); const sol=irr(flows,0.1); showSolutionContent(q, sol, null); });
+    document.getElementById('reset').addEventListener('click', ()=> showQuestion());
+
+    document.getElementById('teacherToggle').addEventListener('change', (e)=>{
+      if(e.target.checked){ showTeacher(); }
+      else { teacherPanel.classList.remove('active'); teacherPanel.innerHTML=''; }
+    });
+
+    document.getElementById('generate').addEventListener('click', ()=>{
+      // Generate similar: same periods length, randomize amounts with sensible ranges
+      const { q } = currentQuestion();
+      const n = q.flows.length-1; // years
+      const flows = [ -rand(300, 10000) ]; // initial negative
+      for(let i=0;i<n;i++) flows.push(rand(100, 5000) * (Math.random()<0.15? -1:1));
+      const newQ = { tier: q.tier, flows, text: `Generated similar – Initial = ${flows[0]}, ` + flows.slice(1).map((v,i)=>`Y${i+1}=${v}`).join(', ') + `. Compute IRR.` };
+      prefillForQuestion(newQ);
+      qText.textContent = newQ.text;
+      solPanel.classList.remove('active'); teacherPanel.classList.remove('active');
+    });
+
+    function rand(a,b){ return Math.round(a + Math.random()*(b-a)); }
+
+    document.getElementById('print').addEventListener('click', ()=> window.print());
+
+    // ---------- Init ----------
+    renderGrid(); updateOrder(); showQuestion();
+  </script>
+</body>
+</html>
