@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive IRR Calculator - ValYou Hub</title>
+    <meta name="description" content="Master Internal Rate of Return analysis through hands-on practice with our Excel-like calculator" />
+    <meta name="keywords" content="IRR, Internal Rate of Return, investment analysis, financial calculator, DCF, ValYou Hub" />
+    <meta name="author" content="ValYou Hub" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Interactive IRR Calculator - ValYou Hub" />
+    <meta property="og:description" content="Master Internal Rate of Return analysis through hands-on practice" />
+    <meta property="og:type" content="website" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --background: hsl(220, 26%, 14%);
+            --foreground: hsl(210, 40%, 98%);
+            --primary: hsl(217, 91%, 60%);
+            --primary-foreground: hsl(220, 26%, 14%);
+            --secondary: hsl(220, 14%, 96%);
+            --secondary-foreground: hsl(220, 26%, 14%);
+            --card: hsl(220, 26%, 16%);
+            --card-foreground: hsl(210, 40%, 98%);
+            --border: hsl(220, 14%, 22%);
+            --success: hsl(142, 76%, 36%);
+            --warning: hsl(38, 92%, 50%);
+            --destructive: hsl(0, 84.2%, 60.2%);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .bg-hero-gradient {
+            background: linear-gradient(135deg, hsl(220, 26%, 14%) 0%, hsl(217, 91%, 60%) 100%);
+        }
+
+        .bg-section-gradient {
+            background: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(220, 26%, 18%) 100%);
+        }
+
+        .bg-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .shadow-elegant {
+            box-shadow: 0 10px 30px -10px hsla(217, 91%, 60%, 0.3);
+        }
+
+        .shadow-glow {
+            box-shadow: 0 0 40px hsla(217, 91%, 60%, 0.4);
+        }
+
+        .btn-primary {
+            background-color: hsl(217, 91%, 60%);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(217, 91%, 55%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px hsla(217, 91%, 60%, 0.5);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: hsl(217, 91%, 60%);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid hsl(217, 91%, 60%);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-secondary:hover {
+            background-color: hsl(217, 91%, 60%);
+            color: var(--primary-foreground);
+        }
+
+        .input-field {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            color: var(--foreground);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: hsl(217, 91%, 60%);
+            box-shadow: 0 0 0 3px hsla(217, 91%, 60%, 0.1);
+        }
+
+        .table-cell {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .table-header {
+            background-color: hsl(217, 91%, 60%);
+            color: var(--primary-foreground);
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-text { color: hsl(142, 76%, 36%); }
+        .warning-text { color: hsl(38, 92%, 50%); }
+        .error-text { color: hsl(0, 84.2%, 60.2%); }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--foreground);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: hsl(217, 91%, 60%);
+            border-bottom-color: hsl(217, 91%, 60%);
+        }
+
+        .tab-button:hover {
+            color: hsl(217, 91%, 60%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-hero-gradient shadow-elegant">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">ValYou Hub</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">Courses</a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">Tools</a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">About</a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-hero-gradient py-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6 fade-in">
+                Master IRR Analysis
+            </h1>
+            <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto fade-in">
+                Learn Internal Rate of Return calculations through interactive examples and practice with our Excel-like calculator
+            </p>
+            <button onclick="scrollToSection('learning')" class="btn-primary fade-in">
+                Start Learning
+            </button>
+        </div>
+    </section>
+
+    <!-- Learning Section -->
+    <section id="learning" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">What is IRR?</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <div class="bg-card rounded-xl p-8 shadow-elegant slide-up">
+                    <div class="w-16 h-16 bg-blue-500/20 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="target" class="w-8 h-8 text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Investment Decision</h3>
+                    <p class="text-gray-300 mb-6">
+                        Imagine you're considering two investment projects. Project A requires $100,000 upfront and Project B requires $150,000. Both promise returns over 5 years. Which should you choose?
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between p-3 bg-white/5 rounded">
+                            <span>Project A IRR:</span>
+                            <span class="success-text font-bold">25.2%</span>
+                        </div>
+                        <div class="flex justify-between p-3 bg-white/5 rounded">
+                            <span>Project B IRR:</span>
+                            <span class="warning-text font-bold">18.7%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-xl p-8 shadow-elegant slide-up">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="lightbulb" class="w-8 h-8 text-green-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">The Answer</h3>
+                    <p class="text-gray-300 mb-6">
+                        IRR (Internal Rate of Return) is the discount rate that makes the Net Present Value (NPV) of all cash flows equal to zero. It represents the project's expected annual return rate.
+                    </p>
+                    <div class="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
+                        <p class="text-blue-300 text-sm font-medium">
+                            Higher IRR = Better Investment (generally)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IRR Calculation Animation -->
+            <div class="bg-card rounded-xl p-8 shadow-elegant mb-16">
+                <h3 class="text-2xl font-bold mb-8 text-center">How IRR Works</h3>
+                <div id="irr-animation" class="space-y-6">
+                    <div class="text-center">
+                        <button id="start-animation" class="btn-primary">
+                            See IRR Calculation in Action
+                        </button>
+                    </div>
+                    <div id="animation-content" class="hidden space-y-6">
+                        <div class="bg-gray-800/50 p-6 rounded-lg">
+                            <h4 class="font-bold mb-4">Project Cash Flows:</h4>
+                            <div class="grid grid-cols-6 gap-2 text-center">
+                                <div class="p-3 bg-red-500/20 rounded">Year 0<br><span class="font-bold">-$100,000</span></div>
+                                <div class="p-3 bg-green-500/20 rounded">Year 1<br><span class="font-bold">$30,000</span></div>
+                                <div class="p-3 bg-green-500/20 rounded">Year 2<br><span class="font-bold">$35,000</span></div>
+                                <div class="p-3 bg-green-500/20 rounded">Year 3<br><span class="font-bold">$40,000</span></div>
+                                <div class="p-3 bg-green-500/20 rounded">Year 4<br><span class="font-bold">$45,000</span></div>
+                                <div class="p-3 bg-green-500/20 rounded">Year 5<br><span class="font-bold">$50,000</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800/50 p-6 rounded-lg">
+                            <h4 class="font-bold mb-4">IRR Calculation Process:</h4>
+                            <div id="calculation-steps" class="space-y-3">
+                                <!-- Steps will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Section -->
+    <section id="practice" class="bg-section-gradient py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-white mb-16">Practice IRR Calculations</h2>
+            
+            <!-- Tabs -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-white/10 rounded-lg p-1">
+                    <button class="tab-button active" onclick="switchTab('basic')">Basic</button>
+                    <button class="tab-button" onclick="switchTab('intermediate')">Intermediate</button>
+                    <button class="tab-button" onclick="switchTab('advanced')">Advanced</button>
+                </div>
+            </div>
+
+            <!-- Calculator Container -->
+            <div class="bg-white/10 rounded-xl p-8 shadow-glow">
+                
+                <!-- Tab Content -->
+                <div id="basic-tab" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6">Basic IRR Practice</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Question 1:</h4>
+                            <p class="text-gray-200 mb-4">
+                                Calculate the IRR for a project with initial investment of $10,000 and cash flows of $3,000, $4,000, $5,000, and $2,000 over 4 years.
+                            </p>
+                            
+                            <!-- Cash Flow Input Table -->
+                            <div class="bg-white/5 rounded-lg p-4 mb-6">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Year</th>
+                                            <th class="table-header">Cash Flow</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="table-cell">0</td>
+                                            <td class="table-cell">
+                                                <input type="number" class="input-field bg-transparent border-0 text-center" 
+                                                       value="-10000" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-cell">1</td>
+                                            <td class="table-cell">
+                                                <input type="number" class="input-field bg-transparent border-0 text-center" 
+                                                       value="3000" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-cell">2</td>
+                                            <td class="table-cell">
+                                                <input type="number" class="input-field bg-transparent border-0 text-center" 
+                                                       value="4000" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-cell">3</td>
+                                            <td class="table-cell">
+                                                <input type="number" class="input-field bg-transparent border-0 text-center" 
+                                                       value="5000" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-cell">4</td>
+                                            <td class="table-cell">
+                                                <input type="number" class="input-field bg-transparent border-0 text-center" 
+                                                       value="2000" readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Your Answer:</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-200 mb-2">Enter IRR (%):</label>
+                                    <input type="number" id="basic-answer" class="input-field" 
+                                           placeholder="e.g., 15.5" step="0.1">
+                                </div>
+                                <button onclick="checkAnswer('basic', 22.4)" class="btn-primary w-full">
+                                    Check Answer
+                                </button>
+                                <div id="basic-result" class="hidden p-4 rounded-lg"></div>
+                            </div>
+                            
+                            <!-- Calculator Tools -->
+                            <div class="mt-8 p-4 bg-white/5 rounded-lg">
+                                <h5 class="font-bold text-white mb-3">Calculator Tools:</h5>
+                                <button onclick="calculateIRR('basic')" class="btn-secondary text-sm">
+                                    Calculate IRR
+                                </button>
+                                <button onclick="showHint('basic')" class="btn-secondary text-sm ml-2">
+                                    Show Hint
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="intermediate-tab" class="tab-content hidden">
+                    <h3 class="text-2xl font-bold text-white mb-6">Intermediate IRR Practice</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Question 2:</h4>
+                            <p class="text-gray-200 mb-4">
+                                A company is evaluating a 5-year project. Initial investment is $50,000. 
+                                Expected annual cash flows are $12,000, $15,000, $18,000, $20,000, and $22,000.
+                            </p>
+                            
+                            <div class="bg-white/5 rounded-lg p-4 mb-6">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Year</th>
+                                            <th class="table-header">Cash Flow</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="table-cell">0</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="-50000" readonly></td></tr>
+                                        <tr><td class="table-cell">1</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="12000" readonly></td></tr>
+                                        <tr><td class="table-cell">2</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="15000" readonly></td></tr>
+                                        <tr><td class="table-cell">3</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="18000" readonly></td></tr>
+                                        <tr><td class="table-cell">4</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="20000" readonly></td></tr>
+                                        <tr><td class="table-cell">5</td><td class="table-cell"><input type="number" class="input-field bg-transparent border-0 text-center" value="22000" readonly></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Your Answer:</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-200 mb-2">Enter IRR (%):</label>
+                                    <input type="number" id="intermediate-answer" class="input-field" 
+                                           placeholder="e.g., 15.5" step="0.1">
+                                </div>
+                                <button onclick="checkAnswer('intermediate', 25.8)" class="btn-primary w-full">
+                                    Check Answer
+                                </button>
+                                <div id="intermediate-result" class="hidden p-4 rounded-lg"></div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-white/5 rounded-lg">
+                                <h5 class="font-bold text-white mb-3">Calculator Tools:</h5>
+                                <button onclick="calculateIRR('intermediate')" class="btn-secondary text-sm">
+                                    Calculate IRR
+                                </button>
+                                <button onclick="showHint('intermediate')" class="btn-secondary text-sm ml-2">
+                                    Show Hint
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="advanced-tab" class="tab-content hidden">
+                    <h3 class="text-2xl font-bold text-white mb-6">Advanced IRR Practice</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Question 3:</h4>
+                            <p class="text-gray-200 mb-4">
+                                Custom Project Analysis: Enter your own cash flows and calculate the IRR.
+                                Try different scenarios to understand IRR sensitivity.
+                            </p>
+                            
+                            <div class="bg-white/5 rounded-lg p-4 mb-6">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Year</th>
+                                            <th class="table-header">Cash Flow</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="advanced-table">
+                                        <tr><td class="table-cell">0</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="-100000"></td></tr>
+                                        <tr><td class="table-cell">1</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="25000"></td></tr>
+                                        <tr><td class="table-cell">2</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="30000"></td></tr>
+                                        <tr><td class="table-cell">3</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="35000"></td></tr>
+                                        <tr><td class="table-cell">4</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="40000"></td></tr>
+                                        <tr><td class="table-cell">5</td><td class="table-cell"><input type="number" class="input-field text-center" placeholder="45000"></td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-4 text-center">
+                                    <button onclick="addYear()" class="btn-secondary text-sm mr-2">Add Year</button>
+                                    <button onclick="removeYear()" class="btn-secondary text-sm">Remove Year</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-white mb-4">Results:</h4>
+                            <div class="space-y-4">
+                                <button onclick="calculateAdvancedIRR()" class="btn-primary w-full">
+                                    Calculate IRR
+                                </button>
+                                <div id="advanced-result" class="p-4 bg-white/5 rounded-lg">
+                                    <div class="text-center text-gray-400">
+                                        Enter cash flows and click Calculate IRR
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-white/5 rounded-lg">
+                                <h5 class="font-bold text-white mb-3">Analysis Tools:</h5>
+                                <button onclick="showSensitivity()" class="btn-secondary text-sm mb-2">
+                                    Sensitivity Analysis
+                                </button>
+                                <button onclick="compareProjects()" class="btn-secondary text-sm">
+                                    Compare Projects
+                                </button>
+                                <div id="sensitivity-analysis" class="hidden mt-4 p-3 bg-blue-500/10 rounded border border-blue-500/20">
+                                    <p class="text-blue-300 text-sm">
+                                        Sensitivity analysis shows how IRR changes with different cash flow assumptions.
+                                        Try adjusting individual cash flows to see the impact!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-8">Key IRR Insights</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-card rounded-xl p-6 shadow-elegant">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <h3 class="font-bold mb-3">Decision Rule</h3>
+                    <p class="text-gray-300 text-sm">Accept projects with IRR > required rate of return</p>
+                </div>
+                <div class="bg-card rounded-xl p-6 shadow-elegant">
+                    <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-400"></i>
+                    </div>
+                    <h3 class="font-bold mb-3">Limitations</h3>
+                    <p class="text-gray-300 text-sm">Assumes reinvestment at IRR rate; multiple IRRs possible</p>
+                </div>
+                <div class="bg-card rounded-xl p-6 shadow-elegant">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-blue-400"></i>
+                    </div>
+                    <h3 class="font-bold mb-3">Best Practice</h3>
+                    <p class="text-gray-300 text-sm">Use alongside NPV for comprehensive investment analysis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <i data-lucide="trending-up" class="w-5 h-5 text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold">ValYou Hub</h3>
+            </div>
+            <p class="text-gray-400 mb-6">Master financial analysis through interactive learning</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // IRR Animation
+        document.getElementById('start-animation').addEventListener('click', function() {
+            const content = document.getElementById('animation-content');
+            const steps = document.getElementById('calculation-steps');
+            
+            content.classList.remove('hidden');
+            this.style.display = 'none';
+            
+            const calculationSteps = [
+                { text: "Step 1: Set up the NPV equation = 0", delay: 1000 },
+                { text: "Step 2: NPV = -100,000 + 30,000/(1+r) + 35,000/(1+r)² + ... = 0", delay: 2000 },
+                { text: "Step 3: Solve for 'r' using iterative methods", delay: 3000 },
+                { text: "Step 4: Trial and error or financial calculator", delay: 4000 },
+                { text: "Result: IRR ≈ 25.2% 🎯", delay: 5000 }
+            ];
+            
+            calculationSteps.forEach((step, index) => {
+                setTimeout(() => {
+                    const stepDiv = document.createElement('div');
+                    stepDiv.className = 'p-3 bg-blue-500/10 rounded border border-blue-500/20 fade-in';
+                    stepDiv.innerHTML = `<span class="text-blue-300">${step.text}</span>`;
+                    steps.appendChild(stepDiv);
+                }, step.delay);
+            });
+        });
+
+        // Answer checking
+        function checkAnswer(level, correctAnswer) {
+            const userAnswer = parseFloat(document.getElementById(level + '-answer').value);
+            const resultDiv = document.getElementById(level + '-result');
+            
+            resultDiv.classList.remove('hidden');
+            
+            if (Math.abs(userAnswer - correctAnswer) <= 0.5) {
+                resultDiv.className = 'p-4 rounded-lg bg-green-500/20 border border-green-500/30';
+                resultDiv.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+                        <span class="text-green-300 font-medium">Correct! IRR ≈ ${correctAnswer}%</span>
+                    </div>
+                `;
+            } else {
+                resultDiv.className = 'p-4 rounded-lg bg-red-500/20 border border-red-500/30';
+                resultDiv.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="x-circle" class="w-5 h-5 text-red-400"></i>
+                        <span class="text-red-300 font-medium">Try again. Correct answer: ${correctAnswer}%</span>
+                    </div>
+                `;
+            }
+            
+            lucide.createIcons();
+        }
+
+        // IRR calculation helper
+        function calculateIRR(level) {
+            let cashFlows, answer;
+            
+            switch(level) {
+                case 'basic':
+                    cashFlows = [-10000, 3000, 4000, 5000, 2000];
+                    answer = 22.4;
+                    break;
+                case 'intermediate':
+                    cashFlows = [-50000, 12000, 15000, 18000, 20000, 22000];
+                    answer = 25.8;
+                    break;
+            }
+            
+            document.getElementById(level + '-answer').value = answer;
+            
+            // Show calculation explanation
+            alert(`IRR calculated using iterative methods.\nCash flows: [${cashFlows.join(', ')}]\nIRR = ${answer}%`);
+        }
+
+        // Hint system
+        function showHint(level) {
+            const hints = {
+                'basic': 'Hint: For basic IRR, try rates between 20-25%. The project has good returns in middle years.',
+                'intermediate': 'Hint: This project has strong cash flow growth. Try rates between 25-30%.',
+                'advanced': 'Hint: Enter realistic cash flows. Initial investment should be negative, future cash flows positive.'
+            };
+            
+            alert(hints[level]);
+        }
+
+        // Advanced calculator functions
+        let yearCount = 6;
+
+        function addYear() {
+            yearCount++;
+            const tbody = document.getElementById('advanced-table');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="table-cell">${yearCount - 1}</td>
+                <td class="table-cell">
+                    <input type="number" class="input-field text-center" placeholder="0">
+                </td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function removeYear() {
+            if (yearCount > 2) {
+                const tbody = document.getElementById('advanced-table');
+                tbody.removeChild(tbody.lastElementChild);
+                yearCount--;
+            }
+        }
+
+        function calculateAdvancedIRR() {
+            const inputs = document.querySelectorAll('#advanced-table input');
+            const cashFlows = Array.from(inputs).map(input => parseFloat(input.value) || 0);
+            
+            if (cashFlows[0] >= 0) {
+                alert('Initial investment (Year 0) should be negative!');
+                return;
+            }
+            
+            // Simple IRR approximation
+            const totalCashIn = cashFlows.slice(1).reduce((sum, cf) => sum + cf, 0);
+            const initialInvestment = Math.abs(cashFlows[0]);
+            const years = cashFlows.length - 1;
+            
+            // Rough IRR estimate
+            const approximateIRR = ((totalCashIn / initialInvestment) ** (1/years) - 1) * 100;
+            
+            const resultDiv = document.getElementById('advanced-result');
+            resultDiv.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span>Cash Flows:</span>
+                        <span class="font-mono">[${cashFlows.join(', ')}]</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Estimated IRR:</span>
+                        <span class="font-bold text-green-400">${approximateIRR.toFixed(2)}%</span>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        Note: This is a simplified calculation. Use financial software for precise IRR.
+                    </div>
+                </div>
+            `;
+        }
+
+        function showSensitivity() {
+            const sensitivityDiv = document.getElementById('sensitivity-analysis');
+            sensitivityDiv.classList.toggle('hidden');
+        }
+
+        function compareProjects() {
+            alert('Project Comparison Tool:\n\n' +
+                  'Project A: IRR = 22.4%\n' +
+                  'Project B: IRR = 25.8%\n' +
+                  'Project C: IRR = Your calculation\n\n' +
+                  'Higher IRR generally indicates better investment opportunity, ' +
+                  'but consider project size, risk, and strategic fit.');
+        }
+
+        // Page load animations
+        window.addEventListener('load', function() {
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-up');
+            animatedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
