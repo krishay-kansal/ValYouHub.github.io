@@ -3,130 +3,983 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internal Rate of Return (IRR) - ValYou Hub</title>
-    <meta name="description" content="Learn Internal Rate of Return (IRR) with ValYou Hub - Theory, step-by-step guide, examples, and practice sheets for finance students.">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <title>Interactive IRR Calculator - Learn Internal Rate of Return</title>
+    <meta name="description" content="Master Internal Rate of Return (IRR) analysis through hands-on practice with our Excel-like calculator">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/css/pluginsCss.css">
+    <link rel="stylesheet" href="https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/plugins.css">
+    <link rel="stylesheet" href="https://cdn.luckysheet.com/luckysheet/2.1.13/css/luckysheet.css">
+    <link rel="stylesheet" href="https://cdn.luckysheet.com/luckysheet/2.1.13/assets/iconfont/iconfont.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .irr-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-section h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ffd700, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .learning-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .learning-header h2 {
+            font-size: 2.5rem;
+            color: #4f8cff;
+            margin-bottom: 10px;
+        }
+
+        .learning-header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        .module {
+            margin-bottom: 40px;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .module:hover {
+            border-color: #4f8cff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.2);
+        }
+
+        .module-title {
+            background: linear-gradient(135deg, #4f8cff, #6366f1);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .module-icon {
+            font-size: 1.5rem;
+        }
+
+        .time-traveler, .choice-game, .metaphors-grid, .conveyor-belt, .irr-assembly {
+            padding: 30px;
+        }
+
+        .money-animation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .money-note {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .money-note.shrink {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .time-tunnel {
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #ef4444);
+            margin: 0 20px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .year-label {
+            position: absolute;
+            top: -30px;
+            transform: translateX(-50%);
+            background: #f8fafc;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .choice-option {
+            text-align: center;
+            padding: 20px;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .choice-option:hover {
+            border-color: #4f8cff;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(79, 140, 255, 0.2);
+        }
+
+        .choice-person {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .choice-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 5px;
+        }
+
+        .reveal-section {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #10b981;
+            margin-top: 20px;
+        }
+
+        .metaphors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .metaphor-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .metaphor-card:hover {
+            border-color: #4f8cff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(79, 140, 255, 0.1);
+        }
+
+        .metaphor-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .metaphor-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .metaphor-text {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .conveyor-belt {
+            position: relative;
+        }
+
+        .belt-track {
+            height: 6px;
+            background: linear-gradient(90deg, #4f8cff, #6366f1);
+            border-radius: 3px;
+            margin: 20px 0;
+        }
+
+        .cash-flows {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cash-flow-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .cash-flow-item:hover {
+            border-color: #4f8cff;
+            transform: translateY(-5px);
+        }
+
+        .cash-icon {
+            font-size: 1.5rem;
+            color: #10b981;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cash-original {
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .formula-display {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-family: monospace;
+        }
+
+        .cash-discounted {
+            color: #4f8cff;
+            font-weight: bold;
+        }
+
+        .irr-assembly {
+            background: #f9fafb;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4f8cff, #10b981);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .assembly-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .assembly-row {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            opacity: 0.3;
+            transition: all 0.5s ease;
+        }
+
+        .assembly-row.active {
+            opacity: 1;
+            background: #f0f9ff;
+        }
+
+        .assembly-row.final {
+            background: #dcfce7;
+            border-bottom: none;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #4f8cff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-calculation {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin: 5px 0;
+            font-family: monospace;
+        }
+
+        .value-cell {
+            display: inline-block;
+            background: #e5e7eb;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 2px;
+            font-weight: 500;
+        }
+
+        .final-irr {
+            background: #10b981 !important;
+            color: white !important;
+            font-size: 1.2rem;
+            padding: 12px 20px;
+        }
+
+        .profitable-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .question-type-selector {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .type-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .type-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .type-btn:hover, .type-btn.active {
+            background: #4f8cff;
+            border-color: #4f8cff;
+            transform: translateY(-2px);
+        }
+
+        .question-counter {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .question-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .question-nav button {
+            background: #4f8cff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question-nav button:hover:not(:disabled) {
+            background: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .question-nav button:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .instructions {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions h3 {
+            color: #4f8cff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .instructions li:last-child {
+            border-bottom: none;
+        }
+
+        .question-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .question-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4f8cff, #6366f1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .question-text {
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .spreadsheet-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .spreadsheet-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .spreadsheet-icon {
+            font-size: 1.5rem;
+        }
+
+        #luckysheet {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .irr-container {
+                padding: 10px;
+            }
+            
+            .header-section h1 {
+                font-size: 2rem;
+            }
+            
+            .learning-section, .instructions, .question-container, .spreadsheet-wrapper {
+                padding: 20px;
+            }
+            
+            .choices {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .type-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <div class="irr-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>Interactive IRR Calculator</h1>
+            <p>Master Internal Rate of Return analysis through hands-on practice with our Excel-like calculator</p>
+        </div>
 
-<!-- Header -->
-<header class="header">
-    <div class="container">
-        <a href="../index.html" class="logo">ValYou Hub</a>
-        <nav class="nav">
-            <a href="../index.html">Home</a>
-            <a href="../Courses/dcf.html">DCF</a>
-            <a href="../Courses/irr.html" class="active">IRR</a>
-            <a href="../Courses/npv.html">NPV</a>
-            <a href="../about.html">About</a>
-            <a href="../contact.html">Contact</a>
-        </nav>
+        <!-- Educational Content Section -->
+        <div class="learning-section">
+            <div class="learning-header">
+                <h2>Learn IRR Fundamentals</h2>
+                <p>Master the concepts before diving into calculations</p>
+            </div>
+
+            <!-- Module 1: The Investment Decision Dilemma -->
+            <div class="module">
+                <div class="module-title">
+                    <span class="module-icon">🤔</span>
+                    The Investment Decision Dilemma
+                </div>
+                <div class="time-traveler">
+                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                        <strong>You invest ₹100,000 today and expect ₹25,000 annually for 5 years...</strong>
+                    </p>
+                    <div class="money-animation">
+                        <div class="money-note">₹100,000 Investment</div>
+                        <div class="time-tunnel">
+                            <div class="year-label" style="left: 20%;">Year 1: ₹25K</div>
+                            <div class="year-label" style="left: 40%;">Year 2: ₹25K</div>
+                            <div class="year-label" style="left: 60%;">Year 3: ₹25K</div>
+                            <div class="year-label" style="left: 80%;">Years 4-5: ₹50K</div>
+                        </div>
+                        <div class="money-note">Total: ₹125,000</div>
+                    </div>
+                    <p style="color: #6b7280; text-align: center; margin-top: 20px;">
+                        But what's the actual return rate? IRR helps you find the exact percentage return that makes your investment break-even.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Module 2: The Break-Even Mystery -->
+            <div class="module">
+                <div class="module-title">
+                    <span class="module-icon">🎯</span>
+                    The "Break-Even Mystery" Game
+                </div>
+                <div class="choice-game">
+                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                        <strong>At what discount rate does an investment of ₹100,000 yielding ₹25,000 annually for 5 years break even?</strong>
+                    </p>
+                    <div class="choices">
+                        <div class="choice-option" id="choice2">
+                            <div class="choice-person">💡</div>
+                            <div class="choice-value">8%</div>
+                            <div style="color: #6b7280;">Lower Rate</div>
+                        </div>
+                        <div style="font-size: 2rem; color: #374151; align-self: center;">VS</div>
+                        <div class="choice-option" id="choice1">
+                            <div class="choice-person">🎯</div>
+                            <div class="choice-value">7.93%</div>
+                            <div style="color: #6b7280;">IRR Rate</div>
+                        </div>
+                    </div>
+                    <div id="choice-reveal" class="reveal-section">
+                        <strong style="color: #10b981;">Correct: IRR = 7.93%!</strong><br>
+                        <span style="color: #6b7280;">This is the exact rate where NPV = 0, making the investment break-even!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: Why IRR Matters -->
+            <div class="module">
+                <div class="module-title">
+                    <span class="module-icon">🧠</span>
+                    Why IRR is Your Investment Compass
+                </div>
+                <div class="metaphors-grid">
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🎯</span>
+                        <div class="metaphor-title">Hurdle Rate</div>
+                        <div class="metaphor-text">IRR must exceed your required rate of return (hurdle rate) to be acceptable</div>
+                    </div>
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">⚖️</span>
+                        <div class="metaphor-title">Comparison Tool</div>
+                        <div class="metaphor-text">Compare different investments by their IRR - higher IRR generally means better returns</div>
+                    </div>
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">📊</span>
+                        <div class="metaphor-title">Break-Even Point</div>
+                        <div class="metaphor-text">IRR shows the exact return rate where you neither gain nor lose money</div>
+                    </div>
+                </div>
+                <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; border-left: 4px solid #4f8cff;">
+                    <strong style="color: #1e40af;">IRR is the discount rate that makes NPV = 0. Let's see how to calculate it.</strong>
+                </div>
+            </div>
+
+            <!-- Module 4: The IRR Calculation Process -->
+            <div class="module">
+                <div class="module-title">
+                    <span class="module-icon">🔄</span>
+                    The IRR Trial-and-Error Process
+                </div>
+                <div class="conveyor-belt">
+                    <p style="color: #374151; text-align: center; margin-bottom: 20px;">
+                        Watch how we iterate to find the IRR that makes NPV = 0:
+                    </p>
+                    <div class="belt-track"></div>
+                    <div class="cash-flows">
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">5%</div>
+                            <div class="cash-original">Try Rate: 5%</div>
+                            <div class="formula-display">NPV = ₹8,346</div>
+                            <div class="cash-discounted">Too High!</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">10%</div>
+                            <div class="cash-original">Try Rate: 10%</div>
+                            <div class="formula-display">NPV = -₹5,237</div>
+                            <div class="cash-discounted">Too Low!</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">8%</div>
+                            <div class="cash-original">Try Rate: 8%</div>
+                            <div class="formula-display">NPV = ₹271</div>
+                            <div class="cash-discounted">Close!</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">7.9%</div>
+                            <div class="cash-original">Try Rate: 7.9%</div>
+                            <div class="formula-display">NPV = ₹85</div>
+                            <div class="cash-discounted">Very Close!</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">7.93%</div>
+                            <div class="cash-original">Try Rate: 7.93%</div>
+                            <div class="formula-display">NPV ≈ ₹0</div>
+                            <div class="cash-discounted">Perfect!</div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(79, 140, 255, 0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+                        <strong style="color: #4f8cff;">IRR = 7.93% - The rate that makes NPV = 0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5: IRR Assembly Process -->
+            <div class="module">
+                <div class="module-title">
+                    <span class="module-icon">🧮</span>
+                    <span style="color: #000000;">IRR Calculation Blueprint</span>
+                </div>
+                <div class="irr-assembly">
+                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
+                        Watch how IRR is calculated step by step:
+                    </p>
+                    <button id="start-assembly" style="background: #4f8cff; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 20px; display: block; margin: 0 auto 20px;">
+                        ▶ Start IRR Calculation
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="assembly-progress"></div>
+                    </div>
+                    <div class="assembly-table">
+                        <div class="assembly-row" id="step1">
+                            <div class="step-number" style="color: #000000;">1</div>
+                            <div class="step-content">
+                                <span style="color: #000000;">Cash Flows</span>
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <div class="value-cell" style="color: #000000;">₹-100,000</div>
+                                    <div class="value-cell" style="color: #000000;">₹25,000</div>
+                                    <div class="value-cell" style="color: #000000;">₹25,000</div>
+                                    <div class="value-cell" style="color: #000000;">₹25,000</div>
+                                    <div class="value-cell" style="color: #000000;">₹25,000</div>
+                                    <div class="value-cell" style="color: #000000;">₹25,000</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assembly-row" id="step2">
+                            <div class="step-number" style="color: #000000;">2</div>
+                            <div class="step-content">
+                                <span style="color: #000000;">Set NPV Equation to Zero</span>
+                                <div class="step-calculation" style="color: #000000;">-100,000 + 25,000/(1+IRR)¹ + 25,000/(1+IRR)² + ... = 0</div>
+                            </div>
+                        </div>
+                        <div class="assembly-row" id="step3">
+                            <div class="step-number" style="color: #000000;">3</div>
+                            <div class="step-content">
+                                <span style="color: #000000;">Try Different Rates</span>
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <div class="value-cell" style="color: #000000;">5% → NPV = ₹8,346</div>
+                                    <div class="value-cell" style="color: #000000;">10% → NPV = -₹5,237</div>
+                                    <div class="value-cell" style="color: #000000;">8% → NPV = ₹271</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assembly-row" id="step4">
+                            <div class="step-number" style="color: #000000;">4</div>
+                            <div class="step-content">
+                                <span style="color: #000000;">Interpolate to Find Exact Rate</span>
+                                <div class="step-calculation" style="color: #000000;">Use trial-and-error or Excel IRR function</div>
+                            </div>
+                        </div>
+                        <div class="assembly-row final" id="step5">
+                            <div class="step-number">✓</div>
+                            <div class="step-content">
+                                <span><strong>Internal Rate of Return (IRR)</strong></span>
+                                <div class="value-cell final-irr">7.93%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="profitability-result" style="opacity: 0; transition: opacity 0.5s ease;">
+                        <div class="profitable-badge">
+                            ✔ Acceptable Investment - IRR > Hurdle Rate!
+                        </div>
+                        <p style="color: #6b7280; text-align: center; margin-top: 15px;">
+                            If IRR > Required Rate of Return, accept the investment!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Type Selector -->
+        <div class="question-type-selector">
+            <h2 style="color: #4f8cff; margin-bottom: 15px;">Select Question Difficulty</h2>
+            <p style="color: #e5e7eb; margin-bottom: 20px;">Choose your level and practice IRR calculations</p>
+            <div class="type-buttons">
+                <button class="type-btn active" data-type="1">Type 1 - Basic</button>
+                <button class="type-btn" data-type="2">Type 2 - Intermediate</button>
+                <button class="type-btn" data-type="3">Type 3 - Advanced</button>
+            </div>
+            <div class="question-counter">
+                <span id="currentQuestion">Question 1 of 5</span>
+            </div>
+            <div class="question-nav">
+                <button id="prevBtn" disabled>← Previous</button>
+                <button id="nextBtn">Next →</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>📋 How to Use This IRR Calculator</h3>
+            <ul>
+                <li><strong>Click any cell</strong> to edit values and create formulas</li>
+                <li><strong>Use Excel formulas</strong> like =IRR(range), =B2+C2, =B2*C2</li>
+                <li><strong>Calculate IRR</strong> using the data provided and enter your final answer</li>
+                <li><strong>Check your work</strong> to see if you got the correct return rate</li>
+            </ul>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container" id="questionContainer">
+            <div class="question-title">
+                <div class="question-icon">Q</div>
+                Basic IRR Calculation
+            </div>
+            <div class="question-text">
+                <strong>Scenario:</strong> You're evaluating an investment opportunity with the following cash flows:<br>
+                • Initial Investment: ₹-150,000 (Year 0)<br>
+                • Year 1: ₹40,000<br>
+                • Year 2: ₹50,000<br>
+                • Year 3: ₹60,000<br>
+                • Year 4: ₹70,000<br><br>
+                <strong>Task:</strong> Calculate the Internal Rate of Return (IRR) for this investment to determine its profitability.
+            </div>
+        </div>
+
+        <!-- Spreadsheet Section -->
+        <div class="spreadsheet-wrapper">
+            <div class="spreadsheet-title">
+                <div class="spreadsheet-icon">📊</div>
+                IRR Calculation Worksheet
+            </div>
+            <div id="luckysheet" style="margin: 0px; padding: 0px; position: relative; width: 100%; height: 400px; left: 0px; top: 0px; overflow: hidden;"></div>
+        </div>
     </div>
-</header>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <h1>Internal Rate of Return (IRR)</h1>
-        <p>Master the concept of IRR – a key financial metric to evaluate investment profitability and make better business decisions.</p>
-    </div>
-</section>
+    <!-- Scripts -->
+    <script src="https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/js/plugin.js"></script>
+    <script src="https://cdn.luckysheet.com/luckysheet/2.1.13/luckysheet.umd.js"></script>
+    
+    <script>
+        // Initialize Luckysheet
+        $(function () {
+            luckysheet.create({
+                container: 'luckysheet',
+                title: "IRR Calculator",
+                lang: 'en', 
+                data: [{
+                    "name": "IRR Calculation",
+                    "color": "",
+                    "index": 0,
+                    "status": 1,
+                    "order": 0,
+                    "hide": 0,
+                    "row": 84,
+                    "column": 60,
+                    "defaultRowHeight": 25,
+                    "defaultColWidth": 100,
+                    "celldata": [
+                        {"r": 0, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "Year", "v": "Year"}},
+                        {"r": 0, "c": 1, "v": {"ct": {"fa": "General", "t": "g"}, "m": "Cash Flow", "v": "Cash Flow"}},
+                        {"r": 1, "c": 0, "v": {"ct": {"fa": "General", "t": "n"}, "m": "0", "v": 0}},
+                        {"r": 1, "c": 1, "v": {"ct": {"fa": "General", "t": "n"}, "m": "-150000", "v": -150000}},
+                        {"r": 2, "c": 0, "v": {"ct": {"fa": "General", "t": "n"}, "m": "1", "v": 1}},
+                        {"r": 2, "c": 1, "v": {"ct": {"fa": "General", "t": "n"}, "m": "40000", "v": 40000}},
+                        {"r": 3, "c": 0, "v": {"ct": {"fa": "General", "t": "n"}, "m": "2", "v": 2}},
+                        {"r": 3, "c": 1, "v": {"ct": {"fa": "General", "t": "n"}, "m": "50000", "v": 50000}},
+                        {"r": 4, "c": 0, "v": {"ct": {"fa": "General", "t": "n"}, "m": "3", "v": 3}},
+                        {"r": 4, "c": 1, "v": {"ct": {"fa": "General", "t": "n"}, "m": "60000", "v": 60000}},
+                        {"r": 5, "c": 0, "v": {"ct": {"fa": "General", "t": "n"}, "m": "4", "v": 4}},
+                        {"r": 5, "c": 1, "v": {"ct": {"fa": "General", "t": "n"}, "m": "70000", "v": 70000}},
+                        {"r": 7, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "IRR:", "v": "IRR:"}},
+                        {"r": 7, "c": 1, "v": {"ct": {"fa": "General", "t": "g"}, "m": "=IRR(B2:B6)", "v": "=IRR(B2:B6)", "f": "=IRR(B2:B6)"}},
+                        {"r": 9, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "Instructions:", "v": "Instructions:"}},
+                        {"r": 10, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "1. Review the cash flows", "v": "1. Review the cash flows"}},
+                        {"r": 11, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "2. Use =IRR(B2:B6) formula", "v": "2. Use =IRR(B2:B6) formula"}},
+                        {"r": 12, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "3. Calculate the IRR", "v": "3. Calculate the IRR"}},
+                        {"r": 13, "c": 0, "v": {"ct": {"fa": "General", "t": "g"}, "m": "4. Interpret the result", "v": "4. Interpret the result"}}
+                    ]
+                }],
+                showtoolbar: true,
+                showsheetbartabs: true,
+                allowEdit: true,
+                enableAddRow: true,
+                enableAddCol: true,
+                sheetFormulaBar: true,
+                showstatisticBar: true,
+                enableAddBackTop: false
+            });
+        });
 
-<!-- Theory Section -->
-<section class="content-section">
-    <div class="container">
-        <h2>What is IRR?</h2>
-        <p>
-            The <strong>Internal Rate of Return (IRR)</strong> is the discount rate at which the Net Present Value (NPV) of all cash flows from a project equals zero.
-            It represents the expected annualized rate of return on an investment.  
-        </p>
-        <p>
-            In simpler terms, IRR is the rate at which an investment breaks even in present value terms.
-            The higher the IRR, the more desirable the investment, assuming all other factors remain the same.
-        </p>
+        // Educational animations
+        function startAssembly() {
+            const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
+            const progressBar = document.getElementById('assembly-progress');
+            let currentStep = 0;
 
-        <h3>Formula for IRR</h3>
-        <p>
-            There is no direct formula for IRR; it is found using trial and error or software functions (like Excel's <code>=IRR()</code> or <code>=XIRR()</code>).
-            IRR is the rate 'r' that satisfies:
-        </p>
-        <pre>
-0 = CF<sub>0</sub> + CF<sub>1</sub>/(1+r) + CF<sub>2</sub>/(1+r)² + ... + CF<sub>n</sub>/(1+r)ⁿ
-        </pre>
+            const animateStep = () => {
+                if (currentStep < steps.length) {
+                    // Update progress bar
+                    progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+                    
+                    // Activate current step
+                    document.getElementById(steps[currentStep]).classList.add('active');
+                    
+                    currentStep++;
+                    setTimeout(animateStep, 1000);
+                } else {
+                    // Show final result
+                    setTimeout(() => {
+                        document.getElementById('profitability-result').style.opacity = '1';
+                    }, 500);
+                }
+            };
 
-        <h3>Example</h3>
-        <p>
-            Suppose you invest ₹1,00,000 today and expect to receive ₹40,000 each year for the next 3 years.  
-            Using Excel's <code>=IRR()</code> function:
-        </p>
-        <pre>
-Year 0: -100000  
-Year 1: 40000  
-Year 2: 40000  
-Year 3: 40000  
+            animateStep();
+        }
 
-=IRR(A1:A4) → Returns ~9.70%
-        </pre>
+        // Event listeners
+        document.getElementById('start-assembly').addEventListener('click', startAssembly);
 
-        <h3>Interpretation</h3>
-        <ul>
-            <li>If IRR > Required Rate of Return → Accept the project.</li>
-            <li>If IRR < Required Rate of Return → Reject the project.</li>
-            <li>If IRR = Required Rate of Return → Indifferent decision.</li>
-        </ul>
-    </div>
-</section>
+        // Choice game interaction
+        document.querySelectorAll('.choice-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.getElementById('choice-reveal').style.display = 'block';
+            });
+        });
 
-<!-- Practice Section -->
-<section class="content-section practice-section">
-    <div class="container">
-        <h2>Practice IRR Calculation</h2>
-        <p>Use the interactive Google Sheet below to practice IRR calculations and see how changing cash flows affects the IRR.</p>
-        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT0EXAMPLE-IRR-SHEET/embed?widget=true&amp;headers=false" width="100%" height="500"></iframe>
-        <p class="note">Tip: Use Excel's <code>=IRR()</code> and <code>=XIRR()</code> functions for real-world data.</p>
-    </div>
-</section>
+        // Question type selection
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                // Here you would load different question types
+            });
+        });
 
-<!-- Steps Section -->
-<section class="content-section">
-    <div class="container">
-        <h2>Steps to Calculate IRR in Excel</h2>
-        <ol>
-            <li>List all cash flows in sequential order, including the initial investment as a negative number.</li>
-            <li>Select the range of cash flows.</li>
-            <li>Use the formula <code>=IRR(range)</code> or <code>=XIRR(values, dates)</code> for irregular cash flows.</li>
-            <li>Compare the IRR with your required rate of return to make a decision.</li>
-        </ol>
-    </div>
-</section>
+        // Question navigation
+        let currentQuestionIndex = 0;
+        const totalQuestions = 5;
 
-<!-- Advantages & Limitations -->
-<section class="content-section">
-    <div class="container">
-        <h2>Advantages of IRR</h2>
-        <ul>
-            <li>Considers the time value of money.</li>
-            <li>Gives a clear percentage return, easy to interpret.</li>
-            <li>Helps compare multiple projects on a relative basis.</li>
-        </ul>
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                updateQuestionDisplay();
+            }
+        });
 
-        <h2>Limitations of IRR</h2>
-        <ul>
-            <li>Assumes reinvestment at the IRR rate, which may not be realistic.</li>
-            <li>May give multiple IRRs if cash flows change signs multiple times.</li>
-            <li>Does not account for project scale when comparing investments.</li>
-        </ul>
-    </div>
-</section>
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestionDisplay();
+            }
+        });
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2025 ValYou Hub. All rights reserved.</p>
-    </div>
-</footer>
-
+        function updateQuestionDisplay() {
+            document.getElementById('currentQuestion').textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = currentQuestionIndex === totalQuestions - 1;
+        }
+    </script>
 </body>
 </html>
