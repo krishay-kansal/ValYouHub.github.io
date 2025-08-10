@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Testimonial - ValYou Hub</title>
+    <meta name="description" content="Read success stories from our students who mastered finance concepts like DCF, NPV, IRR, WACC through ValYou Hub's practical learning approach">
+    <!-- AOS CSS for scroll animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            min-height: 100vh;
+            color: #e5e7eb;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 40px 0;
+            padding-left: 5vw;
+            padding-right: 5vw;
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.18);
+        }
+        @media (max-width: 900px) {
+            .container {
+                width: 98vw;
+                padding: 20px 2vw;
+                padding-left: 2vw;
+                padding-right: 2vw;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #4f8cff;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .rating-summary {
+            background: rgba(22, 33, 62, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border-radius: 14px;
+            border: 1px solid #23325c;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .rating-summary h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stars {
+            font-size: 2rem;
+            color: #fbbf24;
+            margin-bottom: 12px;
+        }
+
+        .rating-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-card {
+            background: rgba(22, 33, 62, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.18);
+            border-radius: 14px;
+            border: 1px solid #23325c;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f8cff, #23325c);
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.04) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79,140,255,0.18);
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            margin-right: 16px;
+        }
+
+        .student-details h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #4f8cff;
+        }
+
+        .student-affiliation {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #b8bfc9;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .rating-number {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+            margin-bottom: 16px;
+        }
+
+        .topics-learned {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-tag {
+            background: rgba(79, 140, 255, 0.18);
+            border: 1px solid #4f8cff;
+            color: #4f8cff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: rgba(22, 33, 62, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border-radius: 14px;
+            border: 1px solid #23325c;
+            padding: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #4f8cff;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            color: #e5e7eb;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg,#23325c,#4f8cff);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            border: 1px solid #4f8cff;
+        }
+
+        .cta-button:hover {
+            background: #4f8cff;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(79,140,255,0.18);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header" data-aos="fade-down">
+            <h1 data-aos="zoom-in">Student Success Stories</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Discover how ValYou Hub has transformed careers and enhanced financial knowledge for students worldwide</p>
+        </header>
+
+        <div class="rating-summary" data-aos="fade-up" data-aos-delay="200">
+            <h2>9.0/10</h2>
+            <div class="stars">★★★★★</div>
+            <p class="rating-text">Average rating from verified students</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <!-- Rahul Jain -->
+            <div class="testimonial-card" data-aos="flip-left">
+                <div class="student-info">
+                    <img src="src/assets/rahul-jain.jpg" alt="Rahul Jain" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Rahul Jain</h3>
+                        <p class="student-affiliation">Investment Banking Analyst, JP Morgan</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">10/10</span>
+                </div>
+                <p class="testimonial-text">"ValYou Hub completely transformed my understanding of financial modeling. The DCF and NPV modules with hands-on Excel experience gave me the confidence to excel in my investment banking role. The practical approach helped me secure my position at JP Morgan straight out of IIM Ahmedabad."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">DCF</span>
+                    <span class="topic-tag">NPV</span>
+                    <span class="topic-tag">Excel Modeling</span>
+                    <span class="topic-tag">Investment Banking</span>
+                </div>
+            </div>
+
+            <!-- Kunal Singh -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="student-info">
+                    <img src="src/assets/kunal-singh.jpg" alt="Kunal Singh" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Kunal Singh</h3>
+                        <p class="student-affiliation">Finance Student, IIM Bangalore</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">9/10</span>
+                </div>
+                <p class="testimonial-text">"As a finance student, I was struggling with WACC and IRR calculations until I found ValYou Hub. The step-by-step approach and real company valuations made everything click. I'm now the top performer in my finance courses and landed a summer internship at BlackRock!"</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">WACC</span>
+                    <span class="topic-tag">IRR</span>
+                    <span class="topic-tag">Company Valuation</span>
+                    <span class="topic-tag">Academic Excellence</span>
+                </div>
+            </div>
+
+            <!-- Shruti Gupta -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="student-info">
+                    <img src="src/assets/shruti-gupta.jpg" alt="Shruti Gupta" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Shruti Gupta</h3>
+                        <p class="student-affiliation">CFA Level 2 Candidate, FMS Delhi</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">9/10</span>
+                </div>
+                <p class="testimonial-text">"The P/E ratio analysis and financial ratios modules on ValYou Hub were instrumental in my CFA Level 1 success. The practical Excel exercises perfectly complemented my theoretical studies. Now preparing for Level 2 with the same confidence!"</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">P/E Ratios</span>
+                    <span class="topic-tag">Financial Ratios</span>
+                    <span class="topic-tag">CFA Preparation</span>
+                    <span class="topic-tag">Excel Analysis</span>
+                </div>
+            </div>
+
+            <!-- Kartik Goel -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="student-info">
+                    <img src="src/assets/kartik-goel.jpg" alt="Kartik Goel" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Kartik Goel</h3>
+                        <p class="student-affiliation">Vice President, Rothschild & Co</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">10/10</span>
+                </div>
+                <p class="testimonial-text">"Even as an experienced professional, ValYou Hub's advanced DCF modeling techniques enhanced my skill set significantly. The platform's focus on practical application helped me secure my VP role. Highly recommend for career advancement in finance."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">Advanced DCF</span>
+                    <span class="topic-tag">Valuation Modeling</span>
+                    <span class="topic-tag">Career Growth</span>
+                    <span class="topic-tag">Professional Development</span>
+                </div>
+            </div>
+
+            <!-- Madhav Miglani -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="400">
+                <div class="student-info">
+                    <img src="src/assets/madhav-miglani.jpg" alt="Madhav Miglani" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Madhav Miglani</h3>
+                        <p class="student-affiliation">MBA Student, INSEAD</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★☆</span>
+                    <span class="rating-number">8/10</span>
+                </div>
+                <p class="testimonial-text">"ValYou Hub's comprehensive approach to financial modeling gave me a competitive edge during my INSEAD interviews. The hands-on Excel experience and understanding of NPV calculations were crucial talking points that impressed the admissions committee."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">NPV</span>
+                    <span class="topic-tag">Financial Modeling</span>
+                    <span class="topic-tag">MBA Preparation</span>
+                    <span class="topic-tag">Interview Success</span>
+                </div>
+            </div>
+
+            <!-- Sneha Tripathi -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="500">
+                <div class="student-info">
+                    <img src="src/assets/sneha-tripathi.jpg" alt="Sneha Tripathi" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Sneha Tripathi</h3>
+                        <p class="student-affiliation">Financial Analyst, HSBC</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">9/10</span>
+                </div>
+                <p class="testimonial-text">"The WACC calculations and cost of capital modules were exactly what I needed to transition into corporate finance. ValYou Hub's practical approach helped me land my dream job at HSBC. The Excel skills I gained are invaluable in my daily work."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">WACC</span>
+                    <span class="topic-tag">Cost of Capital</span>
+                    <span class="topic-tag">Corporate Finance</span>
+                    <span class="topic-tag">Job Transition</span>
+                </div>
+            </div>
+
+            <!-- Soumya Tiwari -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="600">
+                <div class="student-info">
+                    <img src="src/assets/soumya-tiwari.jpg" alt="Soumya Tiwari" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Soumya Tiwari</h3>
+                        <p class="student-affiliation">Research Analyst, Morgan Stanley</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">9/10</span>
+                </div>
+                <p class="testimonial-text">"Coming from IIM Calcutta, I thought I knew finance well, but ValYou Hub's IRR and DCF modules revealed gaps in my practical knowledge. The platform's hands-on approach prepared me perfectly for equity research at Morgan Stanley."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">IRR</span>
+                    <span class="topic-tag">DCF</span>
+                    <span class="topic-tag">Equity Research</span>
+                    <span class="topic-tag">Practical Application</span>
+                </div>
+            </div>
+
+            <!-- Rohan Aggarwal -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="700">
+                <div class="student-info">
+                    <img src="src/assets/rohan-aggarwal.jpg" alt="Rohan Aggarwal" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Rohan Aggarwal</h3>
+                        <p class="student-affiliation">Investment Banking Summer Intern, Goldman Sachs</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-number">10/10</span>
+                </div>
+                <p class="testimonial-text">"ValYou Hub was my secret weapon for securing the Goldman Sachs internship. The comprehensive coverage of valuation multiples and DCF modeling, combined with Excel proficiency, made me stand out among hundreds of applicants from top B-schools."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">Valuation Multiples</span>
+                    <span class="topic-tag">DCF Modeling</span>
+                    <span class="topic-tag">Excel Proficiency</span>
+                    <span class="topic-tag">Internship Success</span>
+                </div>
+            </div>
+
+            <!-- Amit Kumar -->
+            <div class="testimonial-card" data-aos="flip-left" data-aos-delay="800">
+                <div class="student-info">
+                    <img src="src/assets/amit-kumar.jpg" alt="Amit Kumar" class="student-avatar">
+                    <div class="student-details">
+                        <h3>Amit Kumar</h3>
+                        <p class="student-affiliation">Finance Graduate, NYU Stern</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="rating-stars">★★★★☆</span>
+                    <span class="rating-number">8/10</span>
+                </div>
+                <p class="testimonial-text">"Studying at NYU Stern was demanding, but ValYou Hub's modules on financial ratios and company valuation provided the practical foundation I needed. The platform's approach bridges the gap between academic theory and real-world application perfectly."</p>
+                <div class="topics-learned">
+                    <span class="topic-tag">Financial Ratios</span>
+                    <span class="topic-tag">Company Valuation</span>
+                    <span class="topic-tag">Academic Support</span>
+                    <span class="topic-tag">Theory to Practice</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section" data-aos="fade-up" data-aos-delay="900">
+            <h2>Ready to Join Our Success Stories?</h2>
+            <p>Master finance concepts like DCF, NPV, IRR, WACC, and P/E ratios through hands-on Excel experience</p>
+            <a href="#" class="cta-button" data-aos="zoom-in" data-aos-delay="950">Start Learning Today</a>
+        </div>
+    </div>
+</body>
+</html>
