@@ -37,6 +37,38 @@ a {
   pointer-events: none;
 }
 
+.certification-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none; /* Remove background */
+    padding: 0; /* Remove extra padding around it */
+    border-radius: 0; /* Remove rounded corners */
+    text-align: center;
+    backdrop-filter: none; /* Remove blur */
+    box-shadow: none; /* Remove shadow */
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.certification-badge img {
+    max-height: 40px;
+    margin-top: 7px;
+    background: none;
+}
+
+.cert-text {
+    font-size: 12px;
+    display: block;
+    opacity: 0.85;
+}
+
+.cert-org {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+}
+
 /* Stylish Navigation Bar */
 .logo {
   display: flex;
