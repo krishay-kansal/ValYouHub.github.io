@@ -17,15 +17,11 @@
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            color: #e5e7eb;
             min-height: 100vh;
         }
 
@@ -58,11 +54,11 @@
         }
 
         .learning-section {
-            background: white;
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(20,24,40,0.18);
         }
 
         .learning-header {
@@ -78,21 +74,25 @@
 
         .learning-header p {
             font-size: 1.1rem;
-            color: #000;
+            color: #e5e7eb;
         }
+
 
         .module {
             margin-bottom: 40px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #23325c;
             border-radius: 15px;
             padding: 30px;
+            background: rgba(22,33,62,0.85);
+            box-shadow: 0 4px 16px rgba(79,140,255,0.08);
             transition: all 0.3s ease;
         }
 
         .module:hover {
             border-color: #4f8cff;
-            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.18);
         }
+
 
         .module-title {
             display: flex;
@@ -120,20 +120,21 @@
             position: relative;
         }
 
+
         .money-note {
-            background: #10b981;
-            color: #fff;
+            background: #23325c;
+            color: #4f8cff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 15px rgba(79,140,255,0.10);
         }
 
         .money-note.shrink {
-            background: #ef4444;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            background: #334155;
+            color: #ef4444;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.10);
         }
 
         .time-tunnel {
@@ -168,23 +169,27 @@
             align-items: center;
         }
 
+
         .choice-option {
-            background: #f8fafc;
-            border: 3px solid #e2e8f0;
+            background: #23325c;
+            border: 3px solid #4f8cff;
             border-radius: 15px;
             padding: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
+            color: #e5e7eb;
         }
 
         .choice-option.green {
-            background: #dcfce7 !important;
+            background: #10b981 !important;
             border-color: #10b981 !important;
+            color: #fff !important;
         }
         .choice-option.red {
-            background: #fee2e2 !important;
+            background: #ef4444 !important;
             border-color: #ef4444 !important;
+            color: #fff !important;
         }
 
         .choice-option:hover {
@@ -222,18 +227,20 @@
             margin: 20px 0;
         }
 
+
         .metaphor-card {
-            background: #f8fafc;
+            background: #23325c;
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #4f8cff;
+            color: #e5e7eb;
             transition: all 0.3s ease;
         }
 
         .metaphor-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(79,140,255,0.18);
         }
 
         .metaphor-icon {
@@ -241,6 +248,7 @@
             display: block;
             margin-bottom: 15px;
         }
+
 
         .metaphor-title {
             font-weight: 700;
@@ -250,9 +258,10 @@
         }
 
         .metaphor-text {
-            color: #000;
+            color: #e5e7eb;
             line-height: 1.5;
         }
+
 
         .conveyor-belt {
             position: relative;
@@ -265,6 +274,7 @@
             margin: 20px 0;
         }
 
+
         .cash-flows {
             display: flex;
             justify-content: space-between;
@@ -275,6 +285,7 @@
             text-align: center;
             flex: 1;
             padding: 0 10px;
+            color: #e5e7eb;
         }
 
         .cash-icon {
@@ -292,13 +303,13 @@
 
         .cash-original {
             font-size: 0.9rem;
-            color: #000;
+            color: #b8bfc9;
             margin-bottom: 5px;
         }
 
         .formula-display {
             font-size: 0.8rem;
-            color: #000;
+            color: #4f8cff;
             margin-bottom: 5px;
             font-family: monospace;
         }
@@ -308,6 +319,7 @@
             color: #10b981;
         }
 
+
         .irr-assembly {
             margin: 20px 0;
         }
@@ -315,7 +327,7 @@
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e5e7eb;
+            background: #23325c;
             border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -329,7 +341,7 @@
         }
 
         .assembly-table {
-            border: 1px solid #e5e7eb;
+            border: 1px solid #4f8cff;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -340,19 +352,22 @@
             padding: 20px;
             border-bottom: 1px solid #4f8cff;
             transition: all 0.5s ease;
-            color: #000 !important;
+            color: #e5e7eb !important;
+            background: rgba(22,33,62,0.85);
         }
 
         .assembly-row.active {
             opacity: 1;
-            background: #f0f9ff;
-            color: #000 !important;
+            background: #23325c;
+            color: #e5e7eb !important;
         }
 
         .assembly-row.final {
             background: #10b981;
             border-color: #10b981;
+            color: #fff !important;
         }
+
 
         .step-number {
             width: 40px;
@@ -367,20 +382,22 @@
             margin-right: 20px;
         }
 
+
         .step-content {
             flex: 1;
         }
 
         .step-calculation {
             font-family: monospace;
-            color: #000;
+            color: #4f8cff;
             margin: 5px 0;
         }
 
+
         .value-cell {
             display: inline-block;
-            background: #f3f4f6;
-            color: #000;
+            background: #23325c;
+            color: #4f8cff;
             padding: 8px 12px;
             border-radius: 6px;
             margin: 2px;
@@ -394,6 +411,7 @@
             padding: 12px 20px;
         }
 
+
         .profitable-badge {
             background: #10b981;
             color: #fff;
@@ -403,6 +421,7 @@
             text-align: center;
             margin: 20px 0;
         }
+
 
         .question-type-selector {
             background: rgba(22, 33, 62, 0.92);
@@ -414,6 +433,7 @@
             backdrop-filter: blur(10px);
         }
 
+
         .type-buttons {
             display: flex;
             gap: 15px;
@@ -422,8 +442,9 @@
         }
 
         .type-btn {
-            background: white;
-            border: 2px solid #e5e7eb;
+            background: #23325c;
+            border: 2px solid #4f8cff;
+            color: #e5e7eb;
             padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -467,13 +488,14 @@
             background: #3b82f6;
         }
 
+
         .instructions {
             background: #23325c;
             color: #e5e7eb;
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79,140,255,0.10);
         }
 
         .instructions h3 {
@@ -502,13 +524,14 @@
             left: 0;
         }
 
+
         .question-container {
             background: #23325c;
             color: #e5e7eb;
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79,140,255,0.10);
         }
 
         .question-title {
@@ -541,12 +564,13 @@
             line-height: 1.6;
         }
 
+
         .spreadsheet-wrapper {
             background: #23325c;
             color: #e5e7eb;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79,140,255,0.10);
             margin-bottom: 20px;
         }
 
@@ -649,7 +673,7 @@
                     The Investment Crossroads
                 </div>
                 <div class="time-traveler">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Imagine you invest ₹100,000 today and expect ₹130,000 back after 3 years...</strong>
                     </p>
                     <div class="money-animation">
@@ -661,7 +685,7 @@
                         </div>
                         <div class="money-note">₹130,000 Return</div>
                     </div>
-                    <p style="color: #6b7280; text-align: center; margin-top: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-top: 20px;">
                         IRR answers: "What annual return rate does this investment give me?"
                         In this case, IRR = 9.14% per year!
                     </p>
@@ -675,25 +699,25 @@
                     The "IRR vs Market Rate" Game
                 </div>
                 <div class="choice-game">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Your investment has an IRR of 15%. Market rate is 10%. Should you invest?</strong>
                     </p>
                     <div class="choices">
                         <div class="choice-option" id="choice1">
                             <div class="choice-person">✅</div>
                             <div class="choice-value">YES</div>
-                            <div style="color: #6b7280;">IRR > Market Rate</div>
+                            <div style="color: #ffffff;">IRR > Market Rate</div>
                         </div>
-                        <div style="font-size: 2rem; color: #374151; align-self: center;">VS</div>
+                        <div style="font-size: 2rem; color: #ffffff; align-self: center;">VS</div>
                         <div class="choice-option" id="choice2">
                             <div class="choice-person">❌</div>
                             <div class="choice-value">NO</div>
-                            <div style="color: #6b7280;">IRR < Market Rate</div>
+                            <div style="color: #ffffff;">IRR < Market Rate</div>
                         </div>
                     </div>
                     <div id="choice-reveal" class="reveal-section">
                         <strong style="color: #10b981;">Correct Choice: YES - Invest!</strong><br>
-                        <span style="color: #6b7280;">IRR (15%) > Market Rate (10%) means the investment beats market returns!</span>
+                        <span style="color: #ffffff;">IRR (15%) > Market Rate (10%) means the investment beats market returns!</span>
                     </div>
                 </div>
             </div>
@@ -733,7 +757,7 @@
                     The IRR Discovery Process
                 </div>
                 <div class="conveyor-belt">
-                    <p style="color: #374151; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         IRR is found through trial and error - testing different rates until NPV = 0:
                     </p>
                     <div class="belt-track"></div>
@@ -773,10 +797,10 @@
             <div class="module">
                 <div class="module-title">
                     <span class="module-icon">🧮</span>
-                    <span style="color: #000000;">IRR Calculation Steps</span>
+                    <span style="color: #ffffff;">IRR Calculation Steps</span>
                 </div>
                 <div class="irr-assembly">
-                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         Watch how IRR is calculated step by step:
                     </p>
                     <div class="progress-bar">
@@ -784,39 +808,39 @@
                     </div>
                     <div class="assembly-table">
                         <div class="assembly-row" id="step1">
-                            <div class="step-number" style="color: #000000;">1</div>
+                            <div class="step-number" style="color: #ffffff;">1</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Set up Cash Flows</span>
+                                <span style="color: #ffffff;">Set up Cash Flows</span>
                                 <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">Initial: -₹1,000</div>
-                                    <div class="value-cell" style="color: #000000;">Year 1: +₹300</div>
-                                    <div class="value-cell" style="color: #000000;">Year 2: +₹400</div>
-                                    <div class="value-cell" style="color: #000000;">Year 3: +₹500</div>
+                                    <div class="value-cell" style="color: #ffffff;">Initial: -₹1,000</div>
+                                    <div class="value-cell" style="color: #ffffff;">Year 1: +₹300</div>
+                                    <div class="value-cell" style="color: #ffffff;">Year 2: +₹400</div>
+                                    <div class="value-cell" style="color: #ffffff;">Year 3: +₹500</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step2">
-                            <div class="step-number" style="color: #000000;">2</div>
+                            <div class="step-number" style="color: #ffffff;">2</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Set NPV equation to zero</span>
-                                <div class="step-calculation" style="color: #000000;">-1000 + 300/(1+IRR)¹ + 400/(1+IRR)² + 500/(1+IRR)³ = 0</div>
+                                <span style="color: #ffffff;">Set NPV equation to zero</span>
+                                <div class="step-calculation" style="color: #ffffff;">-1000 + 300/(1+IRR)¹ + 400/(1+IRR)² + 500/(1+IRR)³ = 0</div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step3">
-                            <div class="step-number" style="color: #000000;">3</div>
+                            <div class="step-number" style="color: #ffffff;">3</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Trial and Error Method</span>
+                                <span style="color: #ffffff;">Trial and Error Method</span>
                                 <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">Try 10%: NPV = +₹43.4</div>
-                                    <div class="value-cell" style="color: #000000;">Try 15%: NPV = -₹28.9</div>
+                                    <div class="value-cell" style="color: #ffffff;">Try 10%: NPV = +₹43.4</div>
+                                    <div class="value-cell" style="color: #ffffff;">Try 15%: NPV = -₹28.9</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step4">
-                            <div class="step-number" style="color: #000000;">4</div>
+                            <div class="step-number" style="color: #ffffff;">4</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Linear Interpolation</span>
-                                <div class="step-calculation" style="color: #000000;">IRR = 10% + (43.4/(43.4+28.9)) × (15%-10%)</div>
+                                <span style="color: #ffffff;">Linear Interpolation</span>
+                                <div class="step-calculation" style="color: #ffffff;">IRR = 10% + (43.4/(43.4+28.9)) × (15%-10%)</div>
                                 <div class="value-cell" style="background: #dcfce7; color: #166534; font-weight: bold;">IRR = 13.0%</div>
                             </div>
                         </div>
@@ -832,7 +856,7 @@
                         <div class="profitable-badge">
                             ✔ Good Investment - IRR > Required Return!
                         </div>
-                        <p style="color: #6b7280; text-align: center; margin-top: 15px;">
+                        <p style="color: #ffffff; text-align: center; margin-top: 15px;">
                             If your required return is less than 13%, this investment creates value.
                         </p>
                     </div>
@@ -1046,8 +1070,8 @@
                         "defaultColWidth": 100,
                         "celldata": [
                             {"r": 0, "c": 0, "v": {"v": "Cash Flow Analysis", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow Analysis", "bg": "#4f8cff", "fc": "#ffffff", "bl": 1, "fs": 14}},
-                            {"r": 1, "c": 0, "v": {"v": "Period", "ct": {"fa": "General", "t": "g"}, "m": "Period", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
-                            {"r": 1, "c": 1, "v": {"v": "Cash Flow", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
+                            {"r": 1, "c": 0, "v": {"v": "Period", "ct": {"fa": "General", "t": "g"}, "m": "Period", "bg": "#f3f4f6", "fc": "#ffffff", "bl": 1}},
+                            {"r": 1, "c": 1, "v": {"v": "Cash Flow", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow", "bg": "#f3f4f6", "fc": "#ffffff", "bl": 1}},
                             {"r": 2, "c": 0, "v": {"v": "Initial", "ct": {"fa": "General", "t": "g"}, "m": "Initial"}},
                             {"r": 2, "c": 1, "v": {"v": -50000, "ct": {"fa": "General", "t": "n"}, "m": "-50000", "bg": "#fee2e2"}},
                             {"r": 3, "c": 0, "v": {"v": "Year 1", "ct": {"fa": "General", "t": "g"}, "m": "Year 1"}},
