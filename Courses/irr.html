@@ -7,10 +7,10 @@
     <meta name="description" content="Master Internal Rate of Return (IRR) analysis through hands-on practice with our Excel-like calculator. Learn IRR fundamentals and practice with real scenarios.">
     
     <!-- Luckysheet CSS -->
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/0.2.2/plugins/css/pluginsCss.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/0.2.2/plugins/plugins.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/0.2.2/css/luckysheet.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/0.2.2/assets/iconfont/iconfont.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
     
     <style>
         * {
@@ -856,12 +856,16 @@
                 <div class="spreadsheet-icon">📊</div>
                 IRR Calculation Worksheet
             </div>
-            <div id="luckysheet" style="margin: 0px; padding: 0px; position: relative; width: 100%; height: 400px;"></div>
+            <div id="luckysheet" style="margin: 0px; padding: 0px; position: relative; width: 100%; height: 500px;"></div>
         </div>
     </div>
 
-    <!-- Luckysheet JS (moved to end of body for proper DOM loading) -->
-    // IRR Question Data
+    <!-- Luckysheet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+
+    <script>
+        // IRR Question Data
         const irrQuestions = {
             1: [
                 {
@@ -981,51 +985,64 @@
 
         // Initialize Luckysheet
         function initializeLuckysheet() {
-            const options = {
-                container: 'luckysheet',
-                title: "IRR Calculator",
-                lang: 'en',
-                allowCopy: true,
-                allowUpdate: true,
-                showsheetbar: false,
-                showstatisticBar: false,
-                data: [{
-                    "name": "IRR Calculation",
-                    "color": "",
-                    "index": 0,
-                    "status": 1,
-                    "order": 0,
-                    "hide": 0,
-                    "row": 20,
-                    "column": 10,
-                    "defaultRowHeight": 19,
-                    "defaultColWidth": 73,
-                    "celldata": [
-                        {"r": 0, "c": 0, "v": {"v": "Cash Flow Analysis", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow Analysis", "bg": "#4f8cff", "fc": "#ffffff", "bl": 1}},
-                        {"r": 1, "c": 0, "v": {"v": "Period", "ct": {"fa": "General", "t": "g"}, "m": "Period", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
-                        {"r": 1, "c": 1, "v": {"v": "Cash Flow", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
-                        {"r": 2, "c": 0, "v": {"v": "Initial", "ct": {"fa": "General", "t": "g"}, "m": "Initial"}},
-                        {"r": 2, "c": 1, "v": {"v": -50000, "ct": {"fa": "General", "t": "n"}, "m": "-50000"}},
-                        {"r": 3, "c": 0, "v": {"v": "Year 1", "ct": {"fa": "General", "t": "g"}, "m": "Year 1"}},
-                        {"r": 3, "c": 1, "v": {"v": 15000, "ct": {"fa": "General", "t": "n"}, "m": "15000"}},
-                        {"r": 4, "c": 0, "v": {"v": "Year 2", "ct": {"fa": "General", "t": "g"}, "m": "Year 2"}},
-                        {"r": 4, "c": 1, "v": {"v": 18000, "ct": {"fa": "General", "t": "n"}, "m": "18000"}},
-                        {"r": 5, "c": 0, "v": {"v": "Year 3", "ct": {"fa": "General", "t": "g"}, "m": "Year 3"}},
-                        {"r": 5, "c": 1, "v": {"v": 22000, "ct": {"fa": "General", "t": "n"}, "m": "22000"}},
-                        {"r": 6, "c": 0, "v": {"v": "Year 4", "ct": {"fa": "General", "t": "g"}, "m": "Year 4"}},
-                        {"r": 6, "c": 1, "v": {"v": 12000, "ct": {"fa": "General", "t": "n"}, "m": "12000"}},
-                        {"r": 8, "c": 0, "v": {"v": "IRR Calculation", "ct": {"fa": "General", "t": "g"}, "m": "IRR Calculation", "bg": "#10b981", "fc": "#ffffff", "bl": 1}},
-                        {"r": 9, "c": 0, "v": {"v": "IRR", "ct": {"fa": "General", "t": "g"}, "m": "IRR"}},
-                        {"r": 9, "c": 1, "v": {"v": "=IRR(B3:B7)", "ct": {"fa": "General", "t": "g"}, "m": "=IRR(B3:B7)", "f": "=IRR(B3:B7)"}},
-                        {"r": 11, "c": 0, "v": {"v": "Instructions:", "ct": {"fa": "General", "t": "g"}, "m": "Instructions:", "bl": 1}},
-                        {"r": 12, "c": 0, "v": {"v": "1. Use =IRR(range) formula", "ct": {"fa": "General", "t": "g"}, "m": "1. Use =IRR(range) formula"}},
-                        {"r": 13, "c": 0, "v": {"v": "2. Range should include all cash flows", "ct": {"fa": "General", "t": "g"}, "m": "2. Range should include all cash flows"}},
-                        {"r": 14, "c": 0, "v": {"v": "3. First value must be negative (investment)", "ct": {"fa": "General", "t": "g"}, "m": "3. First value must be negative (investment)"}}
-                    ]
-                }]
-            };
+            try {
+                const options = {
+                    container: 'luckysheet',
+                    title: "IRR Calculator",
+                    lang: 'en',
+                    allowCopy: true,
+                    allowUpdate: true,
+                    showsheetbar: false,
+                    showstatisticBar: false,
+                    showConfigWindowResize: false,
+                    enableAddRow: false,
+                    enableAddCol: false,
+                    data: [{
+                        "name": "IRR Calculation",
+                        "color": "",
+                        "index": 0,
+                        "status": 1,
+                        "order": 0,
+                        "hide": 0,
+                        "row": 25,
+                        "column": 10,
+                        "defaultRowHeight": 25,
+                        "defaultColWidth": 100,
+                        "celldata": [
+                            {"r": 0, "c": 0, "v": {"v": "Cash Flow Analysis", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow Analysis", "bg": "#4f8cff", "fc": "#ffffff", "bl": 1, "fs": 14}},
+                            {"r": 1, "c": 0, "v": {"v": "Period", "ct": {"fa": "General", "t": "g"}, "m": "Period", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
+                            {"r": 1, "c": 1, "v": {"v": "Cash Flow", "ct": {"fa": "General", "t": "g"}, "m": "Cash Flow", "bg": "#f3f4f6", "fc": "#374151", "bl": 1}},
+                            {"r": 2, "c": 0, "v": {"v": "Initial", "ct": {"fa": "General", "t": "g"}, "m": "Initial"}},
+                            {"r": 2, "c": 1, "v": {"v": -50000, "ct": {"fa": "General", "t": "n"}, "m": "-50000", "bg": "#fee2e2"}},
+                            {"r": 3, "c": 0, "v": {"v": "Year 1", "ct": {"fa": "General", "t": "g"}, "m": "Year 1"}},
+                            {"r": 3, "c": 1, "v": {"v": 15000, "ct": {"fa": "General", "t": "n"}, "m": "15000", "bg": "#dcfce7"}},
+                            {"r": 4, "c": 0, "v": {"v": "Year 2", "ct": {"fa": "General", "t": "g"}, "m": "Year 2"}},
+                            {"r": 4, "c": 1, "v": {"v": 18000, "ct": {"fa": "General", "t": "n"}, "m": "18000", "bg": "#dcfce7"}},
+                            {"r": 5, "c": 0, "v": {"v": "Year 3", "ct": {"fa": "General", "t": "g"}, "m": "Year 3"}},
+                            {"r": 5, "c": 1, "v": {"v": 22000, "ct": {"fa": "General", "t": "n"}, "m": "22000", "bg": "#dcfce7"}},
+                            {"r": 6, "c": 0, "v": {"v": "Year 4", "ct": {"fa": "General", "t": "g"}, "m": "Year 4"}},
+                            {"r": 6, "c": 1, "v": {"v": 12000, "ct": {"fa": "General", "t": "n"}, "m": "12000", "bg": "#dcfce7"}},
+                            {"r": 8, "c": 0, "v": {"v": "IRR Calculation", "ct": {"fa": "General", "t": "g"}, "m": "IRR Calculation", "bg": "#10b981", "fc": "#ffffff", "bl": 1, "fs": 14}},
+                            {"r": 9, "c": 0, "v": {"v": "IRR Formula:", "ct": {"fa": "General", "t": "g"}, "m": "IRR Formula:"}},
+                            {"r": 9, "c": 1, "v": {"v": "=IRR(B3:B7)", "ct": {"fa": "General", "t": "g"}, "m": "=IRR(B3:B7)", "f": "=IRR(B3:B7)", "bg": "#fef3c7"}},
+                            {"r": 10, "c": 0, "v": {"v": "IRR Result:", "ct": {"fa": "General", "t": "g"}, "m": "IRR Result:", "bl": 1}},
+                            {"r": 10, "c": 1, "v": {"v": "", "ct": {"fa": "General", "t": "g"}, "m": "", "bg": "#fef3c7"}},
+                            {"r": 12, "c": 0, "v": {"v": "Instructions:", "ct": {"fa": "General", "t": "g"}, "m": "Instructions:", "bl": 1, "fc": "#4f8cff"}},
+                            {"r": 13, "c": 0, "v": {"v": "1. Use =IRR(range) formula", "ct": {"fa": "General", "t": "g"}, "m": "1. Use =IRR(range) formula"}},
+                            {"r": 14, "c": 0, "v": {"v": "2. Range includes all cash flows", "ct": {"fa": "General", "t": "g"}, "m": "2. Range includes all cash flows"}},
+                            {"r": 15, "c": 0, "v": {"v": "3. First value = initial investment", "ct": {"fa": "General", "t": "g"}, "m": "3. First value = initial investment"}},
+                            {"r": 16, "c": 0, "v": {"v": "4. Result shows as decimal", "ct": {"fa": "General", "t": "g"}, "m": "4. Result shows as decimal"}},
+                            {"r": 17, "c": 0, "v": {"v": "5. Multiply by 100 for percentage", "ct": {"fa": "General", "t": "g"}, "m": "5. Multiply by 100 for percentage"}}
+                        ]
+                    }]
+                };
 
-            luckysheet.create(options);
+                luckysheet.create(options);
+                console.log('LuckySheet initialized successfully');
+            } catch (error) {
+                console.error('Error initializing LuckySheet:', error);
+                document.getElementById('luckysheet').innerHTML = '<div style="padding: 40px; text-align: center; color: #666;">LuckySheet failed to load. Please refresh the page.</div>';
+            }
         }
 
         // Question navigation
@@ -1057,6 +1074,7 @@
             assemblyRows.forEach(function(row) {
                 row.style.display = 'none';
             });
+            
             // Animate IRR steps automatically after page loads
             setTimeout(function() {
                 var progress = document.getElementById('assembly-progress');
@@ -1086,7 +1104,12 @@
                 }
                 showStep();
             }, 500);
-            initializeLuckysheet();
+            
+            // Initialize LuckySheet after DOM is fully loaded
+            setTimeout(() => {
+                initializeLuckysheet();
+            }, 1000);
+            
             updateQuestion();
 
             // Choice game interaction (event delegation)
@@ -1107,38 +1130,6 @@
                     no.classList.add('red');
                     yes.classList.remove('green');
                 }
-            });
-
-            // Assembly animation: show steps one by one below the button
-            document.getElementById('start-assembly').addEventListener('click', function() {
-                console.log('Start IRR Calculation button clicked');
-                const steps = document.querySelectorAll('.assembly-row');
-                const progress = document.getElementById('assembly-progress');
-                const result = document.getElementById('profitability-result');
-                if (!steps.length || !progress || !result) return;
-                progress.style.width = '0%';
-                result.style.opacity = '0';
-                steps.forEach(step => {
-                    step.classList.remove('active');
-                    step.style.display = 'none';
-                });
-                let i = 0;
-                function showStep() {
-                    if (i < steps.length) {
-                        steps[i].style.display = 'flex';
-                        setTimeout(() => {
-                            steps[i].classList.add('active');
-                            progress.style.width = ((i + 1) / steps.length) * 100 + '%';
-                            i++;
-                            showStep();
-                        }, 800);
-                    } else {
-                        setTimeout(() => {
-                            result.style.opacity = '1';
-                        }, 500);
-                    }
-                }
-                showStep();
             });
 
             // Type buttons
