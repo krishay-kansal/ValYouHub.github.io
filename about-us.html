@@ -235,6 +235,12 @@
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px;
         }
+            /* Ensure 3 cards in a single line on desktop */
+            @media (min-width: 1100px) {
+                .team-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
 
 
         .team-card {
@@ -248,6 +254,16 @@
             font-weight: 500;
             transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
         }
+
+            .team-photo {
+                display: block;
+                margin: 0 auto 18px auto;
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 50%;
+                box-shadow: 0 2px 8px rgba(79,140,255,0.12);
+            }
 
 
         .team-card:hover {
@@ -289,6 +305,7 @@
 
 
         .final-cta-title {
+            color: white;
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 20px;
@@ -554,9 +571,9 @@
                     <div class="team-card">
                         <img src="images/Krishay_1.png" alt="Krishay Kansal" class="team-photo">
                         <h3 class="team-name">Krishay Kansal</h3>
-                        <p class="team-title">CFA Level II Candidate, IIM Rohtak</p>
+                        <p class="team-title">CFA Level II Cleared, IIM Rohtak</p>
                         <p class="team-description">
-                            Krishay brings a sharp analytical mind and deep expertise in financial modeling, valuation techniques, and investment analysis. As a CFA Level II candidate, he has an advanced understanding of global financial markets and corporate decision-making. Over the years, Krishay has worked on equity research projects, business case evaluations, and financial strategy development. He is passionate about breaking down complex formulas into simple, actionable insights for learners. Beyond teaching, he mentors students for finance competitions, ensuring they're ready for the challenges of the real world.
+                            Krishay brings a sharp analytical mind and deep expertise in financial modeling, valuation techniques, and investment analysis. As a CFA Level II Certified professional, he has an advanced understanding of global financial markets and corporate decision-making. Over the years, Krishay has worked on equity research projects, business case evaluations, and financial strategy development. He is passionate about breaking down complex formulas into simple, actionable insights for learners. Beyond teaching, he mentors students for finance competitions, ensuring they're ready for the challenges of the real world.
                         </p>
                     </div>
                     <div class="team-card">
