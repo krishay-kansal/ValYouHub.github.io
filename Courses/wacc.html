@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WACC - Weighted Average Cost of Capital Calculator</title>
+
     <style>
         * {
             margin: 0;
@@ -13,11 +14,12 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            color: #e5e7eb;
             min-height: 100vh;
-            color: #ffffff;
         }
+
 
         .dcf-container {
             max-width: 1200px;
@@ -25,18 +27,21 @@
             padding: 20px;
         }
 
+
         .learning-section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
 
         .learning-header {
             text-align: center;
             margin-bottom: 40px;
         }
+
 
         .learning-header h2 {
             font-size: 2.5rem;
@@ -47,24 +52,26 @@
 
         .learning-header p {
             font-size: 1.2rem;
-            color: #6b7280;
+            color: #b8bfc9;
         }
 
+
         .module {
-            background: #ffffff;
+            background: #23325c;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 12px rgba(20,24,40,0.10);
+            border: 1px solid #2c3e6c;
         }
+
 
         .module-title {
             display: flex;
             align-items: center;
             font-size: 1.5rem;
             font-weight: 600;
-            color: #374151;
+            color: #4f8cff;
             margin-bottom: 25px;
         }
 
@@ -85,9 +92,10 @@
             position: relative;
         }
 
+
         .money-note {
-            background: #4f8cff;
-            color: white;
+            background: #23325c;
+            color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: bold;
@@ -96,7 +104,8 @@
         }
 
         .money-note.shrink {
-            background: #f59e0b;
+            background: #4f8cff;
+            color: #fff;
             animation: pulse 2s infinite;
         }
 
@@ -113,14 +122,15 @@
             position: relative;
         }
 
+
         .year-label {
             position: absolute;
             top: -30px;
-            background: white;
+            background: #23325c;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.9rem;
-            color: #4f8cff;
+            color: #fff;
             border: 2px solid #4f8cff;
             transform: translateX(-50%);
         }
@@ -137,19 +147,21 @@
             margin: 30px 0;
         }
 
+
         .choice-option {
-            background: #f9fafb;
-            border: 3px solid #e5e7eb;
+            background: #1a2236;
+            border: 3px solid #23325c;
             border-radius: 15px;
             padding: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
+            color: #e5e7eb;
         }
 
         .choice-option:hover {
             border-color: #4f8cff;
-            background: #eff6ff;
+            background: #23325c;
             transform: translateY(-2px);
         }
 
@@ -161,16 +173,18 @@
         .choice-value {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #374151;
+            color: #fff;
             margin-bottom: 5px;
         }
 
+
         .reveal-section {
-            background: #f0f9ff;
+            background: #23325c;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
             border-left: 4px solid #4f8cff;
+            color: #fff;
         }
 
         .metaphors-grid {
@@ -180,13 +194,15 @@
             margin-bottom: 20px;
         }
 
+
         .metaphor-card {
-            background: #f9fafb;
+            background: #23325c;
             padding: 25px;
             border-radius: 15px;
             text-align: center;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #4f8cff;
             transition: transform 0.3s ease;
+            color: #fff;
         }
 
         .metaphor-card:hover {
@@ -208,13 +224,14 @@
         }
 
         .metaphor-text {
-            color: #6b7280;
+            color: #fff;
             line-height: 1.5;
         }
 
         .conveyor-belt {
             position: relative;
         }
+
 
         .belt-track {
             height: 6px;
@@ -230,13 +247,15 @@
             margin: 30px 0;
         }
 
+
         .cash-flow-item {
-            background: #f9fafb;
+            background: #23325c;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #4f8cff;
             transition: all 0.3s ease;
+            color: #fff;
         }
 
         .cash-flow-item:hover {
@@ -252,13 +271,13 @@
         }
 
         .cash-original {
-            color: #374151;
+            color: #fff;
             font-weight: 600;
             margin-bottom: 5px;
         }
 
         .formula-display {
-            color: #6b7280;
+            color: #fff;
             font-size: 0.9rem;
             margin-bottom: 5px;
             font-family: monospace;
@@ -269,6 +288,7 @@
             font-weight: bold;
             font-size: 1.1rem;
         }
+
 
         .npv-assembly {
             text-align: center;
@@ -296,31 +316,35 @@
             gap: 15px;
         }
 
+
         .assembly-row {
             display: flex;
             align-items: center;
             padding: 20px;
-            background: #f9fafb;
+            background: #1a2236;
             border-radius: 10px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #23325c;
             opacity: 0.5;
             transition: all 0.5s ease;
+            color: #fff;
         }
 
         .assembly-row.active {
             opacity: 1;
             border-color: #4f8cff;
-            background: #eff6ff;
+            background: #23325c;
+            color: #fff;
         }
 
         .assembly-row.final {
-            background: #dcfce7;
+            background: #10b981;
             border-color: #10b981;
+            color: #fff;
         }
 
         .step-number {
-            background: #4f8cff;
-            color: white;
+            background: #23325c;
+            color: #fff;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -329,6 +353,7 @@
             justify-content: center;
             font-weight: bold;
             margin-right: 20px;
+            border: 2px solid #4f8cff;
         }
 
         .assembly-row.final .step-number {
@@ -340,31 +365,33 @@
         }
 
         .step-calculation {
-            color: #6b7280;
+            color: #fff;
             font-family: monospace;
             margin-top: 5px;
         }
 
+
         .value-cell {
             display: inline-block;
             padding: 8px 15px;
-            background: #eff6ff;
+            background: #23325c;
             border-radius: 8px;
             margin: 5px;
             font-weight: 600;
-            color: #1e40af;
+            color: #fff;
         }
 
         .final-npv {
-            background: #dcfce7;
-            color: #166534;
+            background: #10b981;
+            color: #fff;
             font-size: 1.2rem;
             font-weight: bold;
         }
 
+
         .profitable-badge {
-            background: #dcfce7;
-            color: #166534;
+            background: #10b981;
+            color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: bold;
@@ -372,14 +399,15 @@
             margin-bottom: 15px;
         }
 
+
         .question-type-selector {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(22, 33, 62, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #23325c;
         }
 
         .type-buttons {
@@ -390,10 +418,11 @@
             flex-wrap: wrap;
         }
 
+
         .type-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            background: #23325c;
+            border: 2px solid #4f8cff;
+            color: #e5e7eb;
             padding: 12px 24px;
             border-radius: 25px;
             cursor: pointer;
@@ -402,8 +431,9 @@
         }
 
         .type-btn:hover, .type-btn.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: #4f8cff;
             border-color: #4f8cff;
+            color: #fff;
             transform: translateY(-2px);
         }
 
@@ -437,13 +467,16 @@
             cursor: not-allowed;
         }
 
+
         .instructions {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
+
 
         .instructions h3 {
             color: #4f8cff;
@@ -452,7 +485,7 @@
         }
 
         .instructions ul {
-            color: #374151;
+            color: #e5e7eb;
             line-height: 1.6;
         }
 
@@ -461,13 +494,16 @@
             margin-left: 20px;
         }
 
+
         .question-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
+
 
         .question-title {
             display: flex;
@@ -478,9 +514,10 @@
             margin-bottom: 20px;
         }
 
+
         .question-icon {
             background: #4f8cff;
-            color: white;
+            color: #fff;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -491,18 +528,22 @@
             font-weight: bold;
         }
 
+
         .question-text {
-            color: #374151;
+            color: #e5e7eb;
             line-height: 1.6;
         }
 
+
         .spreadsheet-wrapper {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
+
 
         .spreadsheet-title {
             display: flex;
@@ -518,13 +559,16 @@
             margin-right: 10px;
         }
 
+
         .answer-section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
+
 
         .answer-title {
             display: flex;
@@ -535,9 +579,10 @@
             margin-bottom: 20px;
         }
 
+
         .answer-icon {
             background: #10b981;
-            color: white;
+            color: #fff;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -555,19 +600,23 @@
             flex-wrap: wrap;
         }
 
+
         .answer-input {
             flex: 1;
             padding: 12px 20px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #4f8cff;
             border-radius: 10px;
             font-size: 1rem;
             min-width: 200px;
+            background: #1a2236;
+            color: #e5e7eb;
         }
 
         .answer-input:focus {
             outline: none;
-            border-color: #4f8cff;
+            border-color: #10b981;
         }
+
 
         .check-btn, .solution-btn {
             padding: 12px 24px;
@@ -580,23 +629,26 @@
 
         .check-btn {
             background: #4f8cff;
-            color: white;
+            color: #fff;
         }
 
         .check-btn:hover {
-            background: #3b82f6;
+            background: #23325c;
+            color: #4f8cff;
             transform: translateY(-2px);
         }
 
         .solution-btn {
             background: #f59e0b;
-            color: white;
+            color: #fff;
         }
 
         .solution-btn:hover {
-            background: #d97706;
+            background: #23325c;
+            color: #f59e0b;
             transform: translateY(-2px);
         }
+
 
         .feedback {
             padding: 15px;
@@ -606,29 +658,30 @@
         }
 
         .feedback.correct {
-            background: #dcfce7;
-            color: #166534;
+            background: #10b981;
+            color: #fff;
             border: 2px solid #10b981;
         }
 
         .feedback.incorrect {
-            background: #fef2f2;
-            color: #991b1b;
+            background: #ef4444;
+            color: #fff;
             border: 2px solid #ef4444;
         }
 
         .feedback.solution {
-            background: #fef3c7;
-            color: #92400e;
+            background: #f59e0b;
+            color: #fff;
             border: 2px solid #f59e0b;
         }
 
         /* LuckySheet container styling */
+
         #luckysheet {
-            border: 2px solid #e5e7eb;
+            border: 2px solid #4f8cff;
             border-radius: 10px;
             overflow: hidden;
-            background: white;
+            background: #fff;
         }
 
         @media (max-width: 768px) {
@@ -712,7 +765,7 @@
                     The Capital Cost Factory
                 </div>
                 <div class="time-traveler">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Imagine your company as a factory that needs two types of fuel: Debt and Equity</strong>
                     </p>
                     <div class="money-animation">
@@ -724,7 +777,7 @@
                         </div>
                         <div class="money-note shrink">Equity Cost: 12%</div>
                     </div>
-                    <p style="color: #6b7280; text-align: center; margin-top: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-top: 20px;">
                         WACC blends these costs based on how much of each fuel your company uses.
                         This mixed fuel costs more than debt alone but less than equity alone!
                     </p>
@@ -738,7 +791,7 @@
                     The "Choose Your Funding" Game
                 </div>
                 <div class="choice-game">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Which company will have a lower WACC?</strong><br>
                         <strong>(Both have the same business risk)</strong>
                     </p>
@@ -746,18 +799,18 @@
                         <div class="choice-option" id="choice2">
                             <div class="choice-person">🏢</div>
                             <div class="choice-value">Company A</div>
-                            <div style="color: #6b7280;">80% Debt, 20% Equity</div>
+                            <div style="color: #ffffff;">80% Debt, 20% Equity</div>
                         </div>
-                        <div style="font-size: 2rem; color: #374151; align-self: center;">VS</div>
+                        <div style="font-size: 2rem; color: #ffffff; align-self: center;">VS</div>
                         <div class="choice-option" id="choice1">
                             <div class="choice-person">🏢</div>
                             <div class="choice-value">Company B</div>
-                            <div style="color: #6b7280;">20% Debt, 80% Equity</div>
+                            <div style="color: #ffffff;">20% Debt, 80% Equity</div>
                         </div>
                     </div>
                     <div id="choice-reveal" class="reveal-section">
                         <strong style="color: #10b981;">Answer: Company A (usually)!</strong><br>
-                        <span style="color: #6b7280;">Debt is typically cheaper than equity due to tax benefits and lower risk to lenders. But too much debt increases financial risk!</span>
+                        <span style="color: #ffffff;">Debt is typically cheaper than equity due to tax benefits and lower risk to lenders. But too much debt increases financial risk!</span>
                     </div>
                 </div>
             </div>
@@ -787,7 +840,7 @@
                 </div>
                 <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; border-left: 4px solid #4f8cff;">
                     <strong style="color: #1e40af;">WACC = (E/V × Re) + (D/V × Rd × (1-T))</strong><br>
-                    <span style="color: #6b7280; font-size: 0.9rem;">Where E=Equity, D=Debt, V=Total Value, Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate</span>
+                    <span style="color: #ffffff; font-size: 0.9rem;">Where E=Equity, D=Debt, V=Total Value, Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate</span>
                 </div>
             </div>
 
@@ -798,7 +851,7 @@
                     The WACC Calculation Machine
                 </div>
                 <div class="conveyor-belt">
-                    <p style="color: #374151; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         Watch how different capital sources flow through the WACC calculation:
                     </p>
                     <div class="belt-track"></div>
@@ -844,10 +897,10 @@
             <div class="module">
                 <div class="module-title">
                     <span class="module-icon">🧮</span>
-                    <span style="color: #000000;">WACC Assembly Blueprint</span>
+                    <span style="color: #ffffff;">WACC Assembly Blueprint</span>
                 </div>
                 <div class="npv-assembly">
-                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         Watch how WACC is calculated step by step:
                     </p>
                     <button id="start-assembly" style="background: #4f8cff; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 20px; display: block; margin: 0 auto 20px;">
@@ -858,46 +911,46 @@
                     </div>
                     <div class="assembly-table">
                         <div class="assembly-row" id="step1">
-                            <div class="step-number" style="color: #000000;">1</div>
+                            <div class="step-number" style="color: #ffffff;">1</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Capital Structure</span>
-                                <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">Equity: ₹600 Cr</div>
-                                    <div class="value-cell" style="color: #000000;">Debt: ₹400 Cr</div>
-                                    <div class="value-cell" style="color: #000000;">Total: ₹1000 Cr</div>
+                                <span style="color: #ffffff;">Capital Structure</span>
+                                <div style="display: flex; gap: 10px; justify-content:center">
+                                    <div class="value-cell" style="color: #ffffff;">Equity: ₹600 Cr</div>
+                                    <div class="value-cell" style="color: #ffffff;">Debt: ₹400 Cr</div>
+                                    <div class="value-cell" style="color: #ffffff;">Total: ₹1000 Cr</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step2">
-                            <div class="step-number" style="color: #000000;">2</div>
+                            <div class="step-number" style="color: #ffffff;">2</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Calculate Weights</span>
-                                <div class="step-calculation" style="color: #000000;">Equity Weight = 600/1000 = 60%, Debt Weight = 400/1000 = 40%</div>
+                                <span style="color: #ffffff;">Calculate Weights</span>
+                                <div class="step-calculation" style="color: #ffffff;">Equity Weight = 600/1000 = 60%, Debt Weight = 400/1000 = 40%</div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step3">
-                            <div class="step-number" style="color: #000000;">3</div>
+                            <div class="step-number" style="color: #ffffff;">3</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Component Costs</span>
-                                <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">Cost of Equity: 12%</div>
-                                    <div class="value-cell" style="color: #000000;">Cost of Debt: 8%</div>
-                                    <div class="value-cell" style="color: #000000;">Tax Rate: 30%</div>
+                                <span style="color: #ffffff;">Component Costs</span>
+                                <div style="display: flex; gap: 10px; justify-content: center;">
+                                    <div class="value-cell" style="color: #ffffff;">Cost of Equity: 12%</div>
+                                    <div class="value-cell" style="color: #ffffff;">Cost of Debt: 8%</div>
+                                    <div class="value-cell" style="color: #ffffff;">Tax Rate: 30%</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step4">
-                            <div class="step-number" style="color: #000000;">4</div>
+                            <div class="step-number" style="color: #ffffff;">4</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Apply Tax Shield to Debt</span>
-                                <div class="step-calculation" style="color: #000000;">After-tax Cost of Debt = 8% × (1 - 30%) = 5.6%</div>
+                                <span style="color: #ffffff;">Apply Tax Shield to Debt</span>
+                                <div class="step-calculation" style="color: #ffffff;">After-tax Cost of Debt = 8% × (1 - 30%) = 5.6%</div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step5">
-                            <div class="step-number" style="color: #000000;">5</div>
+                            <div class="step-number" style="color: #ffffff;">5</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Calculate Weighted Components</span>
-                                <div class="step-calculation" style="color: #000000;">Equity: 60% × 12% = 7.2%, Debt: 40% × 5.6% = 2.24%</div>
+                                <span style="color: #ffffff;">Calculate Weighted Components</span>
+                                <div class="step-calculation" style="color: #ffffff;">Equity: 60% × 12% = 7.2%, Debt: 40% × 5.6% = 2.24%</div>
                             </div>
                         </div>
                         <div class="assembly-row final" id="step6">
