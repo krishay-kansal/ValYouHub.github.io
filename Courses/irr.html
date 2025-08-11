@@ -20,9 +20,8 @@
         }
 
         body {
-            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
-            color: #e5e7eb;
             min-height: 100vh;
         }
 
@@ -30,10 +29,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background: rgba(22, 33, 62, 0.92);
-            border-radius: 14px;
-            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
-            border: 1px solid #23325c;
         }
 
         .header-section {
@@ -43,15 +38,14 @@
             padding: 40px 20px;
             background: rgba(22, 33, 62, 0.92);
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
-            border: 1px solid #23325c;
+            backdrop-filter: blur(10px);
         }
 
         .header-section h1 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 15px;
-            text-shadow: 0 4px 6px rgba(79, 140, 255, 0.15);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .header-section p {
@@ -60,11 +54,11 @@
         }
 
         .learning-section {
-            background: rgba(26, 34, 54, 0.98);
+            background: white;
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(79, 140, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
         .learning-header {
@@ -80,12 +74,12 @@
 
         .learning-header p {
             font-size: 1.1rem;
-            color: #fff;
+            color: #000;
         }
 
         .module {
             margin-bottom: 40px;
-            border: 2px solid #23325c;
+            border: 2px solid #e5e7eb;
             border-radius: 15px;
             padding: 30px;
             transition: all 0.3s ease;
@@ -93,7 +87,7 @@
 
         .module:hover {
             border-color: #4f8cff;
-            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.18);
+            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.1);
         }
 
         .module-title {
@@ -123,24 +117,25 @@
         }
 
         .money-note {
-            background: #4f8cff;
+            background: #10b981;
             color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(79, 140, 255, 0.18);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
         .money-note.shrink {
             background: #ef4444;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.18);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
         .time-tunnel {
             flex: 1;
             height: 4px;
-            background: linear-gradient(to right, #4f8cff, #ef4444);
+            background: linear-gradient(to right, #10b981, #ef4444);
             position: relative;
             margin: 0 20px;
         }
@@ -148,12 +143,12 @@
         .year-label {
             position: absolute;
             top: -35px;
-            background: #16213e;
+            background: #23325c;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.9rem;
-            color: #fff;
-            border: 1px solid #23325c;
+            color: #e5e7eb;
+            border: 1px solid #4f8cff;
             transform: translateX(-50%);
         }
 
@@ -170,8 +165,8 @@
         }
 
         .choice-option {
-            background: #16213e;
-            border: 3px solid #23325c;
+            background: #f8fafc;
+            border: 3px solid #e2e8f0;
             border-radius: 15px;
             padding: 30px;
             cursor: pointer;
@@ -179,9 +174,18 @@
             text-align: center;
         }
 
+        .choice-option.green {
+            background: #dcfce7 !important;
+            border-color: #10b981 !important;
+        }
+        .choice-option.red {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+
         .choice-option:hover {
             border-color: #4f8cff;
-            background: rgba(79,140,255,0.08);
+            background: #f0f9ff;
             transform: translateY(-5px);
         }
 
@@ -193,16 +197,17 @@
         .choice-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #1e40af;
+            color: #4f8cff;
             margin-bottom: 5px;
         }
 
         .reveal-section {
             background: #23325c;
+            color: #e5e7eb;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
-            border-left: 4px solid #4f8cff;
+            border-left: 4px solid #10b981;
             display: none;
         }
 
@@ -214,17 +219,17 @@
         }
 
         .metaphor-card {
-            background: #16213e;
+            background: #f8fafc;
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-            border: 1px solid #23325c;
+            border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
         }
 
         .metaphor-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(79, 140, 255, 0.18);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .metaphor-icon {
@@ -241,7 +246,7 @@
         }
 
         .metaphor-text {
-            color: #fff;
+            color: #000;
             line-height: 1.5;
         }
 
@@ -251,7 +256,7 @@
 
         .belt-track {
             height: 4px;
-            background: #23325c;
+            background: #4f8cff;
             border-radius: 2px;
             margin: 20px 0;
         }
@@ -270,7 +275,7 @@
 
         .cash-icon {
             background: #4f8cff;
-            color: #fff;
+            color: white;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -283,20 +288,20 @@
 
         .cash-original {
             font-size: 0.9rem;
-            color: #fff;
+            color: #000;
             margin-bottom: 5px;
         }
 
         .formula-display {
             font-size: 0.8rem;
-            color: #fff;
+            color: #000;
             margin-bottom: 5px;
             font-family: monospace;
         }
 
         .cash-discounted {
             font-weight: 700;
-            color: #4f8cff;
+            color: #10b981;
         }
 
         .irr-assembly {
@@ -306,7 +311,7 @@
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #23325c;
+            background: #e5e7eb;
             border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -320,7 +325,7 @@
         }
 
         .assembly-table {
-            border: 1px solid #23325c;
+            border: 1px solid #e5e7eb;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -329,19 +334,20 @@
             display: flex;
             align-items: center;
             padding: 20px;
-            border-bottom: 1px solid #23325c;
-            opacity: 0.3;
+            border-bottom: 1px solid #4f8cff;
             transition: all 0.5s ease;
+            color: #000 !important;
         }
 
         .assembly-row.active {
             opacity: 1;
-            background: rgba(79,140,255,0.08);
+            background: #f0f9ff;
+            color: #000 !important;
         }
 
         .assembly-row.final {
-            background: #23325c;
-            border-color: #4f8cff;
+            background: #10b981;
+            border-color: #10b981;
         }
 
         .step-number {
@@ -363,13 +369,14 @@
 
         .step-calculation {
             font-family: monospace;
-            color: #b3b8c5;
+            color: #000;
             margin: 5px 0;
         }
 
         .value-cell {
             display: inline-block;
-            background: #16213e;
+            background: #f3f4f6;
+            color: #000;
             padding: 8px 12px;
             border-radius: 6px;
             margin: 2px;
@@ -377,14 +384,14 @@
         }
 
         .final-irr {
-            background: #4f8cff !important;
+            background: #10b981 !important;
             color: #fff !important;
             font-size: 1.2rem;
             padding: 12px 20px;
         }
 
         .profitable-badge {
-            background: #4f8cff;
+            background: #10b981;
             color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
@@ -395,11 +402,12 @@
 
         .question-type-selector {
             background: rgba(22, 33, 62, 0.92);
+            color: #e5e7eb;
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            backdrop-filter: blur(10px);
         }
 
         .type-buttons {
@@ -410,8 +418,8 @@
         }
 
         .type-btn {
-            background: #16213e;
-            border: 2px solid #23325c;
+            background: white;
+            border: 2px solid #e5e7eb;
             padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -427,7 +435,7 @@
 
         .question-counter {
             margin: 15px 0;
-            color: #b3b8c5;
+            color: #e5e7eb;
         }
 
         .question-nav {
@@ -438,7 +446,7 @@
 
         .question-nav button {
             background: #4f8cff;
-            color: #fff;
+            color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -447,20 +455,21 @@
         }
 
         .question-nav button:disabled {
-            background: #23325c;
+            background: #d1d5db;
             cursor: not-allowed;
         }
 
         .question-nav button:hover:not(:disabled) {
-            background: #23325c;
+            background: #3b82f6;
         }
 
         .instructions {
-            background: rgba(26, 34, 54, 0.98);
+            background: #23325c;
+            color: #e5e7eb;
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .instructions h3 {
@@ -476,7 +485,7 @@
 
         .instructions li {
             padding: 8px 0;
-            color: #b3b8c5;
+            color: #e5e7eb;
             position: relative;
             padding-left: 25px;
         }
@@ -490,11 +499,12 @@
         }
 
         .question-container {
-            background: rgba(26, 34, 54, 0.98);
+            background: #23325c;
+            color: #e5e7eb;
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .question-title {
@@ -523,15 +533,16 @@
         }
 
         .question-text {
-            color: #b3b8c5;
+            color: #e5e7eb;
             line-height: 1.6;
         }
 
         .spreadsheet-wrapper {
-            background: rgba(26, 34, 54, 0.98);
+            background: #23325c;
+            color: #e5e7eb;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
         }
 
@@ -550,7 +561,7 @@
         }
 
         #luckysheet {
-            border: 1px solid #23325c;
+            border: 1px solid #4f8cff;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -559,17 +570,21 @@
             .irr-container {
                 padding: 10px;
             }
+            
             .header-section h1 {
                 font-size: 2rem;
             }
+            
             .choices {
                 flex-direction: column;
                 gap: 20px;
             }
+            
             .cash-flows {
                 flex-direction: column;
                 gap: 20px;
             }
+            
             .type-buttons {
                 flex-direction: column;
             }
@@ -683,61 +698,58 @@
                 </div>
                 <div class="conveyor-belt">
                     <p style="color: #374151; text-align: center; margin-bottom: 20px;">
-                                <p style="color: #fff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                        IRR is found through trial and error - testing different rates until NPV = 0:
                     </p>
                     <div class="belt-track"></div>
-                                <p style="color: #fff; text-align: center; margin-top: 20px;">
+                    <div class="cash-flows">
                         <div class="cash-flow-item">
                             <div class="cash-icon">5%</div>
-                                <p style="color: #fff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                            <div class="cash-original">Trial Rate: 5%</div>
                             <div class="formula-display">NPV = +₹15,000</div>
-                                        <div style="color: #fff;">IRR > Market Rate</div>
-                                    <div style="font-size: 2rem; color: #fff; align-self: center;">VS</div>
-                                        <div style="color: #fff;">IRR < Market Rate</div>
-                                    <span style="color: #fff;">IRR (15%) > Market Rate (10%) means the investment beats market returns!</span>
-                            <div class="cash-original">Trial Rate: 10%</div>
-                            <div class="formula-display">NPV = +₹5,000</div>
-                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
-                        </div>
-                            <div style="background: #23325c; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; border-left: 4px solid #4f8cff;">
-                                <strong style="color: #fff;">IRR is the rate that makes the present value of inflows equal to outflows.</strong>
-                            <div class="cash-original">Trial Rate: 15%</div>
-                            <div class="formula-display">NPV = ₹0</div>
-                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
+                            <div class="cash-discounted">Too Low!</div>
                         </div>
                         <div class="cash-flow-item">
-                                <div style="background: #23325c; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-                                    <strong style="color: #fff;">IRR is the rate where NPV equals zero!</strong>
+                            <div class="cash-icon">10%</div>
+                            <div class="cash-original">Trial Rate: 10%</div>
+                            <div class="formula-display">NPV = +₹5,000</div>
+                            <div class="cash-discounted">Still Too Low!</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">15%</div>
+                            <div class="cash-original">Trial Rate: 15%</div>
+                            <div class="formula-display">NPV = ₹0</div>
+                            <div class="cash-discounted">Perfect! IRR = 15%</div>
+                        </div>
+                        <div class="cash-flow-item">
+                            <div class="cash-icon">20%</div>
+                            <div class="cash-original">Trial Rate: 20%</div>
                             <div class="formula-display">NPV = -₹8,000</div>
                             <div class="cash-discounted">Too High!</div>
-                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
+                        </div>
                     </div>
-                                        <div class="step-number" style="color: #fff;">1</div>
-                                            <span style="color: #fff;">Set up Cash Flows</span>
-                                                <div class="value-cell" style="color: #fff;">Initial: -₹1,000</div>
-                                                <div class="value-cell" style="color: #fff;">Year 1: +₹300</div>
-                                                <div class="value-cell" style="color: #fff;">Year 2: +₹400</div>
-                                                <div class="value-cell" style="color: #fff;">Year 3: +₹500</div>
+                    <div style="background: rgba(79, 140, 255, 0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+                        <strong style="color: #4f8cff;">IRR is the rate where NPV equals zero!</strong>
+                    </div>
+                </div>
+            </div>
+
             <!-- Module 5: IRR Assembly Table -->
             <div class="module">
-                                        <div class="step-number" style="color: #fff;">2</div>
-                                            <span style="color: #fff;">Set NPV equation to zero</span>
-                                            <div class="step-calculation" style="color: #fff;">-1000 + 300/(1+IRR)¹ + 400/(1+IRR)² + 500/(1+IRR)³ = 0</div>
+                <div class="module-title">
+                    <span class="module-icon">🧮</span>
+                    <span style="color: #000000;">IRR Calculation Steps</span>
                 </div>
                 <div class="irr-assembly">
-                                        <div class="step-number" style="color: #fff;">3</div>
-                                            <span style="color: #fff;">Trial and Error Method</span>
-                                                <div class="value-cell" style="color: #fff;">Try 10%: NPV = +₹43.4</div>
-                                                <div class="value-cell" style="color: #fff;">Try 15%: NPV = -₹28.9</div>
-                        ▶ Start IRR Calculation
-                    </button>
-                                        <div class="step-number" style="color: #fff;">4</div>
-                                            <span style="color: #fff;">Linear Interpolation</span>
-                                            <div class="step-calculation" style="color: #fff;">IRR = 10% + (43.4/(43.4+28.9)) × (15%-10%)</div>
-                                            <div class="value-cell" style="background: #4f8cff; color: #fff; font-weight: bold;">IRR = 13.0%</div>
+                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
+                        Watch how IRR is calculated step by step:
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="assembly-progress"></div>
+                    </div>
+                    <div class="assembly-table">
                         <div class="assembly-row" id="step1">
                             <div class="step-number" style="color: #000000;">1</div>
-                                    <p style="color: #fff; text-align: center; margin-top: 15px;">
+                            <div class="step-content">
                                 <span style="color: #000000;">Set up Cash Flows</span>
                                 <div style="display: flex; gap: 10px;">
                                     <div class="value-cell" style="color: #000000;">Initial: -₹1,000</div>
@@ -848,12 +860,8 @@
         </div>
     </div>
 
-    <!-- Luckysheet JS -->
-    <script src="https://cdn.luckysheet.com/luckysheet/0.2.2/plugins/js/plugin.js"></script>
-    <script src="https://cdn.luckysheet.com/luckysheet/0.2.2/luckysheet.umd.js"></script>
-
-    <script>
-        // IRR Question Data
+    <!-- Luckysheet JS (moved to end of body for proper DOM loading) -->
+    // IRR Question Data
         const irrQuestions = {
             1: [
                 {
@@ -1044,34 +1052,93 @@
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
+            // Hide IRR calculation steps on page load
+            var assemblyRows = document.querySelectorAll('.assembly-row');
+            assemblyRows.forEach(function(row) {
+                row.style.display = 'none';
+            });
+            // Animate IRR steps automatically after page loads
+            setTimeout(function() {
+                var progress = document.getElementById('assembly-progress');
+                var result = document.getElementById('profitability-result');
+                if (!assemblyRows.length || !progress || !result) return;
+                progress.style.width = '0%';
+                result.style.opacity = '0';
+                assemblyRows.forEach(step => {
+                    step.classList.remove('active');
+                    step.style.display = 'none';
+                });
+                let i = 0;
+                function showStep() {
+                    if (i < assemblyRows.length) {
+                        assemblyRows[i].style.display = 'flex';
+                        setTimeout(() => {
+                            assemblyRows[i].classList.add('active');
+                            progress.style.width = ((i + 1) / assemblyRows.length) * 100 + '%';
+                            i++;
+                            showStep();
+                        }, 800);
+                    } else {
+                        setTimeout(() => {
+                            result.style.opacity = '1';
+                        }, 500);
+                    }
+                }
+                showStep();
+            }, 500);
             initializeLuckysheet();
             updateQuestion();
 
-            // Choice game interaction
-            document.getElementById('choice1').addEventListener('click', function() {
+            // Choice game interaction (event delegation)
+            document.querySelector('.choices').addEventListener('click', function(e) {
+                let yes = document.getElementById('choice1');
+                let no = document.getElementById('choice2');
+                let target = e.target;
+                // Find the parent .choice-option if a child is clicked
+                while (target && !target.classList.contains('choice-option') && target !== this) {
+                    target = target.parentElement;
+                }
+                if (!target || !target.classList.contains('choice-option')) return;
                 document.getElementById('choice-reveal').style.display = 'block';
-                this.style.background = '#dcfce7';
-                this.style.borderColor = '#10b981';
+                if (target.id === 'choice1') {
+                    yes.classList.add('green');
+                    no.classList.remove('red');
+                } else if (target.id === 'choice2') {
+                    no.classList.add('red');
+                    yes.classList.remove('green');
+                }
             });
 
-            // Assembly animation
+            // Assembly animation: show steps one by one below the button
             document.getElementById('start-assembly').addEventListener('click', function() {
+                console.log('Start IRR Calculation button clicked');
                 const steps = document.querySelectorAll('.assembly-row');
                 const progress = document.getElementById('assembly-progress');
                 const result = document.getElementById('profitability-result');
-                
-                steps.forEach((step, index) => {
-                    setTimeout(() => {
-                        step.classList.add('active');
-                        progress.style.width = ((index + 1) / steps.length) * 100 + '%';
-                        
-                        if (index === steps.length - 1) {
-                            setTimeout(() => {
-                                result.style.opacity = '1';
-                            }, 500);
-                        }
-                    }, index * 800);
+                if (!steps.length || !progress || !result) return;
+                progress.style.width = '0%';
+                result.style.opacity = '0';
+                steps.forEach(step => {
+                    step.classList.remove('active');
+                    step.style.display = 'none';
                 });
+                let i = 0;
+                function showStep() {
+                    if (i < steps.length) {
+                        steps[i].style.display = 'flex';
+                        setTimeout(() => {
+                            steps[i].classList.add('active');
+                            progress.style.width = ((i + 1) / steps.length) * 100 + '%';
+                            i++;
+                            showStep();
+                        }, 800);
+                    } else {
+                        setTimeout(() => {
+                            result.style.opacity = '1';
+                        }, 500);
+                    }
+                }
+                showStep();
             });
 
             // Type buttons
