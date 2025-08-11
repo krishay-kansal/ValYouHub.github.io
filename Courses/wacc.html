@@ -689,10 +689,10 @@
     </style>
     
     <!-- Luckysheet CSS -->
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/css/pluginsCss.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/plugins.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/2.1.13/css/luckysheet.css' />
-    <link rel='stylesheet' href='https://cdn.luckysheet.com/luckysheet/2.1.13/assets/iconfont/iconfont.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
 </head>
 
 <body>
@@ -991,8 +991,8 @@
     </div>
 
     <!-- Luckysheet JS -->
-    <script src="https://cdn.luckysheet.com/luckysheet/2.1.13/plugins/js/plugin.js"></script>
-    <script src="https://cdn.luckysheet.com/luckysheet/2.1.13/luckysheet.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
 
     <!-- Custom JavaScript -->
     <script>
@@ -1036,61 +1036,91 @@
             });
         });
 
-        // Initialize Luckysheet
-        const options = {
-            container: 'luckysheet',
-            showinfobar: false,
-            showsheetbar: false,
-            showstatisticBar: false,
-            data: [{
-                "name": "WACC Model",
-                "color": "",
-                "index": "0",
-                "status": "1",
-                "order": "0",
-                "hide": 0,
-                "row": 20,
-                "column": 8,
-                "defaultRowHeight": 25,
-                "defaultColWidth": 100,
-                "celldata": [
-                    {"r": 0, "c": 0, "v": {"v": "WACC Calculation", "f": "WACC Calculation", "ct": {"fa": "General", "t": "g"}, "m": "WACC Calculation", "bg": "#4f8cff", "fc": "#ffffff", "bl": 1, "fs": 14}},
-                    {"r": 2, "c": 0, "v": {"v": "Market Value of Equity (₹ Cr)", "f": "Market Value of Equity (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Market Value of Equity (₹ Cr)"}},
-                    {"r": 2, "c": 1, "v": {"v": 750, "f": "750", "ct": {"fa": "General", "t": "n"}, "m": "750"}},
-                    {"r": 3, "c": 0, "v": {"v": "Market Value of Debt (₹ Cr)", "f": "Market Value of Debt (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Market Value of Debt (₹ Cr)"}},
-                    {"r": 3, "c": 1, "v": {"v": 250, "f": "250", "ct": {"fa": "General", "t": "n"}, "m": "250"}},
-                    {"r": 4, "c": 0, "v": {"v": "Total Value (₹ Cr)", "f": "Total Value (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Total Value (₹ Cr)"}},
-                    {"r": 4, "c": 1, "v": {"v": "=B3+B4", "f": "=B3+B4", "ct": {"fa": "General", "t": "n"}, "m": "1000"}},
-                    {"r": 6, "c": 0, "v": {"v": "Weight of Equity", "f": "Weight of Equity", "ct": {"fa": "General", "t": "g"}, "m": "Weight of Equity"}},
-                    {"r": 6, "c": 1, "v": {"v": "=B3/B5", "f": "=B3/B5", "ct": {"fa": "General", "t": "n"}, "m": "0.75"}},
-                    {"r": 7, "c": 0, "v": {"v": "Weight of Debt", "f": "Weight of Debt", "ct": {"fa": "General", "t": "g"}, "m": "Weight of Debt"}},
-                    {"r": 7, "c": 1, "v": {"v": "=B4/B5", "f": "=B4/B5", "ct": {"fa": "General", "t": "n"}, "m": "0.25"}},
-                    {"r": 9, "c": 0, "v": {"v": "Cost of Equity (%)", "f": "Cost of Equity (%)", "ct": {"fa": "General", "t": "g"}, "m": "Cost of Equity (%)"}},
-                    {"r": 9, "c": 1, "v": {"v": 14, "f": "14", "ct": {"fa": "General", "t": "n"}, "m": "14"}},
-                    {"r": 10, "c": 0, "v": {"v": "Cost of Debt (%)", "f": "Cost of Debt (%)", "ct": {"fa": "General", "t": "g"}, "m": "Cost of Debt (%)"}},
-                    {"r": 10, "c": 1, "v": {"v": 9, "f": "9", "ct": {"fa": "General", "t": "n"}, "m": "9"}},
-                    {"r": 11, "c": 0, "v": {"v": "Tax Rate (%)", "f": "Tax Rate (%)", "ct": {"fa": "General", "t": "g"}, "m": "Tax Rate (%)"}},
-                    {"r": 11, "c": 1, "v": {"v": 25, "f": "25", "ct": {"fa": "General", "t": "n"}, "m": "25"}},
-                    {"r": 13, "c": 0, "v": {"v": "After-tax Cost of Debt (%)", "f": "After-tax Cost of Debt (%)", "ct": {"fa": "General", "t": "g"}, "m": "After-tax Cost of Debt (%)"}},
-                    {"r": 13, "c": 1, "v": {"v": "=B11*(1-B12/100)", "f": "=B11*(1-B12/100)", "ct": {"fa": "General", "t": "n"}, "m": "6.75"}},
-                    {"r": 15, "c": 0, "v": {"v": "WACC (%)", "f": "WACC (%)", "ct": {"fa": "General", "t": "g"}, "m": "WACC (%)", "bg": "#10b981", "fc": "#ffffff", "bl": 1}},
-                    {"r": 15, "c": 1, "v": {"v": "=(B7*B10/100)+(B8*B14/100)", "f": "=(B7*B10/100)+(B8*B14/100)", "ct": {"fa": "General", "t": "n"}, "m": "0.1269", "bg": "#dcfce7"}},
-                    {"r": 17, "c": 0, "v": {"v": "Formula: WACC = (E/V × Re) + (D/V × Rd × (1-T))", "f": "Formula: WACC = (E/V × Re) + (D/V × Rd × (1-T))", "ct": {"fa": "General", "t": "g"}, "m": "Formula: WACC = (E/V × Re) + (D/V × Rd × (1-T))"}},
-                    {"r": 18, "c": 0, "v": {"v": "Where: E=Equity, D=Debt, V=Total Value, Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate", "f": "Where: E=Equity, D=Debt, V=Total Value, Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate", "ct": {"fa": "General", "t": "g"}, "m": "Where: E=Equity, D=Debt, V=Total Value, Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate"}}
-                ],
-                "config": {
-                    "merge": {
-                        "0_0": {"r": 0, "c": 0, "rs": 1, "cs": 2}
-                    },
-                    "columnlen": {"0": 300, "1": 150},
-                    "rowlen": {"0": 30}
-                }
-            }],
-            title: 'WACC Calculator',
-            lang: 'en'
-        };
+        // Initialize Luckysheet with better error handling
+        function initializeLuckysheet() {
+            if (typeof luckysheet === 'undefined') {
+                console.error('LuckySheet not loaded. Retrying in 1 second...');
+                setTimeout(initializeLuckysheet, 1000);
+                return;
+            }
 
-        luckysheet.create(options);
+            const options = {
+                container: 'luckysheet',
+                showinfobar: false,
+                showsheetbar: false,
+                showstatisticBar: false,
+                showConfigbar: false,
+                data: [{
+                    "name": "WACC Model",
+                    "color": "",
+                    "index": "0", 
+                    "status": "1",
+                    "order": "0",
+                    "hide": 0,
+                    "row": 25,
+                    "column": 10,
+                    "defaultRowHeight": 25,
+                    "defaultColWidth": 100,
+                    "celldata": [
+                        {"r": 0, "c": 0, "v": {"v": "WACC Calculation Worksheet", "f": "WACC Calculation Worksheet", "ct": {"fa": "General", "t": "g"}, "m": "WACC Calculation Worksheet", "bg": "#4f8cff", "fc": "#ffffff", "bl": 1, "fs": 16}},
+                        {"r": 2, "c": 0, "v": {"v": "Market Value of Equity (₹ Cr)", "f": "Market Value of Equity (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Market Value of Equity (₹ Cr)"}},
+                        {"r": 2, "c": 1, "v": {"v": 750, "f": "750", "ct": {"fa": "General", "t": "n"}, "m": "750"}},
+                        {"r": 3, "c": 0, "v": {"v": "Market Value of Debt (₹ Cr)", "f": "Market Value of Debt (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Market Value of Debt (₹ Cr)"}},
+                        {"r": 3, "c": 1, "v": {"v": 250, "f": "250", "ct": {"fa": "General", "t": "n"}, "m": "250"}},
+                        {"r": 4, "c": 0, "v": {"v": "Total Capital Value (₹ Cr)", "f": "Total Capital Value (₹ Cr)", "ct": {"fa": "General", "t": "g"}, "m": "Total Capital Value (₹ Cr)", "bg": "#eff6ff"}},
+                        {"r": 4, "c": 1, "v": {"v": "=B3+B4", "f": "=B3+B4", "ct": {"fa": "General", "t": "n"}, "m": "1000", "bg": "#eff6ff"}},
+                        {"r": 6, "c": 0, "v": {"v": "Weight of Equity (E/V)", "f": "Weight of Equity (E/V)", "ct": {"fa": "General", "t": "g"}, "m": "Weight of Equity (E/V)"}},
+                        {"r": 6, "c": 1, "v": {"v": "=B3/B5", "f": "=B3/B5", "ct": {"fa": "General", "t": "n"}, "m": "0.75"}},
+                        {"r": 7, "c": 0, "v": {"v": "Weight of Debt (D/V)", "f": "Weight of Debt (D/V)", "ct": {"fa": "General", "t": "g"}, "m": "Weight of Debt (D/V)"}},
+                        {"r": 7, "c": 1, "v": {"v": "=B4/B5", "f": "=B4/B5", "ct": {"fa": "General", "t": "n"}, "m": "0.25"}},
+                        {"r": 9, "c": 0, "v": {"v": "Cost of Equity (Re) %", "f": "Cost of Equity (Re) %", "ct": {"fa": "General", "t": "g"}, "m": "Cost of Equity (Re) %"}},
+                        {"r": 9, "c": 1, "v": {"v": 14, "f": "14", "ct": {"fa": "General", "t": "n"}, "m": "14"}},
+                        {"r": 10, "c": 0, "v": {"v": "Cost of Debt (Rd) %", "f": "Cost of Debt (Rd) %", "ct": {"fa": "General", "t": "g"}, "m": "Cost of Debt (Rd) %"}},
+                        {"r": 10, "c": 1, "v": {"v": 9, "f": "9", "ct": {"fa": "General", "t": "n"}, "m": "9"}},
+                        {"r": 11, "c": 0, "v": {"v": "Corporate Tax Rate (T) %", "f": "Corporate Tax Rate (T) %", "ct": {"fa": "General", "t": "g"}, "m": "Corporate Tax Rate (T) %"}},
+                        {"r": 11, "c": 1, "v": {"v": 25, "f": "25", "ct": {"fa": "General", "t": "n"}, "m": "25"}},
+                        {"r": 13, "c": 0, "v": {"v": "After-tax Cost of Debt %", "f": "After-tax Cost of Debt %", "ct": {"fa": "General", "t": "g"}, "m": "After-tax Cost of Debt %", "bg": "#fef3c7"}},
+                        {"r": 13, "c": 1, "v": {"v": "=B11*(1-B12/100)", "f": "=B11*(1-B12/100)", "ct": {"fa": "General", "t": "n"}, "m": "6.75", "bg": "#fef3c7"}},
+                        {"r": 15, "c": 0, "v": {"v": "WACC (%)", "f": "WACC (%)", "ct": {"fa": "General", "t": "g"}, "m": "WACC (%)", "bg": "#10b981", "fc": "#ffffff", "bl": 1, "fs": 14}},
+                        {"r": 15, "c": 1, "v": {"v": "=(B7*B10/100)+(B8*B14/100)", "f": "=(B7*B10/100)+(B8*B14/100)", "ct": {"fa": "General", "t": "n"}, "m": "12.19", "bg": "#dcfce7", "bl": 1, "fs": 14}},
+                        {"r": 17, "c": 0, "v": {"v": "WACC Formula:", "f": "WACC Formula:", "ct": {"fa": "General", "t": "g"}, "m": "WACC Formula:", "bl": 1}},
+                        {"r": 18, "c": 0, "v": {"v": "WACC = (E/V × Re) + (D/V × Rd × (1-T))", "f": "WACC = (E/V × Re) + (D/V × Rd × (1-T))", "ct": {"fa": "General", "t": "g"}, "m": "WACC = (E/V × Re) + (D/V × Rd × (1-T))", "fc": "#4f8cff"}},
+                        {"r": 19, "c": 0, "v": {"v": "Where: E=Equity, D=Debt, V=Total Value", "f": "Where: E=Equity, D=Debt, V=Total Value", "ct": {"fa": "General", "t": "g"}, "m": "Where: E=Equity, D=Debt, V=Total Value", "fc": "#6b7280"}},
+                        {"r": 20, "c": 0, "v": {"v": "Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate", "f": "Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate", "ct": {"fa": "General", "t": "g"}, "m": "Re=Cost of Equity, Rd=Cost of Debt, T=Tax Rate", "fc": "#6b7280"}}
+                    ],
+                    "config": {
+                        "merge": {
+                            "0_0": {"r": 0, "c": 0, "rs": 1, "cs": 3}
+                        },
+                        "columnlen": {"0": 350, "1": 150, "2": 100},
+                        "rowlen": {"0": 35, "15": 35}
+                    }
+                }],
+                title: 'WACC Calculator',
+                lang: 'en'
+            };
+
+            try {
+                luckysheet.create(options);
+                console.log('LuckySheet initialized successfully!');
+            } catch (error) {
+                console.error('Error initializing LuckySheet:', error);
+                // Fallback: show a message in the container
+                document.getElementById('luckysheet').innerHTML = `
+                    <div style="padding: 20px; text-align: center; background: #f9fafb; border: 2px dashed #e5e7eb; border-radius: 10px;">
+                        <p style="color: #6b7280; margin-bottom: 10px;">📊 WACC Spreadsheet Loading...</p>
+                        <p style="color: #9ca3af; font-size: 0.9rem;">If this persists, please refresh the page</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeLuckysheet);
+        } else {
+            initializeLuckysheet();
+        }
 
         // Question management
         const questions = [
