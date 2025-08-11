@@ -38,6 +38,25 @@ a {
 }
 
 /* Stylish Navigation Bar */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  flex-wrap: nowrap;
+}
+
+.logo-img {
+  height: 40px; /* adjust size as needed */
+  margin-right: 8px;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
 .navbar {
   background: #16213e;
   color: #e5e7eb;
@@ -47,6 +66,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 999;
+  flex-wrap: nowrap;
 }
 
 .nav-container {
