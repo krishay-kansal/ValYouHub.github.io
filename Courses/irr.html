@@ -20,8 +20,9 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #16213e 0%, #1a2236 100%);
+            color: #e5e7eb;
             min-height: 100vh;
         }
 
@@ -29,23 +30,28 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background: rgba(22, 33, 62, 0.92);
+            border-radius: 14px;
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
 
         .header-section {
             text-align: center;
-            color: white;
+            color: #e5e7eb;
             margin-bottom: 40px;
             padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(22, 33, 62, 0.92);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
+            border: 1px solid #23325c;
         }
 
         .header-section h1 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 15px;
-            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 4px 6px rgba(79, 140, 255, 0.15);
         }
 
         .header-section p {
@@ -54,11 +60,11 @@
         }
 
         .learning-section {
-            background: white;
+            background: rgba(26, 34, 54, 0.98);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(79, 140, 255, 0.08);
         }
 
         .learning-header {
@@ -68,18 +74,18 @@
 
         .learning-header h2 {
             font-size: 2.5rem;
-            color: #1e40af;
+            color: #4f8cff;
             margin-bottom: 10px;
         }
 
         .learning-header p {
             font-size: 1.1rem;
-            color: #6b7280;
+            color: #fff;
         }
 
         .module {
             margin-bottom: 40px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #23325c;
             border-radius: 15px;
             padding: 30px;
             transition: all 0.3s ease;
@@ -87,7 +93,7 @@
 
         .module:hover {
             border-color: #4f8cff;
-            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(79, 140, 255, 0.18);
         }
 
         .module-title {
@@ -95,7 +101,7 @@
             align-items: center;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1e40af;
+            color: #4f8cff;
             margin-bottom: 20px;
         }
 
@@ -117,24 +123,24 @@
         }
 
         .money-note {
-            background: #10b981;
-            color: white;
+            background: #4f8cff;
+            color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 15px rgba(79, 140, 255, 0.18);
         }
 
         .money-note.shrink {
             background: #ef4444;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.18);
         }
 
         .time-tunnel {
             flex: 1;
             height: 4px;
-            background: linear-gradient(to right, #10b981, #ef4444);
+            background: linear-gradient(to right, #4f8cff, #ef4444);
             position: relative;
             margin: 0 20px;
         }
@@ -142,12 +148,12 @@
         .year-label {
             position: absolute;
             top: -35px;
-            background: white;
+            background: #16213e;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.9rem;
-            color: #374151;
-            border: 1px solid #e5e7eb;
+            color: #fff;
+            border: 1px solid #23325c;
             transform: translateX(-50%);
         }
 
@@ -164,8 +170,8 @@
         }
 
         .choice-option {
-            background: #f8fafc;
-            border: 3px solid #e2e8f0;
+            background: #16213e;
+            border: 3px solid #23325c;
             border-radius: 15px;
             padding: 30px;
             cursor: pointer;
@@ -175,7 +181,7 @@
 
         .choice-option:hover {
             border-color: #4f8cff;
-            background: #f0f9ff;
+            background: rgba(79,140,255,0.08);
             transform: translateY(-5px);
         }
 
@@ -192,11 +198,11 @@
         }
 
         .reveal-section {
-            background: #ecfdf5;
+            background: #23325c;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
-            border-left: 4px solid #10b981;
+            border-left: 4px solid #4f8cff;
             display: none;
         }
 
@@ -208,17 +214,17 @@
         }
 
         .metaphor-card {
-            background: #f8fafc;
+            background: #16213e;
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #23325c;
             transition: all 0.3s ease;
         }
 
         .metaphor-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(79, 140, 255, 0.18);
         }
 
         .metaphor-icon {
@@ -229,13 +235,13 @@
 
         .metaphor-title {
             font-weight: 700;
-            color: #1e40af;
+            color: #4f8cff;
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
 
         .metaphor-text {
-            color: #6b7280;
+            color: #fff;
             line-height: 1.5;
         }
 
@@ -245,7 +251,7 @@
 
         .belt-track {
             height: 4px;
-            background: #d1d5db;
+            background: #23325c;
             border-radius: 2px;
             margin: 20px 0;
         }
@@ -264,7 +270,7 @@
 
         .cash-icon {
             background: #4f8cff;
-            color: white;
+            color: #fff;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -277,20 +283,20 @@
 
         .cash-original {
             font-size: 0.9rem;
-            color: #374151;
+            color: #fff;
             margin-bottom: 5px;
         }
 
         .formula-display {
             font-size: 0.8rem;
-            color: #6b7280;
+            color: #fff;
             margin-bottom: 5px;
             font-family: monospace;
         }
 
         .cash-discounted {
             font-weight: 700;
-            color: #10b981;
+            color: #4f8cff;
         }
 
         .irr-assembly {
@@ -300,7 +306,7 @@
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e5e7eb;
+            background: #23325c;
             border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -314,7 +320,7 @@
         }
 
         .assembly-table {
-            border: 1px solid #e5e7eb;
+            border: 1px solid #23325c;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -323,26 +329,26 @@
             display: flex;
             align-items: center;
             padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #23325c;
             opacity: 0.3;
             transition: all 0.5s ease;
         }
 
         .assembly-row.active {
             opacity: 1;
-            background: #f0f9ff;
+            background: rgba(79,140,255,0.08);
         }
 
         .assembly-row.final {
-            background: #ecfdf5;
-            border-color: #10b981;
+            background: #23325c;
+            border-color: #4f8cff;
         }
 
         .step-number {
             width: 40px;
             height: 40px;
             background: #4f8cff;
-            color: white;
+            color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -357,13 +363,13 @@
 
         .step-calculation {
             font-family: monospace;
-            color: #6b7280;
+            color: #b3b8c5;
             margin: 5px 0;
         }
 
         .value-cell {
             display: inline-block;
-            background: #f3f4f6;
+            background: #16213e;
             padding: 8px 12px;
             border-radius: 6px;
             margin: 2px;
@@ -371,15 +377,15 @@
         }
 
         .final-irr {
-            background: #10b981 !important;
-            color: white !important;
+            background: #4f8cff !important;
+            color: #fff !important;
             font-size: 1.2rem;
             padding: 12px 20px;
         }
 
         .profitable-badge {
-            background: #10b981;
-            color: white;
+            background: #4f8cff;
+            color: #fff;
             padding: 15px 25px;
             border-radius: 10px;
             font-weight: 700;
@@ -388,12 +394,12 @@
         }
 
         .question-type-selector {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(22, 33, 62, 0.92);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(20, 24, 40, 0.37);
         }
 
         .type-buttons {
@@ -404,8 +410,8 @@
         }
 
         .type-btn {
-            background: white;
-            border: 2px solid #e5e7eb;
+            background: #16213e;
+            border: 2px solid #23325c;
             padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -415,13 +421,13 @@
 
         .type-btn.active {
             background: #4f8cff;
-            color: white;
+            color: #fff;
             border-color: #4f8cff;
         }
 
         .question-counter {
             margin: 15px 0;
-            color: #6b7280;
+            color: #b3b8c5;
         }
 
         .question-nav {
@@ -432,7 +438,7 @@
 
         .question-nav button {
             background: #4f8cff;
-            color: white;
+            color: #fff;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -441,24 +447,24 @@
         }
 
         .question-nav button:disabled {
-            background: #d1d5db;
+            background: #23325c;
             cursor: not-allowed;
         }
 
         .question-nav button:hover:not(:disabled) {
-            background: #3b82f6;
+            background: #23325c;
         }
 
         .instructions {
-            background: white;
+            background: rgba(26, 34, 54, 0.98);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
         }
 
         .instructions h3 {
-            color: #1e40af;
+            color: #4f8cff;
             margin-bottom: 15px;
             font-size: 1.3rem;
         }
@@ -470,7 +476,7 @@
 
         .instructions li {
             padding: 8px 0;
-            color: #374151;
+            color: #b3b8c5;
             position: relative;
             padding-left: 25px;
         }
@@ -484,11 +490,11 @@
         }
 
         .question-container {
-            background: white;
+            background: rgba(26, 34, 54, 0.98);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
         }
 
         .question-title {
@@ -501,7 +507,7 @@
             width: 40px;
             height: 40px;
             background: #4f8cff;
-            color: white;
+            color: #fff;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -513,19 +519,19 @@
         .question-title {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1e40af;
+            color: #4f8cff;
         }
 
         .question-text {
-            color: #374151;
+            color: #b3b8c5;
             line-height: 1.6;
         }
 
         .spreadsheet-wrapper {
-            background: white;
+            background: rgba(26, 34, 54, 0.98);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(79, 140, 255, 0.08);
             margin-bottom: 20px;
         }
 
@@ -535,7 +541,7 @@
             margin-bottom: 20px;
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1e40af;
+            color: #4f8cff;
         }
 
         .spreadsheet-icon {
@@ -544,7 +550,7 @@
         }
 
         #luckysheet {
-            border: 1px solid #e5e7eb;
+            border: 1px solid #23325c;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -553,21 +559,17 @@
             .irr-container {
                 padding: 10px;
             }
-            
             .header-section h1 {
                 font-size: 2rem;
             }
-            
             .choices {
                 flex-direction: column;
                 gap: 20px;
             }
-            
             .cash-flows {
                 flex-direction: column;
                 gap: 20px;
             }
-            
             .type-buttons {
                 flex-direction: column;
             }
@@ -681,61 +683,61 @@
                 </div>
                 <div class="conveyor-belt">
                     <p style="color: #374151; text-align: center; margin-bottom: 20px;">
-                        IRR is found through trial and error - testing different rates until NPV = 0:
+                                <p style="color: #fff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                     </p>
                     <div class="belt-track"></div>
-                    <div class="cash-flows">
+                                <p style="color: #fff; text-align: center; margin-top: 20px;">
                         <div class="cash-flow-item">
                             <div class="cash-icon">5%</div>
-                            <div class="cash-original">Trial Rate: 5%</div>
+                                <p style="color: #fff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                             <div class="formula-display">NPV = +₹15,000</div>
-                            <div class="cash-discounted">Too Low!</div>
-                        </div>
-                        <div class="cash-flow-item">
-                            <div class="cash-icon">10%</div>
+                                        <div style="color: #fff;">IRR > Market Rate</div>
+                                    <div style="font-size: 2rem; color: #fff; align-self: center;">VS</div>
+                                        <div style="color: #fff;">IRR < Market Rate</div>
+                                    <span style="color: #fff;">IRR (15%) > Market Rate (10%) means the investment beats market returns!</span>
                             <div class="cash-original">Trial Rate: 10%</div>
                             <div class="formula-display">NPV = +₹5,000</div>
-                            <div class="cash-discounted">Still Too Low!</div>
+                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
                         </div>
-                        <div class="cash-flow-item">
-                            <div class="cash-icon">15%</div>
+                            <div style="background: #23325c; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; border-left: 4px solid #4f8cff;">
+                                <strong style="color: #fff;">IRR is the rate that makes the present value of inflows equal to outflows.</strong>
                             <div class="cash-original">Trial Rate: 15%</div>
                             <div class="formula-display">NPV = ₹0</div>
-                            <div class="cash-discounted">Perfect! IRR = 15%</div>
+                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
                         </div>
                         <div class="cash-flow-item">
-                            <div class="cash-icon">20%</div>
-                            <div class="cash-original">Trial Rate: 20%</div>
+                                <div style="background: #23325c; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+                                    <strong style="color: #fff;">IRR is the rate where NPV equals zero!</strong>
                             <div class="formula-display">NPV = -₹8,000</div>
                             <div class="cash-discounted">Too High!</div>
-                        </div>
+                                <p style="color: #fff; text-align: center; margin-bottom: 20px;">
                     </div>
-                    <div style="background: rgba(79, 140, 255, 0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-                        <strong style="color: #4f8cff;">IRR is the rate where NPV equals zero!</strong>
-                    </div>
-                </div>
-            </div>
-
+                                        <div class="step-number" style="color: #fff;">1</div>
+                                            <span style="color: #fff;">Set up Cash Flows</span>
+                                                <div class="value-cell" style="color: #fff;">Initial: -₹1,000</div>
+                                                <div class="value-cell" style="color: #fff;">Year 1: +₹300</div>
+                                                <div class="value-cell" style="color: #fff;">Year 2: +₹400</div>
+                                                <div class="value-cell" style="color: #fff;">Year 3: +₹500</div>
             <!-- Module 5: IRR Assembly Table -->
             <div class="module">
-                <div class="module-title">
-                    <span class="module-icon">🧮</span>
-                    <span style="color: #000000;">IRR Calculation Steps</span>
+                                        <div class="step-number" style="color: #fff;">2</div>
+                                            <span style="color: #fff;">Set NPV equation to zero</span>
+                                            <div class="step-calculation" style="color: #fff;">-1000 + 300/(1+IRR)¹ + 400/(1+IRR)² + 500/(1+IRR)³ = 0</div>
                 </div>
                 <div class="irr-assembly">
-                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
-                        Watch how IRR is calculated step by step:
-                    </p>
-                    <button id="start-assembly" style="background: #4f8cff; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 20px; display: block; margin: 0 auto 20px;">
+                                        <div class="step-number" style="color: #fff;">3</div>
+                                            <span style="color: #fff;">Trial and Error Method</span>
+                                                <div class="value-cell" style="color: #fff;">Try 10%: NPV = +₹43.4</div>
+                                                <div class="value-cell" style="color: #fff;">Try 15%: NPV = -₹28.9</div>
                         ▶ Start IRR Calculation
                     </button>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="assembly-progress"></div>
-                    </div>
-                    <div class="assembly-table">
+                                        <div class="step-number" style="color: #fff;">4</div>
+                                            <span style="color: #fff;">Linear Interpolation</span>
+                                            <div class="step-calculation" style="color: #fff;">IRR = 10% + (43.4/(43.4+28.9)) × (15%-10%)</div>
+                                            <div class="value-cell" style="background: #4f8cff; color: #fff; font-weight: bold;">IRR = 13.0%</div>
                         <div class="assembly-row" id="step1">
                             <div class="step-number" style="color: #000000;">1</div>
-                            <div class="step-content">
+                                    <p style="color: #fff; text-align: center; margin-top: 15px;">
                                 <span style="color: #000000;">Set up Cash Flows</span>
                                 <div style="display: flex; gap: 10px;">
                                     <div class="value-cell" style="color: #000000;">Initial: -₹1,000</div>
