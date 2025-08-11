@@ -8,12 +8,11 @@
     <!-- Original website CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
     <link rel="stylesheet" href="../styles.css">
     <style>
         /* Reset and Base Styles */
         * {
-            margin: 0;
+            margin: 0;  
             padding: 0;
             box-sizing: border-box;
         }
@@ -196,19 +195,21 @@
         }
 
         /* Question Container */
+
         .question-container {
-            background: white;
+            background: #23325c;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(79,140,255,0.10);
             border-left: 5px solid #4f8cff;
+            color: #e5e7eb;
         }
 
         .question-title {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #16213e;
+            color: #4f8cff;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -230,23 +231,25 @@
         .question-text {
             font-size: 1.1rem;
             line-height: 1.6;
-            color: #333;
+            color: #e5e7eb;
         }
 
         /* Spreadsheet Section */
+
         .spreadsheet-wrapper {
-            background: white;
+            background: #23325c;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(79,140,255,0.10);
             overflow: hidden;
+            color: #e5e7eb;
         }
 
         .spreadsheet-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #16213e;
+            color: #4f8cff;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -274,18 +277,20 @@
         }
 
         /* Answer Section */
+
         .answer-section {
-            background: white;
+            background: #23325c;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(79,140,255,0.10);
             border-left: 5px solid #22c55e;
+            color: #e5e7eb;
         }
 
         .answer-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #16213e;
+            color: #10b981;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -395,13 +400,14 @@
         }
 
         /* Instructions */
+
         .instructions {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            background: #23325c;
             border: 2px solid #4f8cff;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            color: #1e40af;
+            color: #e5e7eb;
         }
 
         .instructions h3 {
@@ -676,7 +682,7 @@
         }
         
         .cash-flow.discounted {
-            background: linear-gradient(45deg, #6b7280, #4b5563);
+            background: linear-gradient(45deg, #ffffff, #4b5563);
             transform: scale(0.8);
             opacity: 0.8;
         }
@@ -801,17 +807,19 @@
         }
 
         /* Educational Content Styles */
+
         .learning-section {
-            background: white;
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
             border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(20,24,40,0.18);
             overflow: hidden;
+            color: #e5e7eb;
         }
 
         .learning-header {
-            background: linear-gradient(135deg, #16213e, #4f8cff);
-            color: white;
+            background: rgba(22,33,62,0.92);
+            color: #e5e7eb;
             padding: 25px;
             text-align: center;
         }
@@ -852,12 +860,13 @@
 
         /* Time Traveler Animation */
         .time-traveler {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
             position: relative;
             overflow: hidden;
+            color: #e5e7eb;
         }
 
         .money-animation {
@@ -897,16 +906,17 @@
             position: absolute;
             top: -30px;
             font-weight: 600;
-            color: #374151;
+            color: #ffffff;
             white-space: nowrap;
         }
 
         /* Choice Game */
         .choice-game {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            background: #23325c;
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
+            color: #e5e7eb;
         }
 
         .choices {
@@ -917,24 +927,27 @@
         }
 
         .choice-option {
-            background: white;
+            background: #23325c;
             border-radius: 15px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(79,140,255,0.10);
+            border: 3px solid #4f8cff;
             transition: all 0.3s ease;
             flex: 1;
+            color: #e5e7eb;
         }
 
         .choice-option.winner {
             border-color: #10b981;
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            background: #10b981;
+            color: #fff;
         }
 
         .choice-option.loser {
             border-color: #ef4444;
-            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            background: #ef4444;
+            color: #fff;
         }
 
         .choice-value {
@@ -958,12 +971,13 @@
         }
 
         .metaphor-card {
-            background: white;
+            background: #23325c;
             border-radius: 12px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(79,140,255,0.10);
             border-left: 4px solid #4f8cff;
+            color: #e5e7eb;
             transition: transform 0.3s ease;
         }
 
@@ -980,27 +994,28 @@
         .metaphor-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #16213e;
+            color: #4f8cff;
             margin-bottom: 10px;
         }
 
         .metaphor-text {
-            color: #6b7280;
+            color: #e5e7eb;
             line-height: 1.6;
         }
 
         /* Conveyor Animation */
         .conveyor-belt {
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
             position: relative;
             overflow: hidden;
+            color: #e5e7eb;
         }
 
         .belt-track {
-            background: #374151;
+            background: #ffffff;
             height: 60px;
             border-radius: 30px;
             position: relative;
@@ -1021,7 +1036,7 @@
         }
 
         .cash-icon {
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            background: #4f8cff;
             color: white;
             width: 60px;
             height: 60px;
@@ -1032,37 +1047,39 @@
             margin: 0 auto 10px;
             font-weight: bold;
             font-size: 1.1rem;
-            box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 3px 10px rgba(79,140,255,0.10);
         }
 
         .cash-original {
             font-weight: 600;
-            color: #374151;
+            color: #b8bfc9;
             margin-bottom: 5px;
         }
 
         .cash-discounted {
             font-weight: bold;
             color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.10);
             padding: 5px 10px;
             border-radius: 5px;
         }
 
         /* NPV Assembly Table */
         .npv-assembly {
-            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+            background: linear-gradient(120deg, #23325c 0%, #16213e 100%);
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
+            color: #e5e7eb;
         }
 
         .assembly-table {
-            background: white;
+            background: #23325c;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(79,140,255,0.10);
+            color: #e5e7eb;
         }
 
         .table-row {
@@ -1078,7 +1095,7 @@
 
         .row-label {
             font-weight: 600;
-            color: #374151;
+            color: #ffffff;
             width: 200px;
             flex-shrink: 0;
         }
@@ -1090,7 +1107,8 @@
         }
 
         .value-cell {
-            background: #f9fafb;
+            background: #23325c;
+            color: #4f8cff;
             padding: 8px 12px;
             border-radius: 6px;
             font-weight: 500;
@@ -1177,7 +1195,7 @@
                     The Time Traveler's ₹100
                 </div>
                 <div class="time-traveler">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Imagine I give you ₹100 today… or ₹100 three years from now.</strong>
                     </p>
                     <div class="money-animation">
@@ -1189,7 +1207,7 @@
                         </div>
                         <div class="money-note shrink">₹100 in 3 Years</div>
                     </div>
-                    <p style="color: #6b7280; text-align: center; margin-top: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-top: 20px;">
                         As money travels through time, it loses value due to inflation, risk, and opportunity cost.
                         At 10% discount rate, ₹100 in 3 years is worth only ₹75.10 today!
                     </p>
@@ -1203,7 +1221,7 @@
                     The "Choose Your ₹100" Game
                 </div>
                 <div class="choice-game">
-                    <p style="color: #374151; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
                         <strong>Would you rather get ₹100 today, or ₹130 after 3 years?</strong>
                             <strong>(Assuming a market interest rate of 10%)</strong>
                     </p>
@@ -1211,18 +1229,18 @@
                         <div class="choice-option" id="choice2" onclick="makeChoice(2)">
                             <div class="choice-person">🧑</div>
                             <div class="choice-value">₹100</div>
-                            <div style="color: #6b7280;">Today</div>
+                            <div style="color: #ffffff;">Today</div>
                         </div>
-                        <div style="font-size: 2rem; color: #374151; align-self: center;">VS</div>
+                        <div style="font-size: 2rem; color: #ffffff; align-self: center;">VS</div>
                         <div class="choice-option" id="choice1" onclick="makeChoice(1)">
                             <div class="choice-person">🧑</div>
                             <div class="choice-value">₹130</div>
-                            <div style="color: #6b7280;">In 3 Years</div>
+                            <div style="color: #ffffff;">In 3 Years</div>
                         </div>
                     </div>
                     <div id="choice-reveal" class="reveal-section">
                         <strong style="color: #10b981;">Correct Choice: ₹100 today!</strong><br>
-                        <span style="color: #6b7280;">₹130 in 3 years = ₹97.67 today (at 10% discount) → ₹100 today is better!</span>
+                        <span style="color: #ffffff;">₹130 in 3 years = ₹97.67 today (at 10% discount) → ₹100 today is better!</span>
                     </div>
                 </div>
             </div>
@@ -1262,7 +1280,7 @@
                     The Discounting Conveyor
                 </div>
                 <div class="conveyor-belt">
-                    <p style="color: #374151; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         Watch cash flows travel through time, shrinking as they move toward the present:
                     </p>
                     <div class="belt-track"></div>
@@ -1308,10 +1326,10 @@
             <div class="module">
                 <div class="module-title">
                     <span class="module-icon">🧮</span>
-                    <span style="color: #000000;">NPV Assembly Blueprint</span>
+                    <span style="color: #ffffff;">NPV Assembly Blueprint</span>
                 </div>
                 <div class="npv-assembly">
-                    <p style="color: #000000; text-align: center; margin-bottom: 20px;">
+                    <p style="color: #ffffff; text-align: center; margin-bottom: 20px;">
                         Watch how NPV is assembled step by step:
                     </p>
                     <button id="start-assembly" onclick="startNPVAssembly()" style="background: #4f8cff; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 20px; display: block; margin: 0 auto 20px;">
@@ -1322,51 +1340,51 @@
                     </div>
                     <div class="assembly-table">
                         <div class="assembly-row" id="step1">
-                            <div class="step-number" style="color: #000000;">1</div>
+                            <div class="step-number" style="color: #ffffff;">1</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Cash Flows</span>
+                                <span style="color: #ffffff;">Cash Flows</span>
                                 <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">₹500</div>
-                                    <div class="value-cell" style="color: #000000;">₹600</div>
-                                    <div class="value-cell" style="color: #000000;">₹700</div>
-                                    <div class="value-cell" style="color: #000000;">₹800</div>
-                                    <div class="value-cell" style="color: #000000;">₹900</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹500</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹600</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹700</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹800</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹900</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step2">
-                            <div class="step-number" style="color: #000000;">2</div>
+                            <div class="step-number" style="color: #ffffff;">2</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Apply Discount Rate (10%)</span>
-                                <div class="step-calculation" style="color: #000000;">Cash Flow ÷ (1 + rate)ⁿ</div>
+                                <span style="color: #ffffff;">Apply Discount Rate (10%)</span>
+                                <div class="step-calculation" style="color: #ffffff;">Cash Flow ÷ (1 + rate)ⁿ</div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step3">
-                            <div class="step-number" style="color: #000000;">3</div>
+                            <div class="step-number" style="color: #ffffff;">3</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Present Values</span>
+                                <span style="color: #ffffff;">Present Values</span>
                                 <div style="display: flex; gap: 10px;">
-                                    <div class="value-cell" style="color: #000000;">₹454.54</div>
-                                    <div class="value-cell" style="color: #000000;">₹495.87</div>
-                                    <div class="value-cell" style="color: #000000;">₹525.92</div>
-                                    <div class="value-cell" style="color: #000000;">₹546.41</div>
-                                    <div class="value-cell" style="color: #000000;">₹558.95</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹454.54</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹495.87</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹525.92</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹546.41</div>
+                                    <div class="value-cell" style="color: #ffffff;">₹558.95</div>
                                 </div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step4">
-                            <div class="step-number" style="color: #000000;">4</div>
+                            <div class="step-number" style="color: #ffffff;">4</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Sum All Present Values</span>
-                                <div class="step-calculation" style="color: #000000;">₹454.54 + ₹495.87 + ₹525.92 + ₹546.41 + ₹558.95</div>
+                                <span style="color: #ffffff;">Sum All Present Values</span>
+                                <div class="step-calculation" style="color: #ffffff;">₹454.54 + ₹495.87 + ₹525.92 + ₹546.41 + ₹558.95</div>
                                 <div class="value-cell" style="background: #dcfce7; color: #166534; font-weight: bold;">= ₹2,580.69</div>
                             </div>
                         </div>
                         <div class="assembly-row" id="step5">
-                            <div class="step-number" style="color: #000000;">5</div>
+                            <div class="step-number" style="color: #ffffff;">5</div>
                             <div class="step-content">
-                                <span style="color: #000000;">Subtract Initial Investment</span>
-                                <div class="step-calculation" style="color: #000000;">₹2,580.69 - ₹2,000</div>
+                                <span style="color: #ffffff;">Subtract Initial Investment</span>
+                                <div class="step-calculation" style="color: #ffffff;">₹2,580.69 - ₹2,000</div>
                                 <div class="value-cell" style="background: #fef2f2; color: #991b1b; font-weight: bold;">= ₹580.69</div>
                             </div>
                         </div>
@@ -1382,7 +1400,7 @@
                         <div class="profitable-badge">
                             ✔ Profitable Investment - Positive NPV!
                         </div>
-                        <p style="color: #6b7280; text-align: center; margin-top: 15px;">
+                        <p style="color: #ffffff; text-align: center; margin-top: 15px;">
                             Since NPV > 0, this investment creates value and should be accepted.
                         </p>
                     </div>
@@ -1991,23 +2009,23 @@
             }
             
             // Cash flows
-            celldata.push({r: 3, c: 0, v: {v: "Free Cash Flow (₹)", ct: {fa: "General", t: "g"}, m: "Free Cash Flow (₹)", bg: "#f8fafc", fc: "#374151", bl: 1}});
+            celldata.push({r: 3, c: 0, v: {v: "Free Cash Flow (₹)", ct: {fa: "General", t: "g"}, m: "Free Cash Flow (₹)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
             for (let i = 0; i < years; i++) {
-                celldata.push({r: 3, c: i + 1, v: {v: question.cashflows[i], ct: {fa: "General", t: "n"}, m: question.cashflows[i].toString(), bg: "#ffffff", fc: "#374151"}});
+                celldata.push({r: 3, c: i + 1, v: {v: question.cashflows[i], ct: {fa: "General", t: "n"}, m: question.cashflows[i].toString(), bg: "#ffffff", fc: "#ffffff"}});
             }
             
             // Terminal value
             if (question.terminal > 0) {
-                celldata.push({r: 4, c: 0, v: {v: "Terminal Value (₹)", ct: {fa: "General", t: "g"}, m: "Terminal Value (₹)", bg: "#f8fafc", fc: "#374151", bl: 1}});
+                celldata.push({r: 4, c: 0, v: {v: "Terminal Value (₹)", ct: {fa: "General", t: "g"}, m: "Terminal Value (₹)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
                 for (let i = 0; i < years - 1; i++) {
-                    celldata.push({r: 4, c: i + 1, v: {v: "", ct: {fa: "General", t: "g"}, m: "", bg: "#ffffff", fc: "#374151"}});
+                    celldata.push({r: 4, c: i + 1, v: {v: "", ct: {fa: "General", t: "g"}, m: "", bg: "#ffffff", fc: "#ffffff"}});
                 }
-                celldata.push({r: 4, c: years, v: {v: question.terminal, ct: {fa: "General", t: "n"}, m: question.terminal.toString(), bg: "#ffffff", fc: "#374151"}});
+                celldata.push({r: 4, c: years, v: {v: question.terminal, ct: {fa: "General", t: "n"}, m: question.terminal.toString(), bg: "#ffffff", fc: "#ffffff"}});
             }
             
             // WACC
-            celldata.push({r: 6, c: 0, v: {v: "Discount Rate (WACC)", ct: {fa: "General", t: "g"}, m: "Discount Rate (WACC)", bg: "#f8fafc", fc: "#374151", bl: 1}});
-            celldata.push({r: 6, c: 1, v: {v: question.wacc, ct: {fa: "0.00%", t: "n"}, m: (question.wacc * 100).toFixed(2) + "%", bg: "#ffffff", fc: "#374151"}});
+            celldata.push({r: 6, c: 0, v: {v: "Discount Rate (WACC)", ct: {fa: "General", t: "g"}, m: "Discount Rate (WACC)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
+            celldata.push({r: 6, c: 1, v: {v: question.wacc, ct: {fa: "0.00%", t: "n"}, m: (question.wacc * 100).toFixed(2) + "%", bg: "#ffffff", fc: "#ffffff"}});
             
             // Add formula placeholders
             celldata.push({r: 8, c: 0, v: {v: "Present Value (₹)", ct: {fa: "General", t: "g"}, m: "Present Value (₹)", bg: "#dcfce7", fc: "#166534", bl: 1}});
