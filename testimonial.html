@@ -501,6 +501,128 @@
             <a href="Courses/courses.html" class="cta-button" data-aos="zoom-in" data-aos-delay="950">Start Learning Today</a>
         </div>
     </div>
+    <!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Font Size Controls (No-wrap)</title> <meta name="viewport" content="width=device-width, initial-scale=1" /> <style> .vh-font-controls{ display:inline-flex; align-items:center; gap:.5rem; flex-wrap:nowrap; white-space:nowrap; margin-left:auto; /* pushes right in flex navs */ flex-shrink:0; /* never shrink into next line */ min-width:max-content; /* keep on one line */ } .vh-font-btn{ cursor:pointer; border:1px solid rgba(0,0,0,.15); background:rgba(255,255,255,.85); padding:.3rem .5rem; border-radius:.4rem; line-height:1; font-weight:600; } .vh-font-btn:focus{outline:2px solid #4f8cff;outline-offset:2px} .vh-font-label{font-size:.9em;opacity:.8} @media (prefers-color-scheme: dark){ .vh-font-btn{background:rgba(255,255,255,.08);color:#eaeaea;border-color:rgba(255,255,255,.2)} } </style> </head> <body> <script> (function () { const STORAGE_KEY = 'vhFontScale'; const MIN = 0.8, MAX = 1.6, STEP = 0.1; let scale = parseFloat(localStorage.getItem(STORAGE_KEY) || '1') || 1;
+  const NAV_SELECTORS = [
+    'nav[role="navigation"]','header nav','nav','#navbar','.navbar','[data-nav]'
+  ].join(',');
+
+  const EXCLUDE_FROM_SCALING = new Set(['SCRIPT','STYLE','NOSCRIPT','SVG','IMG','CANVAS','IFRAME','VIDEO','AUDIO']);
+
+  function clamp(v){ return Math.max(MIN, Math.min(MAX, v)); }
+  function findNav(){
+    let nav = document.querySelector(NAV_SELECTORS);
+    if (!nav) { const header = document.querySelector('header'); if (header) nav = header.querySelector('nav') || header; }
+    return nav;
+  }
+  function shouldSkip(el){
+    if (!el || el.nodeType !== 1) return true;
+    if (EXCLUDE_FROM_SCALING.has(el.tagName)) return true;
+    if (!el.offsetParent && el !== document.body) return true;
+    return false;
+  }
+  function collectTargets(){
+    const nav = findNav();
+    const all = Array.from(document.body.querySelectorAll('*'));
+    return all.filter(el => {
+      if (shouldSkip(el)) return false;
+      if (nav && (el === nav || nav.contains(el))) return false;
+      return !!(el.textContent && el.textContent.trim().length);
+    });
+  }
+  function primeOriginals(els){
+    els.forEach(el => {
+      if (!el.dataset.vhOrigFontSize) {
+        el.dataset.vhOrigFontSize = getComputedStyle(el).fontSize;
+      }
+    });
+  }
+  function applyScale(els){
+    els.forEach(el => {
+      const base = parseFloat(el.dataset.vhOrigFontSize || getComputedStyle(el).fontSize);
+      if (isFinite(base)) el.style.fontSize = (base * scale).toFixed(2) + 'px';
+    });
+  }
+  function resetScale(els){
+    els.forEach(el => {
+      if (el.dataset.vhOrigFontSize) el.style.fontSize = el.dataset.vhOrigFontSize;
+      else el.style.removeProperty('font-size');
+    });
+  }
+  function persist(){ localStorage.setItem(STORAGE_KEY, String(scale)); }
+
+  function ensureSameLine(nav, container){
+    if (!nav || !container) return;
+    // First attempt: float right for non-flex navs
+    container.style.cssFloat = 'right';
+    // If it still wraps, fallback to absolute pinning
+    requestAnimationFrame(() => {
+      const movedDown = container.offsetTop > (nav.offsetTop + 4);
+      if (movedDown) {
+        const prevPos = getComputedStyle(nav).position;
+        if (prevPos === 'static') { nav.dataset.vhPrevPos = 'static'; nav.style.position = 'relative'; }
+        container.style.cssFloat = 'none';
+        container.style.position = 'absolute';
+        container.style.right = '10px';
+        container.style.top = '50%';
+        container.style.transform = 'translateY(-50%)';
+        container.style.zIndex = '999';
+      }
+    });
+  }
+
+  function buildControls(){
+    const nav = findNav() || document.body;
+    const container = document.createElement('div');
+    container.className = 'vh-font-controls';
+    container.setAttribute('aria-label','Font size controls');
+
+    const label = document.createElement('span');
+    label.className = 'vh-font-label';
+    
+
+    const btnDec = document.createElement('button');
+    btnDec.type = 'button'; btnDec.className = 'vh-font-btn'; btnDec.textContent = 'A−'; btnDec.title = 'Decrease text size';
+    const btnInc = document.createElement('button');
+    btnInc.type = 'button'; btnInc.className = 'vh-font-btn'; btnInc.textContent = 'A+'; btnInc.title = 'Increase text size';
+    const btnReset = document.createElement('button');
+    btnReset.type = 'button'; btnReset.className = 'vh-font-btn'; btnReset.textContent = 'Reset'; btnReset.title = 'Reset text size';
+
+    container.append(label, btnDec, btnInc, btnReset);
+
+    if (nav === document.body) {
+      container.style.position = 'fixed';
+      container.style.top = '10px';
+      container.style.right = '10px';
+      container.style.zIndex = '9999';
+    }
+    nav.appendChild(container);
+
+    ensureSameLine(nav, container);
+    window.addEventListener('resize', () => ensureSameLine(nav, container));
+
+    const els = collectTargets();
+    primeOriginals(els);
+    if (scale !== 1) applyScale(els);
+
+    btnInc.addEventListener('click', () => { scale = clamp((Math.round((scale + STEP) * 10) / 10)); applyScale(els); persist(); });
+    btnDec.addEventListener('click', () => { scale = clamp((Math.round((scale - STEP) * 10) / 10)); applyScale(els); persist(); });
+    btnReset.addEventListener('click', () => { scale = 1; resetScale(els); persist(); });
+
+    const mo = new MutationObserver(() => {
+      const newEls = collectTargets();
+      primeOriginals(newEls);
+      if (scale !== 1) applyScale(newEls);
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildControls);
+  } else {
+    buildControls();
+  }
+})();
+</script> </body> </html>
 </body>
 <footer class="site-footer">
   <div class="footer-container">
