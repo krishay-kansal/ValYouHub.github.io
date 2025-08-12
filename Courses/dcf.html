@@ -2001,7 +2001,7 @@
             const years = question.cashflows.length;
             
             // Headers
-            celldata.push({r: 0, c: 0, v: {v: "DCF Valuation Model", ct: {fa: "General", t: "g"}, m: "DCF Valuation Model", bg: "#16213e", fc: "#ffffff", bl: 1, fs: 14}});
+            celldata.push({r: 0, c: 0, v: {v: "DCF Valuation Model", ct: {fa: "General", t: "g"}, m: "DCF Valuation Model", bg: "#000000", fc: "#ffffff", bl: 1, fs: 14}});
             
             // Year headers
             celldata.push({r: 2, c: 0, v: {v: "Year", ct: {fa: "General", t: "g"}, m: "Year", bg: "#f1f5f9", fc: "#16213e", bl: 1}});
@@ -2010,23 +2010,23 @@
             }
             
             // Cash flows
-            celldata.push({r: 3, c: 0, v: {v: "Free Cash Flow (₹)", ct: {fa: "General", t: "g"}, m: "Free Cash Flow (₹)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
+            celldata.push({r: 3, c: 0, v: {v: "Free Cash Flow (₹)", ct: {fa: "General", t: "g"}, m: "Free Cash Flow (₹)", bg: "#f8fafc", fc: "#000000", bl: 1}});
             for (let i = 0; i < years; i++) {
-                celldata.push({r: 3, c: i + 1, v: {v: question.cashflows[i], ct: {fa: "General", t: "n"}, m: question.cashflows[i].toString(), bg: "#ffffff", fc: "#ffffff"}});
+                celldata.push({r: 3, c: i + 1, v: {v: question.cashflows[i], ct: {fa: "General", t: "n"}, m: question.cashflows[i].toString(), bg: "#ffffff", fc: "#000000"}});
             }
             
             // Terminal value
             if (question.terminal > 0) {
-                celldata.push({r: 4, c: 0, v: {v: "Terminal Value (₹)", ct: {fa: "General", t: "g"}, m: "Terminal Value (₹)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
+                celldata.push({r: 4, c: 0, v: {v: "Terminal Value (₹)", ct: {fa: "General", t: "g"}, m: "Terminal Value (₹)", bg: "#f8fafc", fc: "#000000", bl: 1}});
                 for (let i = 0; i < years - 1; i++) {
-                    celldata.push({r: 4, c: i + 1, v: {v: "", ct: {fa: "General", t: "g"}, m: "", bg: "#ffffff", fc: "#ffffff"}});
+                    celldata.push({r: 4, c: i + 1, v: {v: "", ct: {fa: "General", t: "g"}, m: "", bg: "#ffffff", fc: "#000000"}});
                 }
-                celldata.push({r: 4, c: years, v: {v: question.terminal, ct: {fa: "General", t: "n"}, m: question.terminal.toString(), bg: "#ffffff", fc: "#ffffff"}});
+                celldata.push({r: 4, c: years, v: {v: question.terminal, ct: {fa: "General", t: "n"}, m: question.terminal.toString(), bg: "#ffffff", fc: "#000000"}});
             }
             
             // WACC
-            celldata.push({r: 6, c: 0, v: {v: "Discount Rate (WACC)", ct: {fa: "General", t: "g"}, m: "Discount Rate (WACC)", bg: "#f8fafc", fc: "#ffffff", bl: 1}});
-            celldata.push({r: 6, c: 1, v: {v: question.wacc, ct: {fa: "0.00%", t: "n"}, m: (question.wacc * 100).toFixed(2) + "%", bg: "#ffffff", fc: "#ffffff"}});
+            celldata.push({r: 6, c: 0, v: {v: "Discount Rate (WACC)", ct: {fa: "General", t: "g"}, m: "Discount Rate (WACC)", bg: "#f8fafc", fc: "#000000", bl: 1}});
+            celldata.push({r: 6, c: 1, v: {v: question.wacc, ct: {fa: "0.00%", t: "n"}, m: (question.wacc * 100).toFixed(2) + "%", bg: "#ffffff", fc: "#000000"}});
             
             // Add formula placeholders
             celldata.push({r: 8, c: 0, v: {v: "Present Value (₹)", ct: {fa: "General", t: "g"}, m: "Present Value (₹)", bg: "#dcfce7", fc: "#166534", bl: 1}});
