@@ -1189,6 +1189,48 @@ h2 {
   }
 }
 
+/* --- Mobile Performance & UX Enhancements --- */
+@media (max-width: 600px) {
+  body { font-size: 1rem; }
+  .navbar, .glass { border-radius: 0 !important; box-shadow: none !important; }
+  .nav-container { flex-direction: column !important; padding: 0.5rem 1rem !important; }
+  .nav-links { flex-direction: column !important; gap: 0.5rem !important; }
+  .nav-item, .contact-link, .start-btn { font-size: 1.1em !important; padding: 0.7em 0.5em !important; }
+  .menu-toggle { display: block !important; font-size: 2em !important; margin-left: auto !important; }
+  .nav-links { display: none !important; }
+  .nav-links.active { display: flex !important; }
+  .logo img { width: 40px !important; }
+  .hero { flex-direction: column !important; padding: 1.2em 0.5em !important; }
+  .lottie-hero { width: 100% !important; max-width: 320px !important; margin: 0 auto !important; }
+  .certification-badge img { width: 90px !important; }
+  .who-container, .container, .founders-section, .daily-users-container, .npv-demo-container { padding: 1em 0.5em !important; }
+  .concepts-grid, .founders-grid, .who-values { grid-template-columns: 1fr !important; gap: 1em !important; }
+  .flip-card { min-width: 90vw !important; }
+  .founder-card img { width: 100% !important; max-width: 180px !important; }
+  .footer-container { flex-direction: column !important; gap: 1em !important; }
+  .footer-column { width: 100% !important; margin-bottom: 1em !important; }
+  .footer-logo { font-size: 1.5em !important; }
+  .site-footer { padding: 1em 0.5em !important; }
+  .journey-bar { flex-direction: column !important; gap: 0.7em !important; }
+  .journey-step { font-size: 1em !important; }
+  .progress-ring { width: 80px !important; height: 80px !important; }
+  .daily-users-content { font-size: 1em !important; }
+  .npv-demo-btn, .npv-demo-nav-btn { font-size: 1em !important; padding: 0.7em 1em !important; }
+  .npv-demo-title { font-size: 1.2em !important; }
+  .svg-blob, .who-bg-svg { display: none !important; }
+  /* Touch targets for mobile */
+  .vh-font-btn, .menu-toggle, .cta-button, .npv-demo-btn, .npv-demo-nav-btn { min-width: 44px !important; min-height: 44px !important; }
+  /* Hide non-essential backgrounds for faster paint */
+  .animated-bg { display: none !important; }
+  /* Reduce padding for mobile sections */
+  .founders-section, .features, .what-you-get, .safe-hands, .who-we-are, .discounting-section, .valuation-demo-section, .npv-demo-section, .daily-users-section {
+    padding: 1em 0.5em !important;
+    margin: 1em 0 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+}
+
 /* === Interactive Valuation Demo Styles === */
 .spreadsheet-mockup {
   cursor: pointer;
