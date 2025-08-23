@@ -1541,37 +1541,4 @@ h2 {
     }
   }
 
-  .nav-container {
-  display: flex;
-  align-items: center;   /* vertically centers logo + text */
-  justify-content: space-between;  /* keeps logo on left, menu in middle, controls on right */
-  padding: 0 20px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;  /* keeps image + text in one line */
-  white-space: nowrap;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 15px;   /* spacing between nav items */
-  margin-left: auto; /* pushes nav to the right of logo */
-}
-
-.font-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-left: 20px;
-}
-.start-btn {
-  margin-right: 15px; /* add space before A- A+ Reset */
-}
-
-
-.nav-links {
-  margin-right: auto; /* pushes nav items to the left */
-}
+  
