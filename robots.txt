@@ -1,0 +1,45 @@
+    # Allow all crawlers access to everything
+    User-agent: *
+    Disallow:
+
+    # Sitemap location
+    # Sitemap: https://krishay-kansal.github.io/ValYouHub.github.io/sitemap.xml
+    # robots.txt for https://krishay-kansal.github.io/ValYouHub.github.io/
+    # Production-ready configuration for search engines
+
+    # Allow Google full access (no crawl-delay)
+    User-agent: Googlebot
+    Allow: /
+
+    # Allow Bing, Yahoo, DuckDuckGo, and all other bots with crawl-delay
+    User-agent: Bingbot
+    User-agent: Slurp
+    User-agent: DuckDuckBot
+    User-agent: *
+    # Disallow sensitive/private sections
+    Disallow: /admin/
+    Disallow: /login/
+    Disallow: /signup/
+    Disallow: /private/
+    Disallow: /drafts/
+    Disallow: /tmp/
+    # Disallow common script and temp file types
+    Disallow: /*.php$
+    Disallow: /*.cgi$
+    Disallow: /*.tmp$
+    # Explicitly allow important public sections
+    Allow: /modules/
+    Allow: /learn/
+    Allow: /blog/
+    # Set crawl-delay for non-Google bots
+    Crawl-delay: 10
+
+    # Sitemap location
+    Sitemap: https://krishay-kansal.github.io/ValYouHub.github.io/sitemap.xml
+
+    # ---
+    # Section explanations:
+    # - Googlebot: Full access, no crawl-delay for best indexing.
+    # - Other bots: Crawl-delay to reduce server load, block sensitive/private areas and script/temp files.
+    # - Explicit Allow for /modules/, /learn/, /blog/ ensures these are always indexed.
+    # - Sitemap provided for optimal crawling.
