@@ -331,31 +331,7 @@
       </div>
     </div>
   </section>
-    <script>
-      (function () {
-        let currentSize = 100; // percentage
 
-        function applyFontSize() {
-          document.body.style.fontSize = currentSize + "%";
-        }
-
-        document.getElementById("increase-font").addEventListener("click", function () {
-          currentSize += 10;
-          applyFontSize();
-        });
-
-        document.getElementById("decrease-font").addEventListener("click", function () {
-          currentSize -= 10;
-          if (currentSize < 50) currentSize = 50; // prevent too small
-          applyFontSize();
-        });
-
-        document.getElementById("reset-font").addEventListener("click", function () {
-          currentSize = 100;
-          applyFontSize();
-        });
-      })();
-    </script>
 <!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Font Size Controls (No-wrap)</title> <meta name="viewport" content="width=device-width, initial-scale=1" /> <style> .vh-font-controls{ display:inline-flex; align-items:center; gap:.5rem; flex-wrap:nowrap; white-space:nowrap; margin-left:auto; /* pushes right in flex navs */ flex-shrink:0; /* never shrink into next line */ min-width:max-content; /* keep on one line */ } .vh-font-btn{ cursor:pointer; border:1px solid rgba(0,0,0,.15); background:rgba(255,255,255,.85); padding:.3rem .5rem; border-radius:.4rem; line-height:1; font-weight:600; } .vh-font-btn:focus{outline:2px solid #4f8cff;outline-offset:2px} .vh-font-label{font-size:.9em;opacity:.8} @media (prefers-color-scheme: dark){ .vh-font-btn{background:rgba(255,255,255,.08);color:#eaeaea;border-color:rgba(255,255,255,.2)} } </style> </head> <body> <script> (function () { const STORAGE_KEY = 'vhFontScale'; const MIN = 0.8, MAX = 1.6, STEP = 0.1; let scale = parseFloat(localStorage.getItem(STORAGE_KEY) || '1') || 1;
   const NAV_SELECTORS = [
     'nav[role="navigation"]','header nav','nav','#navbar','.navbar','[data-nav]'
